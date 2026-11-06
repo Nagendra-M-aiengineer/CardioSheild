@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Health Records | CardioShield-AgeLess</title>
+<link rel="stylesheet" href="styles.css">
+<script src="config.js"></script>
+<style>
+:root {
+  --navy: #101b61;
+  --navy2: #10227a;
+  --blue: #176cf3;
+  --teal: #087f80;
+  --red: #ed1c35;
+  --bg: linear-gradient(135deg, #f7f8ff 0%, #f2f7ff 55%, #fff7f9 100%);
+  --ink: #141d52;
+  --muted: #66718a;
+  --line: #e7eafd;
+  --white: #ffffff;
+  --shadow: 0 10px 28px rgba(27, 43, 105, 0.08);
+  --green: #0b7548;
+  --amber: #995c00;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: Arial, Helvetica, "Inter", sans-serif;
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* Header & Navigation Bar — High Contrast Fix */
+.site-header {
+  background: linear-gradient(110deg, #101b61, #10227a 50%, #176cf3);
+  color: #fff;
+  padding: 16px clamp(18px, 4vw, 56px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  box-shadow: 0 8px 24px rgba(16, 27, 97, 0.15);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #fff;
+}
+.brand-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 15px;
+  background: linear-gradient(145deg, #ff5869, #df0029);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  box-shadow: 0 8px 20px rgba(240, 68, 90, 0.35);
+  color: white;
+}
+.brand-text strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+}
+.brand-text small {
+  color: #cbd5f5;
+  font-size: 11px;
+}
+.nav-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.site-header .nav-links a,
+.site-header .nav-links .nav-btn,
+.nav-links > a:not(.nav-button) {
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  border-radius: 999px !important;
+  padding: 8px 18px !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-weight: 800 !important;
+  font-size: 13px !important;
+  background: rgba(255, 255, 255, 0.18) !important;
+  cursor: pointer !important;
+  transition: all 0.18s ease !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  letter-spacing: 0.2px !important;
+}
+.site-header .nav-links a:hover,
+.site-header .nav-links .nav-btn:hover,
+.nav-links > a:not(.nav-button):hover {
+  background: rgba(255, 255, 255, 0.32) !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+}
+.site-header .nav-links a.active,
+.nav-links > a.active {
+  background: #ffffff !important;
+  color: var(--navy) !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2) !important;
+}
+.site-header .nav-links > a::after {
+  display: none !important;
+}
+
+main {
+  max-width: 1200px;
+  margin: 32px auto;
+  padding: 0 20px 60px;
+}
+.intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.eyebrow {
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.intro h1 {
+  margin: 8px 0;
+  font-size: clamp(28px, 4vw, 40px);
+  color: var(--navy);
+  font-weight: 950;
+  letter-spacing: -0.5px;
+}
+.intro p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 660px;
+  line-height: 1.6;
+  font-size: 15px;
+}
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 20px;
+  font-weight: 800;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+.btn-primary {
+  background: linear-gradient(110deg, #ff4558, #d9002c);
+  color: white;
+  box-shadow: 0 6px 16px rgba(242, 27, 66, 0.28);
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(242, 27, 66, 0.38);
+}
+.btn-secondary {
+  background: white;
+  color: var(--navy);
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 12px rgba(16, 27, 97, 0.05);
+}
+.btn-secondary:hover {
+  background: #f7f9ff;
+  border-color: #c9d5fd;
+}
+.btn-danger {
+  background: #fff0f2;
+  color: #c81e38;
+  border: 1px solid #ffd0d7;
+}
+.btn-danger:hover {
+  background: #ffe2e6;
+}
+
+/* Summary Statistics */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 22px 0 28px;
+}
+.stat-card, .panel {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+.stat-card {
+  padding: 20px 22px;
+}
+.stat-card .label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.stat-card .value {
+  font-size: 32px;
+  font-weight: 950;
+  color: var(--navy);
+  margin-top: 8px;
+  letter-spacing: -0.5px;
+}
+.stat-card .hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* Comparison & Progress Card */
+.comparison-card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 28px;
+}
+.comparison-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.comparison-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.comparison-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #10227a, #176cf3);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 22px;
+  box-shadow: 0 4px 14px rgba(23, 108, 243, 0.28);
+}
+.comparison-title h2 {
+  margin: 0;
+  font-size: 20px;
+  color: var(--navy);
+  font-weight: 900;
+}
+.comparison-title p {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.comparison-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 850;
+}
+.status-improved {
+  background: #ebfaf2;
+  color: #0b7548;
+  border: 1px solid #b8edd3;
+}
+.status-stable {
+  background: #fff8e8;
+  color: #995c00;
+  border: 1px solid #ffe1a6;
+}
+.status-elevated {
+  background: #fff0f3;
+  color: #c91932;
+  border: 1px solid #ffccd4;
+}
+.status-baseline {
+  background: #f1f4f9;
+  color: #3b4863;
+  border: 1px solid #d5deea;
+}
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+.comparison-box {
+  background: #fbfdff;
+  border: 1px solid #e7ecfc;
+  border-radius: 14px;
+  padding: 16px;
+  transition: transform 0.15s ease;
+}
+.comparison-box:hover {
+  transform: translateY(-1px);
+}
+.comparison-box small {
+  display: block;
+  font-size: 11px;
+  font-weight: 750;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.comparison-box .vals {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--navy);
+  margin: 8px 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.delta-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.delta-tag.improved { background: #eafaf1; color: #0b7548; }
+.delta-tag.stable { background: #fdf6e9; color: #995c00; }
+.delta-tag.elevated { background: #feeef1; color: #c81e38; }
+
+.compare-dropdown-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: #f4f7fe;
+  border: 1px solid #dce5fc;
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-top: 20px;
+}
+.compare-dropdown-bar label {
+  font-size: 13px;
+  font-weight: 750;
+  color: var(--navy);
+}
+.compare-select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #c9d8fb;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  min-width: 170px;
+}
+
+/* Panel & Records Table */
+.panel {
+  padding: 24px;
+}
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.search-box {
+  flex: 1;
+  min-width: 220px;
+}
+input, select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  outline-color: var(--blue);
+}
+input:focus, select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(23, 108, 243, 0.12);
+}
+.filter-box {
+  min-width: 170px;
+}
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 860px;
+  background: #fff;
+}
+th {
+  text-align: left;
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  background: #f8faff;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+}
+td {
+  padding: 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+tbody tr:hover {
+  background: #fbfdff;
+}
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 900;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+.score-low {
+  background: #ebfaf2;
+  color: #0b7548;
+  border: 1px solid #b8edd3;
+}
+.score-middle {
+  background: #fff8e8;
+  color: #995c00;
+  border: 1px solid #ffe1a6;
+}
+.score-high {
+  background: #fff0f3;
+  color: #c91932;
+  border: 1px solid #ffccd4;
+}
+.score-none {
+  background: #f1f4f9;
+  color: #55627a;
+}
+.id-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  background: #f2f5fd;
+  padding: 3px 6px;
+  border-radius: 6px;
+  color: #10267d;
+  font-weight: 600;
+}
+.row-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.action-btn {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--navy);
+  border-radius: 8px;
+  padding: 7px 11px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 750;
+  transition: all 0.15s ease;
+}
+.action-btn:hover {
+  background: #f4f7ff;
+  border-color: #bccdfd;
+}
+.action-btn.del {
+  color: #c81e38;
+  border-color: #ffd0d7;
+}
+.action-btn.del:hover {
+  background: #fff0f2;
+}
+.empty-state {
+  padding: 48px 20px;
+  text-align: center;
+}
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+.empty-state h3 {
+  margin: 0 0 6px;
+  color: var(--navy);
+  font-size: 20px;
+}
+.empty-state p {
+  color: var(--muted);
+  font-size: 14px;
+  max-width: 440px;
+  margin: 0 auto 20px;
+}
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 27, 97, 0.45);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 999;
+}
+.modal-backdrop.open { display: flex; }
+.modal-card {
+  background: #fff;
+  border-radius: 22px;
+  width: min(760px, 100%);
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 28px;
+  box-shadow: 0 24px 80px rgba(16, 27, 97, 0.22);
+}
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+.modal-head h2 {
+  margin: 4px 0 0;
+  color: var(--navy);
+  font-size: 22px;
+}
+.close-btn {
+  border: 0;
+  background: #f1f4fb;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  font-size: 18px;
+  color: var(--muted);
+}
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+.detail-item {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fdfefe;
+}
+.detail-item small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.detail-item strong {
+  font-size: 14px;
+  color: var(--navy);
+}
+.notice-box {
+  background: #fff9e9;
+  border: 1px solid #f1e2b8;
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #725a1c;
+  margin-top: 20px;
+}
+
+@media(max-width: 760px) {
+  .site-header { padding: 12px 16px; }
+  .intro { flex-direction: column; align-items: flex-start; }
+  .panel, .comparison-card { padding: 18px; }
+  .comparison-header { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="index.html">
+    <div class="brand-mark" aria-hidden="true">♥</div>
+    <div class="brand-text">
+      <strong>CardioShield</strong>
+      <small>HEALTH RECORDS</small>
+    </div>
+  </a>
+  <nav class="nav-links" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="assessment.html">Assessment</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a class="active" href="health-records.html">Health Records</a>
+    <a href="routine.html">My Routine</a>
+    <a href="rewards.html">Rewards</a>
+    <a href="profile.html">Profile</a>
+    <div id="navProfileGroup" style="display:inline-flex;align-items:center;"></div>
+  </nav>
+</header>
+
+<main>
+  <section class="intro">
+    <div>
+      <div class="eyebrow">Personal Health Repository & Longitudinal Trends</div>
+      <h1>Health Records</h1>
+      <p>Review and compare your cardiovascular screenings over time. Evaluate health improvements, track blood pressure and cholesterol shifts, or export and delete records.</p>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href="assessment.html">＋ New Assessment</a>
+      <button class="btn btn-secondary" id="exportBtn" type="button">📥 Export CSV</button>
+      <button class="btn btn-secondary" id="refreshBtn" type="button">↻ Refresh</button>
+      <button class="btn btn-danger" id="clearAllBtn" type="button" style="display:none;">🗑️ Clear All</button>
+    </div>
+  </section>
+
+  <!-- Risk Progress & Health Comparison Section -->
+  <section class="comparison-card" id="comparisonCard">
+    <div class="comparison-header">
+      <div class="comparison-title">
+        <div class="comparison-icon">📈</div>
+        <div>
+          <h2>Health Trends & Records Comparison</h2>
+          <p id="comparisonSubtitle">Comparing your screening results across time</p>
+        </div>
+      </div>
+      <div id="comparisonStatusBadge"></div>
+    </div>
+
+    <div id="comparisonSummaryText" style="font-size:14px;line-height:1.6;color:var(--ink);background:#f7f9ff;border:1px solid #dce5fc;border-radius:12px;padding:14px 18px;"></div>
+
+    <div class="comparison-grid" id="comparisonGrid"></div>
+
+    <div class="compare-dropdown-bar" id="compareDropdownBar" style="display:none;">
+      <label>Compare Specific Records:</label>
+      <select id="compareRecA" class="compare-select" aria-label="Select Record A"></select>
+      <span style="font-weight:800;color:var(--muted);">vs</span>
+      <select id="compareRecB" class="compare-select" aria-label="Select Record B"></select>
+      <button class="btn btn-secondary" id="triggerCompareBtn" type="button" style="padding:6px 14px;font-size:12px;">Compare Selected</button>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Summary Statistics">
+    <div class="stat-card">
+      <div class="label">Total Saved Records</div>
+      <div class="value" id="totalRecordsCount">0</div>
+      <div class="hint">Stored in this browser & database</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Latest Assessment</div>
+      <div class="value" id="latestRecordDate" style="font-size:19px;">—</div>
+      <div class="hint">Most recent evaluation</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Average Risk Score</div>
+      <div class="value" id="averageRiskScore">—</div>
+      <div class="hint">Descriptive average across records</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Active Model</div>
+      <div class="value" style="font-size:18px;">Calibrated LR</div>
+      <div class="hint">5-fold logistic regression ensemble</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="toolbar">
+      <div class="search-box">
+        <input id="searchInput" type="search" placeholder="Search by Record ID, model name, or features…" aria-label="Search records">
+      </div>
+      <div class="filter-box">
+        <select id="scoreFilter" aria-label="Filter by Risk Score">
+          <option value="all">All Risk Levels</option>
+          <option value="low">Lower Risk (&lt; 35%)</option>
+          <option value="middle">Middle Risk (35% – 60%)</option>
+          <option value="high">Higher Risk (&gt; 60%)</option>
+        </select>
+      </div>
+      <div class="filter-box">
+        <select id="sortSelect" aria-label="Sort Records">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="score-high">Risk: High to Low</option>
+          <option value="score-low">Risk: Low to High</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="table-wrap" id="tableContainer">
+      <table>
+        <thead>
+          <tr>
+            <th>Date & Time</th>
+            <th>Record ID</th>
+            <th>Age / Sex</th>
+            <th>Calculated Risk</th>
+            <th>Comparison Trend</th>
+            <th>BP / Cholesterol</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="recordsTbody"></tbody>
+      </table>
+    </div>
+
+    <div id="emptyContainer" class="empty-state" style="display:none;">
+      <div class="empty-icon">📋</div>
+      <h3>No Health Records Found</h3>
+      <p>You have not saved any assessment reports yet. Complete an assessment to store and review your heart health reports here.</p>
+      <a class="btn btn-primary" href="assessment.html">＋ Take Assessment Now</a>
+    </div>
+
+    <p style="font-size:12px;color:var(--muted);line-height:1.6;margin-top:20px;">
+      <strong>Educational Notice:</strong> CardioShield-AgeLess is an educational screening prototype. Model scores and comparisons are experimental outputs and do not constitute clinical diagnosis or medical treatment advice.
+    </p>
+  </section>
+</main>
+
+<!-- Details / Side-by-Side Comparison Modal -->
+<div class="modal-backdrop" id="detailsModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div>
+        <div class="eyebrow" id="modalEyebrow">Health Record Details</div>
+        <h2 id="modalTitle">Saved Assessment Report</h2>
+      </div>
+      <button class="close-btn" id="closeModalBtn" type="button" aria-label="Close details">✕</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+(() => {
+  "use strict";
+
+  const API_URL = (() => {
+    if (typeof window !== "undefined" && window.CardioConfig && typeof window.CardioConfig.getApiUrl === "function") {
+      return window.CardioConfig.getApiUrl("/history");
+    }
+    const isLocal = location.protocol === "file:" || (["localhost","127.0.0.1"].includes(location.hostname) && location.port !== "8080");
+    return isLocal ? "http://127.0.0.1:8080/history" : "/history";
+  })();
+
+  const $ = id => document.getElementById(id);
+  let allRecords = [];
+
+  function getLocalReports() {
+    try {
+      const raw = localStorage.getItem("cardioshield_saved_reports");
+      return raw ? JSON.parse(raw) : [];
+    } catch(e) {
+      return [];
+    }
+  }
+
+  function saveLocalReports(list) {
+    try {
+      localStorage.setItem("cardioshield_saved_reports", JSON.stringify(list));
+    } catch(e) {}
+  }
+
+  function getScore(r) {
+    if (!r) return null;
+    if (r.risk_score != null && Number.isFinite(Number(r.risk_score))) return Number(r.risk_score);
+    if (r.prediction?.model_score != null && Number.isFinite(Number(r.prediction.model_score))) return Number(r.prediction.model_score);
+    if (r.prediction?.risk_percentage != null && Number.isFinite(Number(r.prediction.risk_percentage))) return Number(r.prediction.risk_percentage);
+    return null;
+  }
+
+  function getScoreBand(score) {
+    if (score === null || isNaN(score)) return "none";
+    if (score < 35) return "low";
+    if (score < 60) return "middle";
+    return "high";
+  }
+
+  function getDate(r) {
+    if (!r) return "";
+    return r.created_at || r.assessment?.assessmentDate || r.prediction?.date || "";
+  }
+
+  function formatDate(dStr) {
+    if (!dStr) return "—";
+    const d = new Date(dStr);
+    return isNaN(d.getTime()) ? dStr : d.toLocaleDateString() + " " + d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+  }
+
+  function escapeHtml(str) {
+    return String(str ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+
+  async function loadRecords() {
+    const local = getLocalReports();
+    let serverRecords = [];
+
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 2000);
+      const res = await fetch(API_URL, { signal: controller.signal });
+      clearTimeout(timeoutId);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.assessments)) {
+          serverRecords = data.assessments;
+        }
+      }
+    } catch(e) {
+      console.log("Health records: SQLite server API offline, using browser storage.");
+    }
+
+    const map = new Map();
+    local.forEach(r => {
+      const id = r.id || r.assessment_id;
+      if (id) map.set(id, r);
+    });
+    serverRecords.forEach(r => {
+      const id = r.assessment_id || r.id;
+      if (id && !map.has(id)) map.set(id, r);
+    });
+
+    allRecords = Array.from(map.values());
+    render();
+  }
+
+  function getSortedChronological() {
+    return [...allRecords].sort((a, b) => new Date(getDate(a)) - new Date(getDate(b)));
+  }
+
+  /* =========================================================
+     LONGITUDINAL COMPARISON & RESULTS ENGINE
+  ========================================================= */
+  function renderComparison(recA, recB) {
+    const card = $("comparisonCard");
+    const chrono = getSortedChronological();
+
+    if (chrono.length === 0) {
+      card.style.display = "none";
+      return;
+    }
+
+    card.style.display = "block";
+
+    // Populate dropdowns if >= 2 records
+    const ddBar = $("compareDropdownBar");
+    if (chrono.length >= 2) {
+      ddBar.style.display = "flex";
+      const opts = chrono.map(r => {
+        const id = r.id || r.assessment_id;
+        const d = formatDate(getDate(r));
+        const s = getScore(r) !== null ? getScore(r).toFixed(1) + "%" : "—";
+        return `<option value="${escapeHtml(id)}">${escapeHtml(d)} (Risk: ${s})</option>`;
+      }).join("");
+
+      $("compareRecA").innerHTML = opts;
+      $("compareRecB").innerHTML = opts;
+
+      if (!recA || !recB) {
+        // default: compare previous (second-to-last) vs latest (last)
+        $("compareRecA").selectedIndex = chrono.length - 2;
+        $("compareRecB").selectedIndex = chrono.length - 1;
+        recA = chrono[chrono.length - 2];
+        recB = chrono[chrono.length - 1];
+      }
+    } else {
+      ddBar.style.display = "none";
+      recA = chrono[0];
+      recB = null;
+    }
+
+    const badge = $("comparisonStatusBadge");
+    const summary = $("comparisonSummaryText");
+    const grid = $("comparisonGrid");
+
+    if (!recB) {
+      // Only 1 record exists — baseline
+      badge.innerHTML = `<span class="comparison-status-pill status-baseline">📌 Baseline Record</span>`;
+      summary.innerHTML = `<strong>Baseline Assessment Established:</strong> Recorded on <strong>${formatDate(getDate(recA))}</strong> with calculated risk score of <strong>${getScore(recA) !== null ? getScore(recA).toFixed(1) + "%" : "—"}</strong>. Complete a follow-up assessment in the future to track improvements and health trends over time.`;
+      grid.innerHTML = "";
+      return;
+    }
+
+    const scoreA = getScore(recA);
+    const scoreB = getScore(recB);
+    const deltaScore = (scoreA !== null && scoreB !== null) ? (scoreB - scoreA) : null;
+
+    const assA = recA.assessment || {};
+    const assB = recB.assessment || {};
+    const mfA = assA.model_features || recA.prediction?.input_values || {};
+    const mfB = assB.model_features || recB.prediction?.input_values || {};
+
+    const bpA = assA.resting_bp ?? mfA.resting_bp;
+    const bpB = assB.resting_bp ?? mfB.resting_bp;
+    const deltaBp = (bpA && bpB) ? (Number(bpB) - Number(bpA)) : null;
+
+    const cholA = assA.cholesterol ?? mfA.cholesterol;
+    const cholB = assB.cholesterol ?? mfB.cholesterol;
+    const deltaChol = (cholA && cholB) ? (Number(cholB) - Number(cholA)) : null;
+
+    const hrA = assA.max_heart_rate ?? mfA.max_heart_rate;
+    const hrB = assB.max_heart_rate ?? mfB.max_heart_rate;
+    const deltaHr = (hrA && hrB) ? (Number(hrB) - Number(hrA)) : null;
+
+    // Determine Result Classification
+    let statusClass = "status-stable";
+    let statusText = "≈ Stable / No Significant Change";
+    let summaryHtml = "";
+
+    if (deltaScore !== null) {
+      if (deltaScore <= -2.0) {
+        statusClass = "status-improved";
+        statusText = `🟢 Health Improvement Detected (▾ ${Math.abs(deltaScore).toFixed(1)}% Risk Reduction)`;
+        summaryHtml = `
+          <strong style="color:#0b7548;">Positive Health Improvement:</strong> Your latest assessment demonstrates a 
+          <strong>${Math.abs(deltaScore).toFixed(1)}% decrease in calculated risk</strong> (from ${scoreA.toFixed(1)}% to ${scoreB.toFixed(1)}%). 
+          Favorable clinical shifts were observed${deltaBp && deltaBp < 0 ? ` (Blood Pressure improved by ${deltaBp} mmHg)` : ''}${deltaChol && deltaChol < 0 ? ` (Cholesterol improved by ${deltaChol} mg/dL)` : ''}. Continue your healthy habits!
+        `;
+      } else if (deltaScore >= 2.0) {
+        statusClass = "status-elevated";
+        statusText = `🔴 Risk Score Elevation (▴ +${deltaScore.toFixed(1)}% Increase)`;
+        summaryHtml = `
+          <strong style="color:#c81e38;">Elevated Risk Score:</strong> Your calculated risk increased by 
+          <strong>+${deltaScore.toFixed(1)}%</strong> (from ${scoreA.toFixed(1)}% to ${scoreB.toFixed(1)}%). 
+          Key indicators shifted${deltaBp && deltaBp > 0 ? ` (Resting Blood Pressure increased by +${deltaBp} mmHg)` : ''}${deltaChol && deltaChol > 0 ? ` (Cholesterol increased by +${deltaChol} mg/dL)` : ''}. We recommend discussing these trends with your physician.
+        `;
+      } else {
+        statusClass = "status-stable";
+        statusText = `🟡 Stable Health Profile (No Significant Change)`;
+        summaryHtml = `
+          <strong style="color:#995c00;">No Significant Change:</strong> Your cardiovascular risk score changed by only 
+          <strong>${deltaScore >= 0 ? '+' : ''}${deltaScore.toFixed(1)}%</strong> (from ${scoreA.toFixed(1)}% to ${scoreB.toFixed(1)}%), representing a steady and consistent cardiovascular profile between these screenings.
+        `;
+      }
+    }
+
+    badge.innerHTML = `<span class="comparison-status-pill ${statusClass}">${statusText}</span>`;
+    summary.innerHTML = summaryHtml;
+
+    // Comparison Grid Cards
+    grid.innerHTML = `
+      <div class="comparison-box">
+        <small>Risk Score Trend</small>
+        <div class="vals">
+          <span>${scoreA !== null ? scoreA.toFixed(1) + '%' : '—'} → ${scoreB !== null ? scoreB.toFixed(1) + '%' : '—'}</span>
+        </div>
+        ${deltaScore !== null ? `
+          <span class="delta-tag ${deltaScore <= -2 ? 'improved' : (deltaScore >= 2 ? 'elevated' : 'stable')}">
+            ${deltaScore < 0 ? '▾ ' : (deltaScore > 0 ? '▴ +' : '≈ ')}${deltaScore.toFixed(1)}% ${deltaScore <= -2 ? 'Improvement' : (deltaScore >= 2 ? 'Increase' : 'Stable')}
+          </span>
+        ` : ''}
+      </div>
+
+      <div class="comparison-box">
+        <small>Resting Blood Pressure</small>
+        <div class="vals">
+          <span>${bpA || '—'} → ${bpB || '—'} <span style="font-size:12px;color:var(--muted)">mmHg</span></span>
+        </div>
+        ${deltaBp !== null ? `
+          <span class="delta-tag ${deltaBp < 0 ? 'improved' : (deltaBp > 0 ? 'elevated' : 'stable')}">
+            ${deltaBp < 0 ? '▾ ' + deltaBp : (deltaBp > 0 ? '▴ +' + deltaBp : '≈ 0')} mmHg ${deltaBp < 0 ? 'Favorable' : (deltaBp > 0 ? 'Higher' : 'Stable')}
+          </span>
+        ` : '<span class="delta-tag stable">—</span>'}
+      </div>
+
+      <div class="comparison-box">
+        <small>Serum Cholesterol</small>
+        <div class="vals">
+          <span>${cholA || '—'} → ${cholB || '—'} <span style="font-size:12px;color:var(--muted)">mg/dL</span></span>
+        </div>
+        ${deltaChol !== null ? `
+          <span class="delta-tag ${deltaChol < 0 ? 'improved' : (deltaChol > 0 ? 'elevated' : 'stable')}">
+            ${deltaChol < 0 ? '▾ ' + deltaChol : (deltaChol > 0 ? '▴ +' + deltaChol : '≈ 0')} mg/dL ${deltaChol < 0 ? 'Favorable' : (deltaChol > 0 ? 'Higher' : 'Stable')}
+          </span>
+        ` : '<span class="delta-tag stable">—</span>'}
+      </div>
+
+      <div class="comparison-box">
+        <small>Max Heart Rate</small>
+        <div class="vals">
+          <span>${hrA || '—'} → ${hrB || '—'} <span style="font-size:12px;color:var(--muted)">bpm</span></span>
+        </div>
+        ${deltaHr !== null ? `
+          <span class="delta-tag ${deltaHr > 0 ? 'improved' : (deltaHr < 0 ? 'elevated' : 'stable')}">
+            ${deltaHr > 0 ? '▴ +' + deltaHr : (deltaHr < 0 ? '▾ ' + deltaHr : '≈ 0')} bpm ${deltaHr > 0 ? 'Higher Fitness' : (deltaHr < 0 ? 'Lower' : 'Stable')}
+          </span>
+        ` : '<span class="delta-tag stable">—</span>'}
+      </div>
+    `;
+  }
+
+  function getFilteredList() {
+    const q = $("searchInput").value.trim().toLowerCase();
+    const bandFilter = $("scoreFilter").value;
+    const sort = $("sortSelect").value;
+
+    let list = allRecords.filter(r => {
+      const id = r.id || r.assessment_id || "";
+      const model = r.model_name || r.prediction?.model || "";
+      const text = (id + " " + model).toLowerCase();
+      const score = getScore(r);
+      const band = getScoreBand(score);
+
+      const matchesSearch = !q || text.includes(q);
+      const matchesBand = bandFilter === "all" || band === bandFilter;
+      return matchesSearch && matchesBand;
+    });
+
+    list.sort((a, b) => {
+      if (sort === "oldest") return new Date(getDate(a)) - new Date(getDate(b));
+      if (sort === "score-high") return (getScore(b) ?? -1) - (getScore(a) ?? -1);
+      if (sort === "score-low") return (getScore(a) ?? Infinity) - (getScore(b) ?? Infinity);
+      return new Date(getDate(b)) - new Date(getDate(a));
+    });
+
+    return list;
+  }
+
+  function render() {
+    const list = getFilteredList();
+    const chrono = getSortedChronological();
+
+    // Map each record to its prior record in time
+    const prevMap = new Map();
+    for (let i = 1; i < chrono.length; i++) {
+      const currId = chrono[i].id || chrono[i].assessment_id;
+      prevMap.set(currId, chrono[i - 1]);
+    }
+
+    // Stats
+    $("totalRecordsCount").textContent = allRecords.length;
+    const dates = allRecords.map(getDate).filter(Boolean).sort((a, b) => new Date(b) - new Date(a));
+    $("latestRecordDate").textContent = dates.length ? formatDate(dates[0]) : "—";
+
+    const scores = allRecords.map(getScore).filter(v => v !== null && !isNaN(v));
+    $("averageRiskScore").textContent = scores.length ? (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1) + "%" : "—";
+
+    $("clearAllBtn").style.display = allRecords.length > 0 ? "inline-flex" : "none";
+
+    renderComparison();
+
+    if (!list.length) {
+      $("tableContainer").style.display = "none";
+      $("emptyContainer").style.display = "block";
+      $("recordsTbody").innerHTML = "";
+      return;
+    }
+
+    $("tableContainer").style.display = "block";
+    $("emptyContainer").style.display = "none";
+
+    $("recordsTbody").innerHTML = list.map((r, idx) => {
+      const id = r.id || r.assessment_id || "rec-" + idx;
+      const score = getScore(r);
+      const band = getScoreBand(score);
+      const ass = r.assessment || {};
+      const age = ass.age || ass.model_features?.age || "—";
+      const sex = ass.sex === 1 || ass.sex === "1" ? "Male" : (ass.sex === 0 || ass.sex === "0" ? "Female" : (ass.sex || "—"));
+      const bp = ass.resting_bp || ass.restingBloodPressure || "—";
+      const chol = ass.cholesterol || ass.serumCholesterol || "—";
+
+      // Trend vs immediate prior record
+      const prior = prevMap.get(id);
+      let trendBadge = `<span style="font-size:11px;color:var(--muted);font-weight:700;">📌 Baseline</span>`;
+      if (prior) {
+        const priorScore = getScore(prior);
+        if (priorScore !== null && score !== null) {
+          const diff = score - priorScore;
+          if (diff <= -2.0) {
+            trendBadge = `<span class="delta-tag improved">🟢 ▾ ${Math.abs(diff).toFixed(1)}% Improved</span>`;
+          } else if (diff >= 2.0) {
+            trendBadge = `<span class="delta-tag elevated">🔴 ▴ +${diff.toFixed(1)}% Higher</span>`;
+          } else {
+            trendBadge = `<span class="delta-tag stable">🟡 ≈ Stable</span>`;
+          }
+        }
+      }
+
+      return `
+        <tr>
+          <td>${escapeHtml(formatDate(getDate(r)))}</td>
+          <td><span class="id-code">${escapeHtml(id)}</span></td>
+          <td><strong>${escapeHtml(age)}</strong> yrs / ${escapeHtml(sex)}</td>
+          <td>
+            <span class="score-badge score-${band}">
+              ♥ ${score !== null ? score.toFixed(1) + "%" : "—"}
+            </span>
+          </td>
+          <td>${trendBadge}</td>
+          <td>BP: ${escapeHtml(bp)} · Chol: ${escapeHtml(chol)}</td>
+          <td>
+            <div class="row-actions">
+              <button class="action-btn" type="button" data-view-id="${escapeHtml(id)}" title="View details">👁️ View</button>
+              <button class="action-btn" type="button" data-load-id="${escapeHtml(id)}" title="Open in Dashboard">📊 Dashboard</button>
+              <button class="action-btn del" type="button" data-del-id="${escapeHtml(id)}" title="Delete record">🗑️ Delete</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join("");
+
+    // Action button listeners
+    $("recordsTbody").querySelectorAll("[data-view-id]").forEach(btn => {
+      btn.onclick = () => {
+        const item = allRecords.find(r => (r.id || r.assessment_id) === btn.dataset.viewId);
+        if (item) showDetails(item);
+      };
+    });
+
+    $("recordsTbody").querySelectorAll("[data-load-id]").forEach(btn => {
+      btn.onclick = () => {
+        const item = allRecords.find(r => (r.id || r.assessment_id) === btn.dataset.loadId);
+        if (item) {
+          if (item.prediction) localStorage.setItem("cardioResult", JSON.stringify(item.prediction));
+          if (item.assessment) localStorage.setItem("cardioAssessment", JSON.stringify(item.assessment));
+          window.location.href = "dashboard.html";
+        }
+      };
+    });
+
+    $("recordsTbody").querySelectorAll("[data-del-id]").forEach(btn => {
+      btn.onclick = async () => {
+        const id = btn.dataset.delId;
+        if (!confirm(`Are you sure you want to delete Health Record (${id})?`)) return;
+
+        const updated = allRecords.filter(r => (r.id || r.assessment_id) !== id);
+        allRecords = updated;
+        saveLocalReports(updated);
+
+        try {
+          await fetch(API_URL + "/" + encodeURIComponent(id), { method: "DELETE" });
+        } catch(e) {}
+
+        render();
+      };
+    });
+  }
+
+  function showDetails(r) {
+    const ass = r.assessment || {};
+    const pred = r.prediction || {};
+    const mf = ass.model_features || pred.input_values || {};
+    const score = getScore(r);
+    const band = getScoreBand(score);
+
+    const items = [
+      ["Record ID", r.id || r.assessment_id],
+      ["Recorded Date", formatDate(getDate(r))],
+      ["Calculated Risk Score", score !== null ? score.toFixed(2) + "% (" + band + " risk band)" : "Not available"],
+      ["Model Name", r.model_name || pred.model || "Calibrated Logistic Regression"],
+      ["Age", ass.age ?? mf.age ?? "—"],
+      ["Sex", ass.sex_label || (ass.sex === 1 ? "Male" : (ass.sex === 0 ? "Female" : "—"))],
+      ["Chest Pain Type", ass.chest_pain_type ?? mf.chest_pain_type ?? "—"],
+      ["Resting Blood Pressure", (ass.resting_bp ?? mf.resting_bp ?? "—") + " mmHg"],
+      ["Serum Cholesterol", (ass.cholesterol ?? mf.cholesterol ?? "—") + " mg/dL"],
+      ["Maximum Heart Rate", (ass.max_heart_rate ?? mf.max_heart_rate ?? "—") + " bpm"],
+      ["Exercise Angina", ass.exercise_induced_angina ?? mf.exercise_induced_angina ?? "—"],
+      ["Exercise Habit", ass.exercise ?? ass.lifestyle?.exercise ?? "—"],
+      ["Sleep Duration", ass.sleep ?? ass.lifestyle?.sleep ?? "—"],
+      ["Stress Level", ass.stress ?? ass.lifestyle?.stress ?? "—"],
+      ["Alcohol Intake", ass.alcohol ?? ass.lifestyle?.alcohol ?? "—"],
+      ["Model Output Summary", pred.result || pred.notice || "Screening score calculated."]
+    ];
+
+    $("modalEyebrow").textContent = "Health Record Details";
+    $("modalTitle").textContent = "Assessment Report: " + (r.id || r.assessment_id);
+
+    $("modalBody").innerHTML = `
+      <div class="details-grid">
+        ${items.map(([k, v]) => `
+          <div class="detail-item">
+            <small>${escapeHtml(k)}</small>
+            <strong>${escapeHtml(v ?? "—")}</strong>
+          </div>
+        `).join("")}
+      </div>
+      <div class="notice-box">
+        <strong>Medical Disclaimer:</strong> This health record is produced by an educational screening prototype. It does not replace professional medical judgment or diagnosis.
+      </div>
+      <div style="margin-top:20px;display:flex;gap:10px;justify-content:flex-end;">
+        <button class="btn btn-secondary" onclick="document.getElementById('detailsModal').classList.remove('open')">Close</button>
+        <button class="btn btn-primary" id="modalLoadBtn">📊 Open in Dashboard</button>
+      </div>
+    `;
+
+    $("modalLoadBtn").onclick = () => {
+      if (r.prediction) localStorage.setItem("cardioResult", JSON.stringify(r.prediction));
+      if (r.assessment) localStorage.setItem("cardioAssessment", JSON.stringify(r.assessment));
+      window.location.href = "dashboard.html";
+    };
+
+    $("detailsModal").classList.add("open");
+  }
+
+  function exportCsv() {
+    const list = getFilteredList();
+    if (!list.length) {
+      alert("No health records available to export.");
+      return;
+    }
+    const headers = ["Date", "Record_ID", "Age", "Sex", "Risk_Score_Percent", "Resting_BP", "Cholesterol", "Max_HR", "Model"];
+    const rows = [headers];
+
+    list.forEach(r => {
+      const ass = r.assessment || {};
+      const mf = ass.model_features || {};
+      rows.push([
+        getDate(r),
+        r.id || r.assessment_id || "",
+        ass.age ?? mf.age ?? "",
+        ass.sex ?? mf.sex ?? "",
+        getScore(r) ?? "",
+        ass.resting_bp ?? mf.resting_bp ?? "",
+        ass.cholesterol ?? mf.cholesterol ?? "",
+        ass.max_heart_rate ?? mf.max_heart_rate ?? "",
+        r.model_name || r.prediction?.model || "Calibrated Logistic Regression"
+      ]);
+    });
+
+    const csvContent = rows.map(row => row.map(cell => `"${String(cell ?? "").replace(/"/g, '""')}"`).join(",")).join("\r\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "cardioshield_health_records.csv";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  async function clearAll() {
+    if (!confirm("Are you sure you want to clear ALL saved health records? This cannot be undone.")) return;
+
+    allRecords = [];
+    saveLocalReports([]);
+
+    try {
+      await fetch(API_URL, { method: "DELETE" });
+    } catch(e) {}
+
+    render();
+  }
+
+  // Trigger manual comparison between 2 selected dropdown records
+  $("triggerCompareBtn").addEventListener("click", () => {
+    const idA = $("compareRecA").value;
+    const idB = $("compareRecB").value;
+    const recA = allRecords.find(r => (r.id || r.assessment_id) === idA);
+    const recB = allRecords.find(r => (r.id || r.assessment_id) === idB);
+    if (recA && recB) {
+      renderComparison(recA, recB);
+    }
+  });
+
+  // Event Listeners
+  $("searchInput").addEventListener("input", render);
+  $("scoreFilter").addEventListener("change", render);
+  $("sortSelect").addEventListener("change", render);
+  $("exportBtn").addEventListener("click", exportCsv);
+  $("refreshBtn").addEventListener("click", loadRecords);
+  $("clearAllBtn").addEventListener("click", clearAll);
+  $("closeModalBtn").addEventListener("click", () => $("detailsModal").classList.remove("open"));
+  $("detailsModal").addEventListener("click", e => {
+    if (e.target === $("detailsModal")) $("detailsModal").classList.remove("open");
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") $("detailsModal").classList.remove("open");
+  });
+
+  loadRecords();
+})();
+</script>
+<script src="auth.js"></script>
+</body>
+</html>

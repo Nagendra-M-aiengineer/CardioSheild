@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rewards | CardioShield</title>
+<style>
+:root{--blue:#176cf3;--navy:#101b61;--teal:#087f80;--red:#ed1c35;--pink:#ee5b72;--bg:linear-gradient(135deg,#f7f8ff 0%,#f2f7ff 55%,#fff7f9 100%);--muted:#66718a;--line:#e7eafd;--shadow:0 10px 28px rgba(27,43,105,.09)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--navy);font-family:Arial,Helvetica,"Inter",sans-serif}a{text-decoration:none;color:inherit}.shell{max-width:1100px;margin:auto;padding:24px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:24px}.brand{font-size:20px;font-weight:900;display:flex;gap:11px;align-items:center;color:#10227a}.mark{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,#ff5869,#df0029);display:grid;place-items:center;color:#fff;font-size:24px;box-shadow:0 8px 20px #f0445a35}.nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.nav a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 16px;font-weight:750;font-size:13px;color:#465176;transition:transform .18s ease,box-shadow .18s ease}.nav a:hover{border-color:var(--red);color:var(--red);transform:translateY(-1px);box-shadow:var(--shadow)}.hero{background:linear-gradient(110deg,#10227a,#176cf3 72%,#397de0);color:#fff;border-radius:28px;padding:34px;display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center;box-shadow:0 14px 32px rgba(37,83,183,.16)}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-weight:900;color:#ffccd3}.hero h1{font-size:clamp(30px,4vw,42px);margin:10px 0;font-weight:900}.hero p{line-height:1.6;color:#e3eeff;max-width:570px}.balance{background:#ffffff1f;border:1px solid #ffffff42;border-radius:20px;padding:22px}.balance small{color:#e3eeff}.balance strong{display:block;font-size:43px;margin:5px 0}.balance span{font-size:12px;color:#e3eeff}.head{margin:30px 0 15px;display:flex;justify-content:space-between;align-items:end;gap:12px}.head h2{margin:0;font-size:23px;color:#10227a}.head p{margin:5px 0 0;color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.card,.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow)}.emoji{width:52px;height:52px;display:grid;place-items:center;border-radius:16px;background:#edf4ff;font-size:27px}.card h3{margin:15px 0 6px;font-size:17px;color:#10227a}.card p{min-height:40px;color:var(--muted);font-size:13px;line-height:1.5}.cost{font-size:13px;font-weight:900;color:#865900;background:#fff3d8;border-radius:9px;display:inline-block;padding:7px 9px;margin:4px 0 14px}.btn{border:0;border-radius:999px;padding:11px 18px;background:linear-gradient(110deg,#ff4558,#d9002c);box-shadow:0 6px 16px #f21b4230;color:#fff;font-weight:850;cursor:pointer;font-size:13px;transition:transform .18s ease}.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}.btn.secondary{background:#edf3ff;color:#145bd0;box-shadow:none}.small{font-size:11px;color:var(--muted);line-height:1.5}.history-list{display:grid;gap:10px;margin-top:15px}.history-item{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:13px;padding:13px}.history-icon{width:40px;height:40px;display:grid;place-items:center;background:#f0f5ff;border-radius:12px;font-size:20px;flex-shrink:0}.history-main{flex:1;min-width:0}.history-main strong{display:block;font-size:13px}.history-main span{font-size:11px;color:var(--muted)}.history-points{font-weight:900;color:var(--teal);white-space:nowrap;font-size:13px}.empty{padding:20px;text-align:center;background:#f7f9fc;border-radius:13px;color:var(--muted);font-size:13px}.banner{margin-top:16px;padding:14px;border-radius:13px;background:#e8f8f1;color:#17664f;font-size:13px;line-height:1.5}.notice{margin-top:20px;padding:13px 15px;background:#f0f4fa;border-left:3px solid #9ab5da;border-radius:10px;color:#53637a;font-size:12px;line-height:1.55}.toast{position:fixed;right:20px;bottom:20px;max-width:340px;padding:14px 17px;background:#142744;color:white;border-radius:13px;box-shadow:var(--shadow);display:none;font-size:13px;font-weight:750}.toast.show{display:block}footer{text-align:center;color:#7b8798;font-size:11px;padding:24px 0 6px}@media(max-width:800px){.shell{padding:15px}.hero{grid-template-columns:1fr;padding:23px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.head{align-items:flex-start;flex-direction:column}.card p{min-height:0}}
+</style></head>
+<body><main class="shell">
+<header class="top"><a class="brand" href="index.html"><span class="mark">♥</span><span>CardioShield <span style="color:#176cf3">/ Rewards</span></span></a><nav class="nav"><a href="index.html">⌂ Home</a><a href="dashboard.html">Dashboard</a><a href="health-records.html">Health Records</a><a href="routine.html">My Routine</a><div id="navProfileGroup" style="display:inline-flex;align-items:center;"></div></nav></header>
+<section class="hero"><div><div class="eyebrow">Healthy habits deserve celebration</div><h1>Your effort. Your rewards.</h1><p>Use points earned from daily goals and eligible assessment improvements to unlock demo healthy-lifestyle rewards. Your balance is shared with My Routine in this browser.</p></div><div class="balance"><small>AVAILABLE POINTS</small><strong id="balance">0</strong><span>points ready to use</span><div id="bonusStatus" class="banner" style="display:none"></div></div></section>
+<div class="head"><div><h2>Choose a reward</h2><p>Claim a demo reward using your available points.</p></div></div>
+<section class="grid" id="rewardsGrid">
+<article class="card" data-reward="produce" data-cost="100" data-name="Fresh produce voucher"><div class="emoji">🥑</div><h3>Fresh produce voucher</h3><p>A demo voucher toward fruits and vegetables from a participating store.</p><span class="cost">100 points</span><br><button class="btn" data-claim="produce">Claim reward</button></article>
+<article class="card" data-reward="bottle" data-cost="150" data-name="Reusable water bottle"><div class="emoji">💧</div><h3>Reusable water bottle</h3><p>A demo reward for helping make hydration a daily habit.</p><span class="cost">150 points</span><br><button class="btn" data-claim="bottle">Claim reward</button></article>
+<article class="card" data-reward="walk" data-cost="200" data-name="Walking essentials voucher"><div class="emoji">👟</div><h3>Walking essentials voucher</h3><p>A demo voucher for comfortable walking essentials.</p><span class="cost">200 points</span><br><button class="btn" data-claim="walk">Claim reward</button></article>
+<article class="card" data-reward="meal" data-cost="250" data-name="Balanced meal voucher"><div class="emoji">🥗</div><h3>Balanced meal voucher</h3><p>A demo voucher toward a balanced meal option.</p><span class="cost">250 points</span><br><button class="btn" data-claim="meal">Claim reward</button></article>
+<article class="card" data-reward="wellness" data-cost="300" data-name="Wellness activity pass"><div class="emoji">🧘</div><h3>Wellness activity pass</h3><p>A demo pass for a suitable relaxation or wellness activity.</p><span class="cost">300 points</span><br><button class="btn" data-claim="wellness">Claim reward</button></article>
+<article class="card" data-reward="bonusgift" data-cost="500" data-name="Healthy habit bonus gift"><div class="emoji">🎁</div><h3>Healthy habit bonus gift</h3><p>A demo gift option for users who have saved up more points.</p><span class="cost">500 points</span><br><button class="btn" data-claim="bonusgift">Claim reward</button></article>
+</section>
+<section class="panel" style="margin-top:25px"><div class="head" style="margin-top:0"><div><h2>🏆 Assessment improvement bonuses</h2><p>Review changes between your saved risk assessments.</p></div><a class="btn secondary" href="dashboard.html">View dashboard</a></div><div id="comparisonSummary" class="empty">No assessment comparison has been saved yet. Complete an assessment and connect the history helper to your assessment result page.</div><div id="assessmentHistory" class="history-list"></div></section>
+<section class="panel" style="margin-top:18px"><div class="head" style="margin-top:0"><div><h2>🎟️ Your claim history</h2><p>Rewards claimed in this browser.</p></div></div><div id="claimHistory" class="history-list"></div></section>
+<p class="notice"><strong>Prototype notice:</strong> Rewards, coupons, and gifts are examples only; they are not redeemable with real merchants. Points and claim history are stored in this browser and are not a secure wallet. Assessment improvement bonuses are illustrative gamification, not medical advice. A lower model score does not guarantee better health.</p>
+<footer>CardioShield • Healthy habits, one step at a time</footer></main><div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+ const BALANCE_KEY='cardioshieldPointsBalance', LEGACY_BALANCE_KEY='cardioShieldPoints';
+ const CLAIMS_KEY='cardioshieldRewardClaimsV1', HISTORY_KEY='cardioshieldAssessmentHistoryV1', BONUS_KEY='cardioshieldAssessmentBonusIdsV1';
+ const $=id=>document.getElementById(id);
+ function read(key,fallback){try{const v=JSON.parse(localStorage.getItem(key));return v==null?fallback:v}catch(e){return fallback}}
+ function balance(){let n=Number(localStorage.getItem(BALANCE_KEY));if(!Number.isFinite(n)||n<0)n=Number(localStorage.getItem(LEGACY_BALANCE_KEY))||0;return n}
+ function setBalance(n){localStorage.setItem(BALANCE_KEY,String(n));localStorage.setItem(LEGACY_BALANCE_KEY,String(n))}
+ function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2800)}
+ function dateLabel(v){const d=new Date(v);return Number.isNaN(d.getTime())?'Date unavailable':d.toLocaleString()}
+ function render(){
+   const b=balance();$('balance').textContent=b;
+   document.querySelectorAll('[data-claim]').forEach(btn=>{const card=btn.closest('[data-reward]');btn.disabled=b<Number(card.dataset.cost);btn.textContent=b<Number(card.dataset.cost)?'Not enough points':'Claim reward'});
+   const claims=read(CLAIMS_KEY,[]);
+   const cl=$('claimHistory');cl.replaceChildren();
+   if(!claims.length)cl.innerHTML='<div class="empty">No rewards claimed yet. Complete daily goals to earn points.</div>';
+   claims.slice().reverse().forEach(c=>cl.appendChild(item('🎁',c.name,dateLabel(c.date),'-'+c.cost+' pts')));
+   renderHistory();
+ }
+ function item(icon,title,subtitle,points){const row=document.createElement('div');row.className='history-item';const i=document.createElement('div');i.className='history-icon';i.textContent=icon;const main=document.createElement('div');main.className='history-main';const strong=document.createElement('strong');strong.textContent=title;const span=document.createElement('span');span.textContent=subtitle;main.append(strong,span);const p=document.createElement('div');p.className='history-points';p.textContent=points;row.append(i,main,p);return row}
+ function renderHistory(){
+   const history=read(HISTORY_KEY,[]),list=$('assessmentHistory');list.replaceChildren();
+   if(!history.length){$('comparisonSummary').textContent='No assessment history is saved yet. Add the history helper to your assessment result flow to compare future scores.';return}
+   const latest=history[history.length-1],prev=history.length>1?history[history.length-2]:null;
+   if(prev){
+     const delta=Number(prev.score)-Number(latest.score);
+     const improved=delta>0.0001, unchanged=Math.abs(delta)<0.0001;
+     $('comparisonSummary').textContent=unchanged?'Your latest saved score is unchanged from the previous assessment.':improved?`Your latest score is lower by ${formatDelta(delta)} points compared with the previous assessment.`:`Your latest score is higher by ${formatDelta(-delta)} points compared with the previous assessment.`;
+   }else $('comparisonSummary').textContent='Your first assessment is saved. Complete another assessment later to compare scores.';
+   history.slice().reverse().slice(0,8).forEach((h,idx)=>{
+     const prevItem=history[history.length-1-idx-1];
+     let note='Saved assessment';
+     if(prevItem){const d=Number(prevItem.score)-Number(h.score);note=d>0?'Lower score than the preceding assessment':d<0?'Higher score than the preceding assessment':'Score unchanged from preceding assessment'}
+     list.appendChild(item('❤️',`Risk score: ${h.score}${h.riskLevel?' · '+h.riskLevel:''}`,dateLabel(h.date)+' · '+note,(h.bonusPoints>0?'+'+h.bonusPoints+' bonus pts':'—')));
+   });
+ }
+ function formatDelta(n){return Number(n.toFixed(2)).toString()}
+ document.querySelectorAll('[data-claim]').forEach(btn=>btn.addEventListener('click',()=>{
+   const card=btn.closest('[data-reward]'),cost=Number(card.dataset.cost),b=balance();
+   if(b<cost){toast('You need '+(cost-b)+' more points to claim this reward.');return}
+   if(!confirm('Claim the demo reward "'+card.dataset.name+'" for '+cost+' points?'))return;
+   setBalance(b-cost);const claims=read(CLAIMS_KEY,[]);
+   claims.push({id:card.dataset.reward+'-'+Date.now(),rewardId:card.dataset.reward,name:card.dataset.name,cost,date:new Date().toISOString()});
+   localStorage.setItem(CLAIMS_KEY,JSON.stringify(claims));render();toast('Demo reward claimed! No real coupon or purchase was created.');
+ }));
+ const history=read(HISTORY_KEY,[]), bonuses=read(BONUS_KEY,[]);
+ if(history.some(h=>h.bonusPoints>0)){$('bonusStatus').style.display='block';$('bonusStatus').textContent='Assessment improvement bonuses are included in your points balance when earned by the assessment history helper.'}
+ render();
+})();
+</script><script src="auth.js"></script>
+</body></html>

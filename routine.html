@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Routine | CardioShield</title>
+<style>
+:root{--blue:#176cf3;--navy:#101b61;--teal:#087f80;--red:#ed1c35;--coral:#ed1c35;--bg:linear-gradient(135deg,#f7f8ff 0%,#f2f7ff 55%,#fff7f9 100%);--muted:#66718a;--line:#e7eafd;--white:#fff;--shadow:0 10px 28px rgba(27,43,105,.09)}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,"Inter",sans-serif;background:var(--bg);color:var(--navy)}
+a{color:inherit;text-decoration:none}.shell{max-width:1180px;margin:auto;padding:24px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:26px}.brand{display:flex;align-items:center;gap:11px;font-weight:900;font-size:20px;color:#10227a}.brand-mark{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,#ff5869,#df0029);display:grid;place-items:center;color:white;font-size:24px;box-shadow:0 8px 20px #f0445a35}.nav{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.nav a,.nav button{border:1px solid var(--line);background:white;border-radius:999px;padding:10px 16px;font-weight:750;color:#465176;font-size:13px;transition:transform .18s ease,box-shadow .18s ease}.nav a:hover{border-color:var(--red);color:var(--red);transform:translateY(-1px);box-shadow:var(--shadow)}
+.hero{background:linear-gradient(110deg,#10227a 0%,#176cf3 65%,#397de0 100%);color:white;border-radius:28px;padding:34px;display:grid;grid-template-columns:1.5fr .8fr;gap:24px;align-items:center;box-shadow:0 14px 32px rgba(37,83,183,.16);overflow:hidden}.eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:11px;font-weight:900;color:#ffccd3}.hero h1{font-size:clamp(29px,4vw,42px);line-height:1.1;margin:10px 0;font-weight:900}.hero p{color:#eaf2ff;line-height:1.65;max-width:650px;margin:0}.hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.hero-stat{background:#ffffff18;border:1px solid #ffffff38;border-radius:18px;padding:17px;backdrop-filter:blur(8px)}.hero-stat span{display:block;color:#e3edff;font-size:12px}.hero-stat strong{display:block;font-size:28px;margin-top:5px}.progress-wrap{margin-top:23px}.progress-meta{display:flex;justify-content:space-between;gap:12px;font-size:13px;font-weight:700;margin-bottom:8px}.progress{height:10px;background:#ffffff38;border-radius:99px;overflow:hidden}.progress>div{height:100%;width:0;background:#a8f0d5;border-radius:99px;transition:width .25s}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:30px 0 15px}.section-head h2{margin:0;font-size:23px}.section-head p{margin:5px 0 0;color:var(--muted);font-size:14px}.day-pill{background:#e7f1ff;color:#145bd0;border-radius:999px;padding:9px 13px;font-weight:800;font-size:12px;white-space:nowrap}
+.goals{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.goal{background:white;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow);min-width:0;transition:transform .2s,border-color .2s}.goal:hover{transform:translateY(-2px);border-color:#c6d9ff}.goal.done{border-color:#7ed9bd;background:linear-gradient(180deg,#fff,#f5fffb)}.goal-top{display:flex;gap:13px;align-items:flex-start}.goal-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:#eaf2ff;font-size:24px;flex-shrink:0}.goal h3{margin:2px 0 5px;font-size:17px}.goal-desc{color:var(--muted);font-size:13px;line-height:1.5;margin:0}.points{margin-left:auto;background:#fff3d8;color:#8a5a00;padding:7px 9px;border-radius:10px;font-size:12px;font-weight:900;white-space:nowrap}.goal-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px;flex-wrap:wrap}.goal-status{font-size:12px;color:var(--muted);font-weight:700}.goal.done .goal-status{color:#12805e}.btn{border:0;border-radius:999px;padding:11px 18px;background:linear-gradient(110deg,#ff4558,#d9002c);box-shadow:0 6px 16px #f21b4230;color:white;font-weight:850;cursor:pointer;font-size:13px;transition:filter .2s,transform .2s}.btn:hover{filter:brightness(.96);transform:translateY(-1px)}.btn.secondary{background:#edf3ff;color:#145bd0}.btn.ghost{background:white;color:#52627a;border:1px solid var(--line)}.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}.evidence{margin-top:17px;padding-top:16px;border-top:1px solid var(--line)}.evidence-label{display:block;font-size:12px;font-weight:800;margin-bottom:8px}.upload-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.file-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}.upload-btn{display:inline-flex;align-items:center;gap:7px;border:1px dashed #9bb8e7;background:#f5f9ff;color:#175cc9;border-radius:11px;padding:10px 12px;font-size:12px;font-weight:800;cursor:pointer}.upload-help{font-size:11px;color:var(--muted);line-height:1.4;margin-top:8px}.preview{display:none;margin-top:12px;background:#f7f9fc;border:1px solid var(--line);border-radius:13px;padding:10px;gap:12px;align-items:center}.preview.show{display:flex}.preview img,.preview video{width:78px;height:68px;object-fit:cover;border-radius:9px;background:#e8edf4}.preview-info{min-width:0;flex:1}.preview-info strong{display:block;font-size:12px;overflow-wrap:anywhere}.preview-info small{color:var(--muted);font-size:11px}.remove-file{border:0;background:transparent;color:#c33;font-weight:800;cursor:pointer}
+.bottom-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;margin-top:26px}.panel{background:white;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}.panel h2{margin:0 0 8px;font-size:19px}.panel p{color:var(--muted);font-size:13px;line-height:1.55}.streak-row{display:flex;gap:9px;margin-top:16px}.streak-day{flex:1;text-align:center;border-radius:12px;background:#f0f4fa;padding:11px 4px;font-size:11px;color:var(--muted);font-weight:800}.streak-day.active{background:#ddf8ed;color:#087755}.streak-day b{display:block;font-size:17px;margin-bottom:5px}.reward-card{background:linear-gradient(135deg,#fff7e6,#fff);border:1px solid #f5dfad;border-radius:16px;padding:16px;margin-top:15px}.reward-card strong{display:block}.reward-card a{display:inline-block;margin-top:10px;color:#145bd0;font-weight:900;font-size:13px}.notice{font-size:12px!important;background:#f4f7fb;padding:12px 14px;border-radius:12px;border-left:3px solid #9ab5da}.toast{position:fixed;right:22px;bottom:22px;background:#142744;color:white;border-radius:14px;padding:14px 18px;box-shadow:0 12px 35px #14274433;max-width:330px;display:none;z-index:10;font-size:13px;font-weight:700}.toast.show{display:block;animation:pop .2s ease-out}@keyframes pop{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}footer{text-align:center;color:#7b8798;font-size:11px;padding:25px 0 5px}
+@media(max-width:760px){.shell{padding:15px}.hero{grid-template-columns:1fr;padding:23px}.goals,.bottom-grid{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.hero-stats{max-width:440px}.section-head{align-items:flex-start;flex-direction:column}.nav{width:100%}.nav a{flex:1;text-align:center}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">♥</span><span>CardioShield <span style="color:#176cf3">/ My Routine</span></span></a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html">⌂ Home</a><a href="dashboard.html">Dashboard</a><a href="health-records.html">Health Records</a><a href="rewards.html">🎁 Rewards</a>
+      <div id="navProfileGroup" style="display:inline-flex;align-items:center;"></div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Your daily heart-health journey</div>
+      <h1>Small steps. Stronger habits.</h1>
+      <p>Choose a goal, complete it in real life, and add a photo or short video as your personal evidence. Build consistency one day at a time.</p>
+      <div class="progress-wrap">
+        <div class="progress-meta"><span>Today's progress</span><span id="progressText">0 of 5 goals</span></div>
+        <div class="progress" role="progressbar" aria-label="Today's goal progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar"><div id="progressFill"></div></div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span>Points earned today</span><strong id="todayPoints">0</strong></div>
+      <div class="hero-stat"><span>Total points balance</span><strong id="totalPoints">0</strong></div>
+      <div class="hero-stat"><span>Goals completed</span><strong id="completedCount">0/5</strong></div>
+      <div class="hero-stat"><span>Evidence added</span><strong id="evidenceCount">0</strong></div>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <div><h2>Today's goals</h2><p>A photo or video is required for every goal. Evidence stays on this device.</p></div>
+    <span class="day-pill" id="todayLabel">TODAY</span>
+  </div>
+
+  <section class="goals" id="goalsGrid" aria-label="Daily goals">
+    <article class="goal" data-id="move" data-points="20">
+      <div class="goal-top"><div class="goal-icon">🚶</div><div><h3>Get moving</h3><p class="goal-desc">Aim for a comfortable 20-minute walk or another activity suitable for you.</p></div><span class="points">+20 pts</span></div>
+      <div class="evidence"><label class="evidence-label" for="file-move">Upload activity evidence <span style="color:#d9273e">*Required</span></label><div class="upload-row"><input class="file-input" id="file-move" type="file" accept="image/*,video/*" capture="environment"><label class="upload-btn" for="file-move">📷 Upload photo / video</label><button class="btn ghost" type="button" data-remove="move" hidden>Remove</button></div><div class="preview" id="preview-move"></div><div class="upload-help">Required: upload a photo or short video before completing this goal. Photo limit: 8 MB; video limit: 20 MB.</div></div>
+      <div class="goal-bottom"><span class="goal-status" id="status-move">Not completed yet</span><button class="btn" type="button" data-complete="move">Mark goal complete</button></div>
+    </article>
+    <article class="goal" data-id="produce" data-points="15">
+      <div class="goal-top"><div class="goal-icon">🥗</div><div><h3>Add color to your plate</h3><p class="goal-desc">Include a fruit or vegetable with a meal or snack today.</p></div><span class="points">+15 pts</span></div>
+      <div class="evidence"><label class="evidence-label" for="file-produce">Upload meal evidence <span style="color:#d9273e">*Required</span></label><div class="upload-row"><input class="file-input" id="file-produce" type="file" accept="image/*,video/*" capture="environment"><label class="upload-btn" for="file-produce">📷 Upload photo / video</label><button class="btn ghost" type="button" data-remove="produce" hidden>Remove</button></div><div class="preview" id="preview-produce"></div><div class="upload-help">Required: upload a photo or short video before completing this goal. You do not need to show your face.</div></div>
+      <div class="goal-bottom"><span class="goal-status" id="status-produce">Not completed yet</span><button class="btn" type="button" data-complete="produce">Mark goal complete</button></div>
+    </article>
+    <article class="goal" data-id="water" data-points="10">
+      <div class="goal-top"><div class="goal-icon">💧</div><div><h3>Take hydration breaks</h3><p class="goal-desc">Take regular water breaks during the day, following any fluid guidance from your clinician.</p></div><span class="points">+10 pts</span></div>
+      <div class="evidence"><label class="evidence-label" for="file-water">Upload evidence <span style="color:#d9273e">*Required</span></label><div class="upload-row"><input class="file-input" id="file-water" type="file" accept="image/*,video/*" capture="environment"><label class="upload-btn" for="file-water">📷 Upload photo / video</label><button class="btn ghost" type="button" data-remove="water" hidden>Remove</button></div><div class="preview" id="preview-water"></div><div class="upload-help">Required: upload a photo or short video before completing this goal.</div></div>
+      <div class="goal-bottom"><span class="goal-status" id="status-water">Not completed yet</span><button class="btn" type="button" data-complete="water">Mark goal complete</button></div>
+    </article>
+    <article class="goal" data-id="sleep" data-points="15">
+      <div class="goal-top"><div class="goal-icon">🌙</div><div><h3>Plan a restful night</h3><p class="goal-desc">Set a realistic bedtime and create a calm, screen-light wind-down routine.</p></div><span class="points">+15 pts</span></div>
+      <div class="evidence"><label class="evidence-label" for="file-sleep">Upload evidence <span style="color:#d9273e">*Required</span></label><div class="upload-row"><input class="file-input" id="file-sleep" type="file" accept="image/*,video/*"><label class="upload-btn" for="file-sleep">📷 Upload photo / video</label><button class="btn ghost" type="button" data-remove="sleep" hidden>Remove</button></div><div class="preview" id="preview-sleep"></div><div class="upload-help">Required: upload a photo or short video before completing this goal.</div></div>
+      <div class="goal-bottom"><span class="goal-status" id="status-sleep">Not completed yet</span><button class="btn" type="button" data-complete="sleep">Mark goal complete</button></div>
+    </article>
+    <article class="goal" data-id="calm" data-points="10">
+      <div class="goal-top"><div class="goal-icon">🧘</div><div><h3>Pause and reset</h3><p class="goal-desc">Take five quiet minutes for slow breathing, stretching, prayer, or another relaxing activity.</p></div><span class="points">+10 pts</span></div>
+      <div class="evidence"><label class="evidence-label" for="file-calm">Upload evidence <span style="color:#d9273e">*Required</span></label><div class="upload-row"><input class="file-input" id="file-calm" type="file" accept="image/*,video/*"><label class="upload-btn" for="file-calm">📷 Upload photo / video</label><button class="btn ghost" type="button" data-remove="calm" hidden>Remove</button></div><div class="preview" id="preview-calm"></div><div class="upload-help">Required: upload a photo or short video before completing this goal.</div></div>
+      <div class="goal-bottom"><span class="goal-status" id="status-calm">Not completed yet</span><button class="btn" type="button" data-complete="calm">Mark goal complete</button></div>
+    </article>
+  </section>
+
+  <section class="bottom-grid">
+    <div class="panel">
+      <h2>🌱 Build your streak</h2>
+      <p>Consistency matters more than perfection. Complete a goal today and come back tomorrow to keep building your routine.</p>
+      <div class="streak-row" id="streakRow">
+        <div class="streak-day"><b>○</b>Mon</div><div class="streak-day"><b>○</b>Tue</div><div class="streak-day"><b>○</b>Wed</div><div class="streak-day"><b>○</b>Thu</div><div class="streak-day"><b>○</b>Fri</div><div class="streak-day"><b>○</b>Sat</div><div class="streak-day"><b>○</b>Sun</div>
+      </div>
+      <p class="notice">Evidence is optional and is not medically verified. This is a habit tracker, not a diagnostic tool. Choose activities that are safe for your own health and mobility.</p>
+    </div>
+    <div class="panel">
+      <h2>🎁 Your effort can unlock rewards</h2>
+      <p>Collect points from completed goals and explore demo healthy-lifestyle rewards. Redeeming real discounts requires participating merchants.</p>
+      <div class="reward-card"><strong>Ready to see what you can claim?</strong><span style="font-size:12px;color:#65748b">Your current points balance will appear on the rewards page.</span><br><a href="rewards.html">Explore rewards &amp; redeem points →</a></div>
+      <button class="btn secondary" type="button" id="resetDay" style="margin-top:15px">Reset today's goals</button>
+    </div>
+  </section>
+  <footer>CardioShield • Daily habit support • Demo points are stored in this browser only</footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  const DAY = new Date().toLocaleDateString('en-CA');
+  const KEY = 'cardioshieldRoutineEvidenceV2';
+  const POINTS_KEY = 'cardioshieldPointsBalance';
+  const LEGACY_POINTS_KEY = 'cardioShieldPoints';
+  const ids = ['move','produce','water','sleep','calm'];
+  const points = {move:20,produce:15,water:10,sleep:15,calm:10};
+  let state = loadState();
+  let toastTimer;
+  document.getElementById('todayLabel').textContent = new Date().toLocaleDateString(undefined,{weekday:'long',month:'short',day:'numeric'}).toUpperCase();
+
+  function loadState(){
+    try{
+      const parsed = JSON.parse(localStorage.getItem(KEY) || '{}');
+      if(parsed.day !== DAY) return {day:DAY,goals:{},evidence:{}};
+      parsed.goals = parsed.goals || {}; parsed.evidence = parsed.evidence || {};
+      return parsed;
+    }catch(e){return {day:DAY,goals:{},evidence:{}};}
+  }
+  function getBalance(){
+    const v = Number(localStorage.getItem(POINTS_KEY));
+    if(Number.isFinite(v) && v >= 0) return v;
+    const legacy = Number(localStorage.getItem(LEGACY_POINTS_KEY));
+    return Number.isFinite(legacy) && legacy > 0 ? legacy : 0;
+  }
+  function setBalance(value){
+    localStorage.setItem(POINTS_KEY,String(value));
+    // Keep the older key in sync for compatible rewards-page prototypes.
+    localStorage.setItem(LEGACY_POINTS_KEY,String(value));
+  }
+  function save(){localStorage.setItem(KEY,JSON.stringify(state));}
+  function showToast(message){
+    const el=document.getElementById('toast'); el.textContent=message; el.classList.add('show');
+    clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),3000);
+  }
+  function evidenceFor(id){return state.evidence[id] || null;}
+  function renderPreview(id){
+    const preview=document.getElementById('preview-'+id), file=evidenceFor(id);
+    const remove=document.querySelector('[data-remove="'+id+'"]');
+    preview.replaceChildren();
+    if(!file){preview.classList.remove('show');remove.hidden=true;return;}
+    const media = document.createElement(file.type.startsWith('video/')?'video':'img');
+    media.src=file.data; if(media.tagName==='VIDEO'){media.controls=true;media.muted=true;media.playsInline=true;}
+    const info=document.createElement('div');info.className='preview-info';
+    const name=document.createElement('strong');name.textContent=file.name;
+    const small=document.createElement('small');small.textContent=(file.type.startsWith('video/')?'Video attached':'Photo attached')+' · '+formatBytes(file.size);
+    info.append(name,small);
+    const removeInline=document.createElement('button');removeInline.className='remove-file';removeInline.type='button';removeInline.textContent='Remove';removeInline.addEventListener('click',()=>removeEvidence(id));
+    preview.append(media,info,removeInline);preview.classList.add('show');remove.hidden=false;
+  }
+  function formatBytes(n){if(n<1024)return n+' B';if(n<1048576)return (n/1024).toFixed(0)+' KB';return (n/1048576).toFixed(1)+' MB';}
+  function render(){
+    let completed=0,todayPoints=0,evidenceCount=0;
+    ids.forEach(id=>{
+      const done=!!state.goals[id];
+      const card=document.querySelector('.goal[data-id="'+id+'"]');
+      card.classList.toggle('done',done);
+      const status=document.getElementById('status-'+id);
+      status.textContent=done?'✓ Completed today · points awarded':evidenceFor(id)?'Evidence attached · ready to complete':'Not completed yet';
+      const btn=document.querySelector('[data-complete="'+id+'"]');
+      btn.textContent=done?'✓ Completed':'Mark goal complete';btn.disabled=done;
+      if(done){completed++;todayPoints+=points[id];}
+      if(evidenceFor(id))evidenceCount++;
+      renderPreview(id);
+    });
+    document.getElementById('todayPoints').textContent=todayPoints;
+    document.getElementById('totalPoints').textContent=getBalance();
+    document.getElementById('completedCount').textContent=completed+'/5';
+    document.getElementById('evidenceCount').textContent=evidenceCount;
+    document.getElementById('progressText').textContent=completed+' of 5 goals';
+    document.getElementById('progressFill').style.width=(completed/5*100)+'%';
+    document.getElementById('progressBar').setAttribute('aria-valuenow',String(completed/5*100));
+    const days=document.querySelectorAll('.streak-day');
+    const today=new Date(); const mondayOffset=(today.getDay()+6)%7;
+    days.forEach((el,i)=>{
+      const date=new Date(today);date.setDate(today.getDate()-mondayOffset+i);
+      const isToday=date.toLocaleDateString('en-CA')===DAY;
+      const isComplete=isToday&&completed>0;
+      el.classList.toggle('active',isComplete);
+      el.querySelector('b').textContent=isComplete?'✓':date.getDate();
+      el.lastChild.textContent=date.toLocaleDateString(undefined,{weekday:'short'});
+    });
+    document.getElementById('resetDay').disabled=completed===0&&!evidenceCount;
+  }
+  function removeEvidence(id){
+    delete state.evidence[id];save();
+    const input=document.getElementById('file-'+id);input.value='';
+    render();showToast('Evidence removed from this routine.');
+  }
+  ids.forEach(id=>{
+    document.getElementById('file-'+id).addEventListener('change',function(){
+      const file=this.files && this.files[0]; if(!file)return;
+      if(!file.type.startsWith('image/')&&!file.type.startsWith('video/')){
+        this.value='';showToast('Please choose an image or video file.');return;
+      }
+      const max=file.type.startsWith('video/')?20*1024*1024:8*1024*1024;
+      if(file.size>max){this.value='';showToast(file.type.startsWith('video/')?'Video limit is 20 MB.':'Photo limit is 8 MB.');return;}
+      const reader=new FileReader();
+      reader.onload=()=>{
+        state.evidence[id]={name:file.name,type:file.type,size:file.size,data:reader.result};
+        save();render();showToast('Evidence added! You can now mark the goal complete.');
+      };
+      reader.onerror=()=>showToast('Could not read this file. Please try another.');
+      reader.readAsDataURL(file);
+    });
+    document.querySelector('[data-remove="'+id+'"]').addEventListener('click',()=>removeEvidence(id));
+    document.querySelector('[data-complete="'+id+'"]').addEventListener('click',()=>{
+      if(state.goals[id]) return;
+
+      // Evidence is required before the goal can be completed.
+      if(!state.evidence[id]){
+        showToast('Please upload a photo or video before completing this goal.');
+        document.getElementById('file-'+id).click();
+        return;
+      }
+
+      state.goals[id] = true;
+      setBalance(getBalance() + points[id]);
+      save();
+      render();
+      showToast('Goal completed! +' + points[id] + ' points added to your balance 🎉');
+      if(ids.every(k => state.goals[k])) showToast('Amazing! You completed all five goals today. 🎉');
+    });
+  });
+  document.getElementById('resetDay').addEventListener('click',()=>{
+    if(!confirm('Reset today’s goals and remove today’s attached evidence? Points already earned will not be taken away.'))return;
+    state={day:DAY,goals:{},evidence:{}};save();
+    ids.forEach(id=>document.getElementById('file-'+id).value='');
+    render();showToast('Today’s routine has been reset.');
+  });
+  render();
+})();
+</script>
+<script src="auth.js"></script>
+</body>
+</html>

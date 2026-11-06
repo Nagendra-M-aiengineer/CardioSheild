@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b61">
+  <title>CardioShield-AgeLess | Your Heart, Your Future</title>
+  <style>
+    :root {
+      --navy: #101b61;
+      --blue: #176cf3;
+      --red: #ed1c35;
+      --teal: #087f80;
+      --text: #141d52;
+      --muted: #66718a;
+      --line: #e7eafd;
+      --shadow: 0 10px 28px rgba(27,43,105,.09);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg,#f7f8ff 0%,#f2f7ff 55%,#fff7f9 100%);
+    }
+    a { color: inherit; text-decoration: none; }
+    .site-header {
+      width: min(1240px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-logo {
+      width: 46px; height: 46px; display: grid; place-items: center;
+      border-radius: 15px; color: #fff; font-size: 27px;
+      background: linear-gradient(145deg,#ff5869,#df0029);
+      box-shadow: 0 8px 20px #f0445a35;
+    }
+    .brand-name { font-size: 19px; font-weight: 900; color: #10227a; }
+    .brand-sub { margin-top: 4px; color: #7580a1; font-size: 9px; letter-spacing: 1.5px; }
+    .nav { display: flex; align-items: center; gap: 25px; color: #465176; font-size: 12px; font-weight: 750; }
+    .nav a:hover { color: var(--red); }
+    .nav-profile-group { display: inline-flex; align-items: center; margin-left: 4px; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      border: 1px solid var(--line); border-radius: 999px; padding: 12px 19px;
+      background: #fff; color: var(--navy); font-size: 12px; font-weight: 850;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .button-primary {
+      border-color: var(--red); color: #fff;
+      background: linear-gradient(110deg,#ff4558,#d9002c);
+      box-shadow: 0 7px 18px #f21b4230;
+    }
+    main { width: min(1240px, calc(100% - 40px)); margin: 0 auto; }
+    .eyebrow { margin: 0 0 12px; color: var(--red); font-size: 10px; font-weight: 900; letter-spacing: 2px; }
+    .hero {
+      position: relative; display: grid; grid-template-columns: 1.05fr .95fr;
+      align-items: center; min-height: 430px; overflow: hidden;
+      border-radius: 28px; padding: 42px 48px 30px;
+      background: linear-gradient(110deg,#eaf8ff 0%,#cdeaff 44%,#397de0 100%);
+      box-shadow: 0 14px 32px rgba(37,83,183,.16); isolation: isolate;
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: radial-gradient(circle at 72% 40%,#fff9 0 13%,transparent 35%),
+        linear-gradient(90deg,#eaf8ff 0%,#d8efffbb 42%,transparent 73%);
+    }
+    .hero-copy { position: relative; z-index: 2; max-width: 600px; }
+    .hero-brand { margin: 0 0 16px; font-size: clamp(42px,5.3vw,72px); line-height: .98; letter-spacing: -3px; font-weight: 950; color: #10267d; }
+    .hero-brand span { color: var(--red); }
+    .hero-tagline { margin: 0 0 15px; font-size: clamp(23px,2.7vw,34px); line-height: 1.15; font-weight: 900; color: #10194d; }
+    .hero-description { max-width: 500px; margin: 0 0 24px; color: #293a70; font-size: 14px; line-height: 1.9; }
+    .hero-cta { padding: 15px 24px; font-size: 13px; }
+    .hero-doctor-wrap { position: relative; min-height: 320px; display: flex; justify-content: center; align-items: flex-end; }
+    .hero-doctor { display: block; width: 100%; height: 340px; max-width: 470px; object-fit: contain; object-position: center bottom; mix-blend-mode: multiply; filter: drop-shadow(0 10px 18px #183c7a20); }
+    .hero-badge {
+      position: absolute; top: 14px; right: 0; padding: 13px 16px;
+      border: 1px solid #fff; border-radius: 16px; background: #ffffffdf;
+      color: #13256e; font-size: 12px; line-height: 1.5; font-weight: 900;
+      box-shadow: 0 6px 18px #143d7a16;
+    }
+    .hero-badge span { color: var(--red); }
+    .section-label { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 28px 0 14px; }
+    .section-label h2 { margin: 0; color: #111e64; font-size: 21px; }
+    .section-label p { margin: 6px 0 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .feature-strip { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 13px; margin: 18px 0 25px; }
+    .feature-tile { display: flex; align-items: center; gap: 12px; min-width: 0; padding: 17px 15px; border-radius: 18px; border: 1px solid var(--line); box-shadow: 0 5px 15px #1b2b6908; transition: transform .2s ease; }
+    .feature-tile:hover { transform: translateY(-3px); }
+    .feature-tile:nth-child(1) { background: linear-gradient(120deg,#fff0f3,#ffe4ec); }
+    .feature-tile:nth-child(2) { background: linear-gradient(120deg,#eef4ff,#dfeaff); }
+    .feature-tile:nth-child(3) { background: linear-gradient(120deg,#eafff5,#d8f7e9); }
+    .feature-tile:nth-child(4) { background: linear-gradient(120deg,#f5edff,#eee1ff); }
+    .feature-icon { font-size: 29px; line-height: 1; }
+    .feature-tile strong { display: block; margin-bottom: 4px; color: #101d63; font-size: 12px; }
+    .feature-tile small { display: block; color: #4d5a83; font-size: 10px; line-height: 1.5; }
+    .tips-impact { display: grid; grid-template-columns: 1.08fr .92fr; gap: 16px; margin: 0 0 24px; }
+    .tips-panel { padding: 23px; border-radius: 21px; border: 1px solid #f3dfe7; background: linear-gradient(135deg,#fff 0%,#fff7f8 100%); box-shadow: var(--shadow); }
+    .tips-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 19px; }
+    .tips-heading h2 { margin: 0; color: #111e64; font-size: 17px; }
+    .tip-spark { font-size: 25px; color: var(--red); }
+    .tip-list { display: grid; gap: 15px; }
+    .tip-row { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: start; }
+    .tip-emoji { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 13px; background: #fff; font-size: 22px; box-shadow: 0 3px 10px #16286b0b; }
+    .tip-row strong { display: block; margin: 2px 0 5px; color: #111b59; font-size: 12px; }
+    .tip-row p { margin: 0; color: #606b88; font-size: 11px; line-height: 1.7; }
+    .tip-side { display: flex; flex-direction: column; justify-content: space-between; border-color: #e2e8ff; background: linear-gradient(135deg,#e8f5ff,#f2eaff); }
+    .tip-side h3 { margin: 0 0 10px; color: #132371; font-size: 25px; line-height: 1.25; }
+    .tip-side p { margin: 0; color: #4c5b87; font-size: 12px; line-height: 1.85; }
+    .tip-quote { margin-top: 25px; color: #17246e; font-size: 25px; line-height: 1.25; font-weight: 900; font-style: italic; }
+    .tip-quote span { color: #ef2342; }
+    .notice { display: flex; align-items: flex-start; gap: 12px; margin: 0 0 28px; padding: 15px 17px; border: 1px solid #f0e4c8; border-radius: 14px; background: #fff9ed; color: #78603a; font-size: 11px; line-height: 1.8; }
+    .notice-icon { font-size: 19px; }
+    .bottom-cta { display: flex; align-items: center; justify-content: space-between; gap: 22px; padding: 26px 29px; margin-bottom: 26px; border: 1px solid var(--line); border-radius: 22px; background: #fff; box-shadow: var(--shadow); }
+    .bottom-cta h2 { margin: 0 0 7px; color: var(--navy); font-size: 22px; }
+    .bottom-cta p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    footer { padding: 8px 0 24px; text-align: center; color: var(--muted); font-size: 10px; line-height: 1.9; }
+    @media (max-width: 1000px) {
+      .hero { grid-template-columns: 1fr .8fr; padding: 32px 28px 20px; }
+      .hero-doctor { height: 285px; }
+      .feature-strip { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .tips-impact { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .site-header { width: min(100% - 28px,1240px); flex-wrap: wrap; }
+      .nav { order: 3; width: 100%; justify-content: space-between; gap: 10px; overflow-x: auto; padding: 5px 0; }
+      .nav a { white-space: nowrap; }
+      .header-cta { margin-left: auto; }
+      main { width: min(100% - 28px,1240px); }
+      .hero { grid-template-columns: 1fr; padding: 28px 22px 0; min-height: 0; }
+      .hero-brand { font-size: 46px; letter-spacing: -2px; }
+      .hero-tagline { font-size: 25px; }
+      .hero-doctor-wrap { min-height: 205px; }
+      .hero-doctor { height: 235px; max-width: 330px; }
+      .hero-badge { top: 8px; right: 2px; }
+      .feature-tile { padding: 13px 10px; }
+      .feature-icon { font-size: 24px; }
+      .tips-panel { padding: 18px; }
+      .bottom-cta { align-items: flex-start; flex-direction: column; padding: 22px; }
+    }
+    @media (max-width: 390px) {
+      .feature-strip { grid-template-columns: 1fr; }
+      .nav { font-size: 11px; }
+      .hero-brand { font-size: 39px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="CardioShield home">
+      <span class="brand-logo">♡</span>
+      <span>
+        <span class="brand-name" style="display:block">CardioShield</span>
+        <span class="brand-sub" style="display:block">HEALTH INTELLIGENCE</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="assessment.html">Assessment</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="health-records.html">Health Records</a>
+      <a href="#features">Features</a>
+      <a href="#heart-tips">Heart health tips</a>
+      <div id="navProfileGroup" class="nav-profile-group"></div>
+    </nav>
+    <a class="button button-primary header-cta" href="assessment.html">Start Assessment <span aria-hidden="true">→</span></a>
+  </header>
+
+  <main>
+    <div id="authStatusBanner" style="margin-bottom: 22px;"></div>
+    <section class="hero" id="home" aria-label="CardioShield welcome">
+      <div class="hero-copy">
+        <p class="eyebrow">YOUR HEART HEALTH JOURNEY STARTS HERE</p>
+        <h1 class="hero-brand">Cardio<span>Shield</span></h1>
+        <p class="hero-tagline">Predict. Prevent. Live Healthier.</p>
+        <p class="hero-description">Your heart deserves care, attention, and a healthier tomorrow. Explore an educational AI-powered heart health assessment, discover practical wellness guidance, and take small steps toward a healthier lifestyle.</p>
+        <a class="button button-primary hero-cta" href="assessment.html">Start Your Assessment <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="hero-doctor-wrap">
+        <img class="hero-doctor" src="doctor-heart.png" alt="Illustration of a doctor wearing a stethoscope and holding a heart" onerror="this.style.display='none';this.parentElement.classList.add('image-missing')">
+        <div class="hero-badge">🛡️ Your health<br><span>matters ♥</span></div>
+      </div>
+    </section>
+
+    <section id="features" class="feature-strip" aria-label="CardioShield features">
+      <a class="feature-tile" href="#heart-tips"><span class="feature-icon">❤️</span><span><strong>Stay Healthy</strong><small>Everyday heart care</small></span></a>
+      <a class="feature-tile" href="assessment.html"><span class="feature-icon">🛡️</span><span><strong>Know Your Risk</strong><small>Explore your model result</small></span></a>
+      <a class="feature-tile" href="#heart-tips"><span class="feature-icon">🩺</span><span><strong>Take Action</strong><small>Small steps that add up</small></span></a>
+      <a class="feature-tile" href="#about"><span class="feature-icon">💓</span><span><strong>Live Healthier</strong><small>Build lasting habits</small></span></a>
+    </section>
+
+    <section class="tips-impact" id="heart-tips" aria-label="Heart health tips">
+      <div class="tips-panel">
+        <div class="tips-heading"><h2>💡 Health Tips for a Healthier Heart</h2><a href="#about" style="font-size:11px;font-weight:800;color:#087f80">Learn more ↓</a></div>
+        <div class="tip-list">
+          <div class="tip-row"><span class="tip-emoji">🍎</span><div><strong>Choose heart-friendly foods</strong><p>Eat more vegetables, fruits, whole grains, beans and nuts. Limit excess salt and highly processed foods.</p></div></div>
+          <div class="tip-row"><span class="tip-emoji">👟</span><div><strong>Move a little every day</strong><p>Start with a comfortable walk and build toward regular activity suited to your health and abilities.</p></div></div>
+          <div class="tip-row"><span class="tip-emoji">🚭</span><div><strong>Avoid tobacco</strong><p>Not smoking protects your heart and blood vessels. Support is available if quitting feels difficult.</p></div></div>
+          <div class="tip-row"><span class="tip-emoji">😴</span><div><strong>Protect your sleep</strong><p>Keep a regular sleep schedule and aim for enough restful sleep for your age and needs.</p></div></div>
+          <div class="tip-row"><span class="tip-emoji">🧘</span><div><strong>Make room to unwind</strong><p>Try slow breathing, a relaxing hobby, or time with people who support you.</p></div></div>
+        </div>
+      </div>
+      <div class="tips-panel tip-side" id="about">
+        <div>
+          <div class="tips-heading"><h2>❤️ Your heart matters</h2><span class="tip-spark">✦</span></div>
+          <h3>Small changes.<br>Meaningful progress.</h3>
+          <p>Choose one healthy habit to practise today. Consistency matters more than perfection. For personal advice, speak with a qualified healthcare professional.</p>
+        </div>
+        <div class="tip-quote">Care for your heart.<br><span>Care for your future.</span> ♥</div>
+      </div>
+    </section>
+
+    <div class="notice" role="note">
+      <span class="notice-icon">ⓘ</span>
+      <div><strong>Important health information:</strong> CardioShield-AgeLess is an educational prototype, not a diagnosis or substitute for medical care. Any model output is experimental and is not a clinically validated measure of your personal risk. A low score cannot rule out heart disease. Never delay emergency care to use this website.</div>
+    </div>
+
+    <section class="bottom-cta" aria-label="Begin assessment">
+      <div>
+        <h2>Take the first step toward understanding your heart health.</h2>
+        <p>Complete an assessment to view the model output and explore educational wellness guidance.</p>
+      </div>
+      <a class="button button-primary" href="assessment.html">Begin Assessment <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+
+  <footer>
+    <strong>CardioShield-AgeLess</strong> · Health Intelligence Platform<br>
+    Educational prototype · Not a substitute for professional medical advice
+  </footer>
+  <script src="auth.js"></script>
+</body>
+</html>

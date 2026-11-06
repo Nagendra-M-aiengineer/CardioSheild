@@ -1,0 +1,2351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CardioShield-AgeLess | Health Intelligence</title>
+<script src="config.js"></script>
+<style>
+:root{
+ --navy:#101b61;
+ --blue:#176cf3;
+ --red:#ed1c35;
+ --teal:#087f80;
+ --mint:#eef4ff;
+ --bg:linear-gradient(135deg,#f7f8ff 0%,#f2f7ff 55%,#fff7f9 100%);
+ --text:#141d52;
+ --muted:#66718a;
+ --line:#e7eafd;
+ --amber:#c58b35;
+ --shadow:0 10px 28px rgba(27,43,105,.09);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;background:var(--bg);color:var(--text);
+ font-family:Arial,Helvetica,sans-serif;font-size:14px
+}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh}
+.sidebar{
+ position:fixed;inset:0 auto 0 0;width:245px;
+ background:linear-gradient(180deg,#101b61 0%,#0c154f 100%);color:white;padding:25px 17px;
+ display:flex;flex-direction:column;z-index:10;border-right:1px solid rgba(255,255,255,0.08)
+}
+.brand{display:flex;align-items:center;gap:11px;padding:0 7px 30px}
+.logo{
+ width:44px;height:44px;border-radius:15px;
+ background:linear-gradient(145deg,#ff5869,#df0029);
+ display:grid;place-items:center;font-size:25px;
+ box-shadow:0 8px 20px #f0445a40;
+}
+.brand-name{font-size:15px;font-weight:900;color:#ffffff}
+.brand-sub{font-size:9px;color:#cbd5f5;letter-spacing:1.4px;margin-top:4px}
+.nav-heading{font-size:9px;color:#93a6de;letter-spacing:1.7px;padding:12px}
+.nav{display:flex;flex-direction:column;gap:5px}
+.nav a{
+ display:flex;align-items:center;gap:12px;padding:12px;
+ border-radius:10px;color:#cbd5f5;font-size:12px;font-weight:650;
+ transition:background .15s ease,color .15s ease
+}
+.nav a:hover,.nav a.active{background:rgba(255,255,255,.16);color:white}
+.nav-icon{width:20px;text-align:center;font-size:16px}
+.side-space{flex:1}
+.side-card{
+ padding:15px;border:1px solid rgba(255,255,255,0.14);border-radius:13px;
+ background:rgba(255,255,255,0.08);margin-bottom:15px
+}
+.side-card p{font-size:10px;color:#c2d2fb;line-height:1.8}
+.side-footer{
+ border-top:1px solid rgba(255,255,255,0.12);padding:14px 7px 0;
+ color:#93a6de;font-size:10px;line-height:1.8
+}
+.main{margin-left:245px;padding:29px 34px 24px;min-width:0}
+.page{max-width:1450px;margin:auto}
+.topbar{
+ display:flex;justify-content:space-between;align-items:center;
+ gap:18px;margin-bottom:23px
+}
+.eyebrow{font-size:10px;color:var(--red);font-weight:900;letter-spacing:1.8px;margin-bottom:7px}
+h1{font-size:29px;letter-spacing:-1px;line-height:1.2;margin:0;font-weight:900;color:var(--navy)}
+.subtitle{font-size:12px;color:var(--muted);margin-top:8px}
+.top-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.btn{
+ display:inline-flex;align-items:center;justify-content:center;gap:7px;
+ padding:10px 16px;border:1px solid var(--line);border-radius:999px;
+ background:white;color:var(--text);font-size:11px;font-weight:800;
+ transition:transform .18s ease,box-shadow .18s ease
+}
+.btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn-primary{
+ background:linear-gradient(110deg,#ff4558,#d9002c);
+ border-color:var(--red);color:white;
+ box-shadow:0 6px 18px #f21b4230;
+}
+.btn-danger{color:#b54e56}
+.btn:disabled{opacity:.6;cursor:wait}
+.avatar{
+ width:38px;height:38px;border-radius:12px;background:#ffeef1;
+ color:var(--red);display:grid;place-items:center;font-weight:800
+}
+.notice{
+ display:flex;gap:10px;padding:12px 15px;background:#fff9ed;
+ border:1px solid #f0e4c8;border-radius:11px;margin-bottom:20px;
+ color:#78603a;font-size:10px;line-height:1.8
+}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:19px}
+.stat,.card{background:white;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.stat{padding:17px 18px;min-width:0}
+.stat-top{display:flex;justify-content:space-between;align-items:center}
+.stat-label{font-size:9px;color:var(--muted);font-weight:850;letter-spacing:1px}
+.stat-icon{
+ width:31px;height:31px;border-radius:10px;background:#e9f5f3;
+ color:var(--teal);display:grid;place-items:center
+}
+.stat-value{font-size:25px;font-weight:800;margin:13px 0 4px;overflow-wrap:anywhere}
+.stat-note{font-size:10px;color:var(--muted);line-height:1.6}
+.main-grid{
+ display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,.8fr);
+ gap:17px;margin-bottom:23px
+}
+.card{padding:21px;min-width:0}
+.score-card{background:linear-gradient(125deg,#fff 0%,#fff 65%,#effaf7 100%)}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.card-title{font-size:14px;font-weight:800}
+.card-subtitle{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.7}
+.pill{
+ display:inline-flex;align-items:center;gap:5px;padding:6px 9px;
+ border-radius:8px;background:var(--mint);color:var(--teal);
+ font-size:9px;font-weight:800;white-space:nowrap
+}
+.score-layout{display:flex;align-items:center;gap:25px;margin-top:24px}
+.gauge{width:150px;height:150px;flex-shrink:0;position:relative}
+.gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
+.gauge-track{fill:none;stroke:#e7efef;stroke-width:9}
+.gauge-progress{
+ fill:none;stroke:var(--teal);stroke-width:9;stroke-linecap:round;
+ stroke-dasharray:314;stroke-dashoffset:314;transition:stroke-dashoffset .7s
+}
+.gauge-center{
+ position:absolute;inset:0;display:flex;align-items:center;
+ justify-content:center;flex-direction:column
+}
+.gauge-value{font-size:34px;font-weight:850}
+.gauge-label{font-size:9px;color:var(--muted);letter-spacing:1px}
+.score-details{flex:1;min-width:0}
+.score-details h3{font-size:18px;line-height:1.4;margin:12px 0 7px}
+.score-details p{font-size:11px;color:var(--muted);line-height:1.85;margin:0 0 14px}
+.link{font-size:11px;color:var(--teal);font-weight:800}
+.snapshot-symbol{
+ height:42px;width:42px;border-radius:13px;background:#e8f5f2;
+ display:grid;place-items:center;color:var(--teal);font-size:23px
+}
+.snapshot-title{font-size:18px;font-weight:800;margin:23px 0 7px}
+.snapshot-copy{font-size:11px;color:var(--muted);line-height:1.85}
+.rule{height:1px;background:var(--line);margin:18px 0}
+.snapshot-meta{display:flex;justify-content:space-between;gap:10px;font-size:10px}
+.snapshot-meta span{color:var(--muted)}
+.section-head{
+ display:flex;justify-content:space-between;align-items:flex-end;
+ gap:12px;margin:27px 0 13px
+}
+.section-head h2{font-size:18px;margin:0;font-weight:800}
+.section-head p{font-size:10px;color:var(--muted);margin:5px 0 0}
+.kicker{font-size:9px;letter-spacing:1px;color:var(--teal);font-weight:850}
+.insight-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.insight{background:white;border:1px solid var(--line);border-radius:14px;padding:17px}
+.insight-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.insight-icon{
+ width:37px;height:37px;border-radius:12px;background:#edf7f5;
+ display:grid;place-items:center;font-size:18px
+}
+.insight-number{font-size:9px;color:#a1afb6;font-weight:800}
+.insight h3{font-size:12px;margin:0 0 7px}
+.insight p{font-size:10px;color:var(--muted);line-height:1.85;margin:0}
+.routine-cta{display:flex;align-items:center;gap:18px;margin-top:22px;padding:22px 24px;background:linear-gradient(115deg,#ffffff 0%,#f0faf8 100%);border-color:#dcefeb}
+.routine-cta-icon{width:52px;height:52px;flex:0 0 52px;border-radius:16px;display:grid;place-items:center;background:#e3f5f1;color:#14877e;font-size:29px}
+.routine-cta-copy{flex:1;min-width:0}
+.routine-cta-copy h2{font-size:17px;margin:6px 0;color:#102c3d}
+.routine-cta-copy p{font-size:11px;line-height:1.8;color:#71838d;margin:0;max-width:680px}
+.routine-cta-link{white-space:nowrap}
+@media(max-width:700px){.routine-cta{align-items:flex-start;flex-wrap:wrap;padding:18px}.routine-cta-copy{flex-basis:calc(100% - 75px)}.routine-cta-link{width:100%}}
+.planner{margin-top:22px}
+.planner-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:22px;margin-top:24px
+}
+.planner-label{
+ display:flex;justify-content:space-between;gap:8px;
+ font-size:11px;font-weight:750;margin-bottom:13px
+}
+.planner-label output{color:var(--teal);font-weight:850}
+input[type=range]{width:100%;accent-color:var(--teal)}
+.helper{font-size:9px;color:var(--muted);line-height:1.8;margin-top:9px}
+.progress-list{margin-top:23px;padding-top:19px;border-top:1px solid var(--line)}
+.progress-item{margin-bottom:17px}
+.progress-head{display:flex;justify-content:space-between;gap:10px;font-size:10px;margin-bottom:8px}
+.progress-head span{color:var(--muted);text-align:right}
+.track{height:6px;background:#edf2f4;border-radius:9px;overflow:hidden}
+.bar{
+ height:100%;width:0;background:linear-gradient(90deg,#14877e,#45b7a7);
+ border-radius:9px;transition:width .3s
+}
+.planner-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:19px}
+.message{font-size:10px;color:var(--muted);margin:13px 0 0;line-height:1.7}
+.prevention{margin-top:20px}
+.prevention-content{margin-top:17px}
+.prevention-top{display:flex;justify-content:space-between;align-items:flex-start;gap:15px}
+.prevention-content h3{font-size:16px;margin:12px 0 7px}
+.prevention-content p{font-size:11px;color:var(--muted);line-height:1.85;margin:0}
+.prevention-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:19px}
+.prevention-tip{padding:14px;background:#f7fafb;border:1px solid #edf2f4;border-radius:12px}
+.prevention-tip span{font-size:19px}
+.prevention-tip h4{font-size:11px;margin:9px 0 5px}
+.prevention-tip p{font-size:10px;line-height:1.8;color:var(--muted);margin:0}
+.emergency{
+ background:#fff4f2;border:1px solid #f2dcd8;color:#874340;
+ padding:15px;border-radius:12px;margin-top:17px
+}
+.emergency h3{font-size:12px;margin:0 0 6px}
+.emergency p{font-size:10px;line-height:1.85;margin:0}
+.sources{display:flex;flex-wrap:wrap;gap:17px;margin-top:15px}
+.sources a{font-size:10px;font-weight:750;color:var(--teal)}
+.details-area{margin-top:25px}
+details{
+ background:white;border:1px solid var(--line);border-radius:13px;
+ margin-bottom:10px;box-shadow:0 3px 12px #102c3d04
+}
+summary{
+ display:flex;justify-content:space-between;gap:12px;
+ cursor:pointer;list-style:none;padding:16px 18px;font-size:11px;font-weight:800
+}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"＋";color:var(--teal);font-size:16px}
+details[open] summary:after{content:"−"}
+.details-body{padding:0 18px 19px}
+.muted{font-size:10px;color:var(--muted);line-height:1.8}
+.data-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:14px}
+.data-item{padding:11px;border-radius:9px;background:#f6f9fa;min-width:0}
+.data-key{font-size:9px;color:var(--muted);overflow-wrap:anywhere}
+.data-val{font-size:11px;font-weight:750;margin-top:5px;overflow-wrap:anywhere}
+.empty{padding:15px;border-radius:10px;background:#f6f9fa;font-size:11px;color:var(--muted);line-height:1.8}
+.shap-row{
+ display:grid;grid-template-columns:minmax(90px,1fr) 2fr 65px;
+ gap:10px;align-items:center;margin:13px 0;font-size:10px
+}
+.shap-track{height:7px;background:#edf2f4;border-radius:8px;overflow:hidden}
+.shap-bar{height:100%;border-radius:8px}
+.shap-value{text-align:right;font-variant-numeric:tabular-nums}
+.global-images{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.global-image{width:100%;height:auto;border:1px solid var(--line);border-radius:10px;display:block}
+.report-card{
+ background:white;border:1px solid var(--line);border-radius:14px;
+ padding:18px 20px;margin-bottom:14px;box-shadow:0 3px 12px rgba(16,44,61,0.04);
+ transition:transform .18s ease,box-shadow .18s ease;
+}
+.report-card:hover{box-shadow:0 8px 24px rgba(16,44,61,0.08)}
+.report-card.active-report{border-color:var(--teal);border-width:2px;background:#fbfefd}
+.report-card-top{
+ display:flex;align-items:center;justify-content:space-between;
+ gap:14px;flex-wrap:wrap;margin-bottom:12px
+}
+.report-badge-group{display:flex;align-items:center;gap:12px}
+.report-score-pill{
+ display:inline-flex;align-items:center;gap:6px;padding:6px 14px;
+ border-radius:999px;font-weight:800;font-size:13px
+}
+.report-score-pill.low{background:#e7f7f0;color:#11756d}
+.report-score-pill.middle{background:#fff6e6;color:#92580a}
+.report-score-pill.high{background:#ffebee;color:#b52a37}
+.report-date{font-size:12px;color:var(--navy);font-weight:700}
+.report-id{font-size:10px;color:var(--muted);font-family:monospace;margin-top:2px}
+.report-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.report-actions .btn{padding:7px 12px;font-size:11px}
+.report-chips{
+ display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;
+ padding-top:10px;border-top:1px dashed var(--line)
+}
+.report-chip{
+ background:#f6f9fa;padding:5px 10px;border-radius:8px;
+ font-size:11px;color:#496372
+}
+.report-chip strong{color:var(--navy);margin-left:3px}
+.report-active-indicator{
+ display:inline-flex;align-items:center;gap:4px;
+ font-size:10px;font-weight:800;color:var(--teal);
+ background:#e6f6f4;padding:3px 9px;border-radius:999px
+}
+.reports-empty{
+ padding:32px 20px;text-align:center;background:white;
+ border:1.5px dashed var(--line);border-radius:14px;color:var(--muted)
+}
+.reports-empty-icon{font-size:36px;margin-bottom:8px}
+.reports-empty h3{font-size:16px;color:var(--navy);margin:0 0 6px}
+.reports-empty p{font-size:12px;margin:0 0 16px;line-height:1.6}
+.bottom-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:21px}
+.footer{text-align:center;color:var(--muted);font-size:9px;line-height:1.9;padding:26px 0 5px}
+@media(max-width:1200px){
+ .main{padding:24px 22px}
+ .sidebar{width:220px}
+ .main{margin-left:220px}
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .data-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:900px){.main-grid{grid-template-columns:1fr}}
+@media(max-width:700px){
+ .sidebar{position:relative;width:100%;inset:auto;padding:15px}
+ .brand{padding:0 5px 15px}
+ .nav-heading,.side-card,.side-footer,.side-space{display:none}
+ .nav{flex-direction:row;gap:5px;overflow-x:auto}
+ .nav a{white-space:nowrap;padding:9px 10px;font-size:10px}
+ .app{display:block}
+ .main{margin:0;padding:21px 14px}
+ .topbar{align-items:flex-start;flex-direction:column}
+ .top-actions{width:100%}
+ .top-actions .btn{flex:1}
+ h1{font-size:25px}
+ .stats{gap:10px}
+ .stat{padding:14px}
+ .stat-value{font-size:22px}
+ .score-layout{gap:16px}
+ .gauge{width:120px;height:120px}
+ .gauge-value{font-size:28px}
+ .score-details h3{font-size:15px}
+ .insight-grid,.planner-grid,.prevention-grid{grid-template-columns:1fr}
+ .data-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .global-images{grid-template-columns:1fr}
+ .card{padding:17px}
+}
+@media(max-width:390px){
+ .score-layout{flex-direction:column;align-items:center}
+ .score-details{text-align:center}
+}
+@media print{
+ .sidebar,.top-actions,.bottom-actions,.planner-actions,input[type=range],.notice{display:none!important}
+ .main{margin:0;padding:0}
+ body{background:white}
+ .card,.stat,details{box-shadow:none;break-inside:avoid}
+}
+
+/* ===== CardioShield Heart-First UI refresh ===== */
+:root{
+ --navy:#101b61; --teal:#087f80; --mint:#e8f8f2; --bg:#f4f7ff;
+ --text:#141d52; --muted:#66718a; --line:#e7eafd; --red:#ed1c35;
+ --shadow:0 10px 28px rgba(27,43,105,.09);
+}
+body{background:linear-gradient(135deg,#f7f8ff 0%,#f2f7ff 55%,#fff7f9 100%);color:var(--text)}
+.sidebar{background:#fff;color:var(--navy);border-right:1px solid #e7eafd;box-shadow:5px 0 24px rgba(22,42,100,.04)}
+.logo{background:linear-gradient(145deg,#ff5869,#df0029);color:white;box-shadow:0 8px 20px #f0445a35}
+.brand-name{font-size:17px;color:#10227a}.brand-sub{color:#7580a1;letter-spacing:.8px}
+.nav-heading{color:#7d86a4}
+.nav a{color:#26315f;border-radius:14px;padding:13px 12px;font-size:13px}
+.nav a:hover,.nav a.active{background:linear-gradient(110deg,#176cf3,#0a56df);color:#fff;box-shadow:0 7px 18px #176cf333}
+.side-card{background:linear-gradient(145deg,#f0f2ff,#e8f2ff);border:1px solid #dfe5ff;color:#16256b}
+.side-card p{color:#657094}.side-footer{border-color:#e7eafd;color:#77809f}
+.main{padding:24px 28px 32px}
+.topbar{margin-bottom:18px}
+.eyebrow{color:#ed334d}
+h1{color:#10227a;font-size:28px}
+.subtitle{color:#66718a}
+.btn{border-radius:12px;padding:11px 15px}
+.btn-primary{background:linear-gradient(110deg,#ff4558,#d9002c);border-color:#e7193c;box-shadow:0 7px 18px #f21b4230}
+.stat,.card{border-color:#e7eafd;box-shadow:0 8px 24px rgba(27,43,105,.06);border-radius:19px}
+.stat-icon,.snapshot-symbol{background:#fff0f3;color:#ed1c3b}
+.stat-value{color:#13236d}
+.pill{background:#e6f8f2;color:#087f80}
+.insight{border-radius:17px;border-color:#e7eafd;box-shadow:0 5px 15px #1b2b6908}
+.insight-icon{background:#fff0f3;color:#ed1c3b}
+.prevention-tip{background:#f8f9ff;border-color:#e8eaff;border-radius:14px}
+.hero-heart{
+ position:relative;display:grid;grid-template-columns:minmax(0,1.02fr) minmax(300px,.98fr);
+ align-items:center;min-height:300px;overflow:hidden;border-radius:23px;margin:0 0 17px;
+ padding:28px 30px;background:linear-gradient(110deg,#dff2ff 0%,#bfe4ff 45%,#397de0 100%);
+ box-shadow:0 14px 32px rgba(37,83,183,.16);isolation:isolate
+}
+.hero-heart:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 72% 40%,#fff9 0 13%,transparent 35%),linear-gradient(90deg,#eaf8ff 0%,#d8efffbb 42%,transparent 73%)}
+.hero-copy{position:relative;z-index:2;max-width:580px}
+.hero-brand{font-size:clamp(32px,4vw,58px);font-weight:900;letter-spacing:-2px;line-height:1.02;color:#10267d;margin:0 0 12px}
+.hero-brand span{color:#ec1d3d}
+.hero-tagline{font-size:clamp(20px,2.2vw,30px);font-weight:850;color:#10194d;line-height:1.18;margin:0 0 12px}
+.hero-description{font-size:14px;line-height:1.8;color:#293a70;max-width:460px;margin:0 0 20px}
+.hero-cta{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(110deg,#ff4357,#d8002d);color:#fff;border-radius:999px;padding:14px 23px;font-size:13px;font-weight:850;box-shadow:0 9px 22px #e51d4038}
+.hero-cta:hover{transform:translateY(-1px);filter:brightness(1.03)}
+.hero-doctor-wrap{align-self:stretch;min-height:245px;position:relative;display:flex;align-items:flex-end;justify-content:center}
+.hero-doctor{display:block;width:100%;height:300px;max-width:470px;object-fit:contain;object-position:center bottom;mix-blend-mode:multiply;filter:drop-shadow(0 10px 18px #183c7a20)}
+.hero-badge{position:absolute;right:0;top:12px;background:#ffffffd9;backdrop-filter:blur(8px);border:1px solid #ffffff;border-radius:15px;padding:11px 13px;font-size:11px;font-weight:800;color:#13256e;box-shadow:0 6px 18px #143d7a16}
+.hero-badge span{color:#ed1c3b}
+.feature-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 18px}
+.feature-tile{display:flex;align-items:center;gap:12px;padding:15px 14px;border-radius:17px;border:1px solid #e7eafd;min-width:0;box-shadow:0 5px 15px #1b2b6908}
+.feature-tile:nth-child(1){background:linear-gradient(120deg,#fff0f3,#ffe4ec)}
+.feature-tile:nth-child(2){background:linear-gradient(120deg,#eef4ff,#dfeaff)}
+.feature-tile:nth-child(3){background:linear-gradient(120deg,#eafff5,#d8f7e9)}
+.feature-tile:nth-child(4){background:linear-gradient(120deg,#f5edff,#eee1ff)}
+.feature-icon{font-size:29px;line-height:1}
+.feature-tile strong{display:block;font-size:12px;color:#101d63;margin-bottom:4px}
+.feature-tile small{display:block;font-size:10px;line-height:1.4;color:#4d5a83}
+.tips-impact{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);gap:16px;margin:0 0 22px}
+.tips-panel{border-radius:20px;padding:21px;background:linear-gradient(135deg,#fff 0%,#fff7f8 100%);border:1px solid #f3dfe7;box-shadow:var(--shadow)}
+.tips-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 17px}
+.tips-heading h2{font-size:17px;color:#111e64;margin:0}
+.tips-heading .tip-spark{font-size:24px}
+.tip-list{display:grid;gap:13px}
+.tip-row{display:grid;grid-template-columns:38px 1fr;gap:11px;align-items:start}
+.tip-emoji{width:36px;height:36px;display:grid;place-items:center;background:#fff;border-radius:12px;font-size:22px;box-shadow:0 3px 10px #16286b0b}
+.tip-row strong{display:block;font-size:12px;color:#111b59;margin:1px 0 4px}
+.tip-row p{font-size:10.5px;color:#606b88;line-height:1.65;margin:0}
+.tip-side{display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(135deg,#e8f5ff,#f2eaff);border-color:#e2e8ff}
+.tip-side h3{font-size:20px;line-height:1.25;color:#132371;margin:0 0 8px}
+.tip-side p{font-size:12px;color:#4c5b87;line-height:1.8;margin:0}
+.tip-quote{font-size:23px;font-weight:900;font-style:italic;color:#17246e;line-height:1.2;margin-top:20px}
+.tip-quote span{color:#ef2342}
+.section-head h2{color:#111e64}
+.notice{border-radius:14px}
+@media(max-width:1050px){
+ .hero-heart{grid-template-columns:1fr .75fr;padding:23px}
+ .hero-doctor{height:260px}
+ .feature-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .tips-impact{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+ .sidebar{position:relative;width:100%;inset:auto;padding:13px}
+ .brand{padding-bottom:12px}
+ .nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .nav-heading,.side-space,.side-card,.side-footer{display:none}
+ .main{margin-left:0;padding:15px}
+ .hero-heart{grid-template-columns:1fr;padding:22px 20px 0}
+ .hero-doctor-wrap{min-height:180px}
+ .hero-doctor{height:230px;max-width:340px}
+ .hero-badge{right:4px;top:4px}
+ .feature-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .feature-tile{padding:12px 10px}
+ .tips-impact{grid-template-columns:1fr}
+}
+@media(max-width:460px){
+ .hero-brand{font-size:35px}
+ .hero-tagline{font-size:22px}
+ .feature-strip{grid-template-columns:1fr 1fr}
+ .feature-icon{font-size:23px}
+ .feature-tile strong{font-size:11px}
+}
+
+/* ===== High-visibility heart score: aligned with the bright index-page look ===== */
+.score-card{
+ background:linear-gradient(135deg,#fff 0%,#f8fbff 48%,#fff0f3 100%);
+ border:1px solid #dfe7ff;position:relative;overflow:hidden;
+ box-shadow:0 14px 34px rgba(30,62,145,.12)
+}
+.score-card:before{content:"";position:absolute;inset:0 auto 0 0;width:6px;background:linear-gradient(180deg,#176cf3,#ed1c3b)}
+.score-card .card-title{font-size:16px;color:#10227a}
+.score-card .card-subtitle{font-size:11px}
+.risk-hero-band{display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:13px;align-items:center;margin-top:19px;padding:17px 18px;border:1px solid #e4e9ff;border-radius:19px;background:linear-gradient(110deg,#edf4ff,#fff 64%,#fff0f3);transition:background .25s,border-color .25s}
+.risk-alert-icon{width:52px;height:52px;display:grid;place-items:center;border-radius:17px;background:#fff0f3;color:#ed1c3b;font-size:31px;box-shadow:0 6px 16px #ed1c3b17}
+.risk-alert-kicker{font-size:9px;font-weight:900;letter-spacing:1.25px;color:#65718d;margin-bottom:5px}
+.risk-alert-level{font-size:clamp(17px,2vw,23px);line-height:1.15;font-weight:950;color:#14256f;letter-spacing:-.4px}
+.risk-alert-message{font-size:11px;line-height:1.6;color:#586582;margin-top:5px;max-width:430px}
+.risk-alert-score{font-size:clamp(30px,4vw,43px);line-height:1;font-weight:950;letter-spacing:-1.5px;color:#14256f;white-space:nowrap;text-align:right}
+.risk-alert-score small{font-size:12px;letter-spacing:0;font-weight:800;color:#73809a}
+.risk-hero-band[data-band="low"]{background:linear-gradient(110deg,#e4faf1,#fff 68%);border-color:#bdebd8}
+.risk-hero-band[data-band="low"] .risk-alert-icon{background:#d8f7e9;color:#07825f}
+.risk-hero-band[data-band="low"] .risk-alert-level,.risk-hero-band[data-band="low"] .risk-alert-score{color:#087a5c}
+.risk-hero-band[data-band="middle"]{background:linear-gradient(110deg,#fff5dc,#fff 68%);border-color:#f2dca3}
+.risk-hero-band[data-band="middle"] .risk-alert-icon{background:#fff0c5;color:#a86b00}
+.risk-hero-band[data-band="middle"] .risk-alert-level,.risk-hero-band[data-band="middle"] .risk-alert-score{color:#9a6200}
+.risk-hero-band[data-band="high"]{background:linear-gradient(110deg,#ffe7eb,#fff 68%);border-color:#f3b8c2}
+.risk-hero-band[data-band="high"] .risk-alert-icon{background:#ffdbe2;color:#c91537;animation:heartAttention 1.8s ease-in-out infinite}
+.risk-hero-band[data-band="high"] .risk-alert-level,.risk-hero-band[data-band="high"] .risk-alert-score{color:#c91537}
+@keyframes heartAttention{0%,100%{transform:scale(1);box-shadow:0 6px 16px #ed1c3b17}50%{transform:scale(1.06);box-shadow:0 8px 22px #ed1c3b35}}
+.score-layout{margin-top:17px;gap:22px}
+.gauge{width:166px;height:166px;filter:drop-shadow(0 7px 12px #1d3b7714)}
+.gauge-track{stroke:#e6ebf7;stroke-width:10}
+.gauge-progress{stroke-width:10}
+.gauge-value{font-size:37px;color:#14256f}
+.score-details h3{font-size:20px;color:#14256f;margin-top:10px}
+.score-details p{font-size:12px;line-height:1.75}
+.score-card .pill#scoreTag{font-size:10px;padding:8px 11px;border-radius:999px}
+@media(max-width:600px){
+ .risk-hero-band{grid-template-columns:43px minmax(0,1fr);padding:13px;gap:10px}
+ .risk-alert-icon{width:42px;height:42px;font-size:25px;border-radius:14px}
+ .risk-alert-score{grid-column:2;text-align:left;font-size:31px;margin-top:-2px}
+ .risk-alert-score small{font-size:11px}
+ .gauge{width:135px;height:135px}
+ .gauge-value{font-size:31px}
+}
+
+
+/* Focus dashboard immediately on the saved risk assessment */
+.topbar{margin-bottom:16px}
+.main-grid{margin-top:0;margin-bottom:18px}
+.score-card{border:1px solid #dce5fb;background:linear-gradient(135deg,#ffffff 0%,#f7f9ff 58%,#edf4ff 100%)}
+.risk-hero-band{
+ display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:16px;
+ padding:20px 22px;margin-top:20px;border:2px solid #dbe4f5;border-radius:20px;
+ background:linear-gradient(110deg,#f4f7ff 0%,#eef4ff 58%,#ffffff 100%);
+ box-shadow:0 10px 26px rgba(28,57,123,.10);
+ transition:background .25s,border-color .25s,box-shadow .25s;
+}
+.risk-alert-icon{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;font-size:32px;background:#e4ebff;color:#203e9a;box-shadow:inset 0 0 0 1px #d2ddff}
+.risk-alert-kicker{font-size:10px;font-weight:900;letter-spacing:1.6px;color:#53648f;margin-bottom:6px}
+.risk-alert-level{font-size:clamp(23px,2.2vw,34px);line-height:1.08;font-weight:900;letter-spacing:-.7px;color:#203477}
+.risk-alert-message{font-size:12px;line-height:1.65;margin-top:7px;color:#43516e;max-width:520px}
+.risk-alert-score{font-size:clamp(34px,3vw,48px);line-height:1;font-weight:950;letter-spacing:-1.5px;color:#203477;text-align:right;white-space:nowrap}
+.risk-alert-score small{display:block;font-size:11px;font-weight:800;letter-spacing:.4px;margin-top:7px;color:#657395}
+.risk-hero-band[data-band="low"]{background:linear-gradient(110deg,#e9fbf2,#f4fff8 58%,#fff);border-color:#71d6a2;box-shadow:0 12px 30px rgba(21,148,91,.14)}
+.risk-hero-band[data-band="low"] .risk-alert-icon{background:#c9f5dc;color:#087b48}
+.risk-hero-band[data-band="low"] .risk-alert-level,.risk-hero-band[data-band="low"] .risk-alert-score{color:#087b48}
+.risk-hero-band[data-band="low"] .risk-alert-kicker{color:#16875a}
+.risk-hero-band[data-band="moderate"]{background:linear-gradient(110deg,#fff6df,#fffaf0 58%,#fff);border-color:#f2bd4b;box-shadow:0 12px 30px rgba(196,126,13,.16)}
+.risk-hero-band[data-band="moderate"] .risk-alert-icon{background:#ffebba;color:#945800}
+.risk-hero-band[data-band="moderate"] .risk-alert-level,.risk-hero-band[data-band="moderate"] .risk-alert-score{color:#945800}
+.risk-hero-band[data-band="moderate"] .risk-alert-kicker{color:#a66a05}
+.risk-hero-band[data-band="high"]{background:linear-gradient(110deg,#fff0f1,#fff5f5 58%,#fff);border-color:#f16a79;box-shadow:0 12px 34px rgba(216,32,61,.20);animation:riskPulse 2.6s ease-in-out infinite}
+.risk-hero-band[data-band="high"] .risk-alert-icon{background:#ffdadd;color:#c20d2c}
+.risk-hero-band[data-band="high"] .risk-alert-level,.risk-hero-band[data-band="high"] .risk-alert-score{color:#c20d2c}
+.risk-hero-band[data-band="high"] .risk-alert-kicker{color:#c20d2c}
+@keyframes riskPulse{0%,100%{box-shadow:0 12px 28px rgba(216,32,61,.14)}50%{box-shadow:0 14px 38px rgba(216,32,61,.26)}}
+@media(max-width:800px){.main-grid{grid-template-columns:1fr}.risk-hero-band{grid-template-columns:48px minmax(0,1fr);padding:16px;gap:12px}.risk-alert-icon{width:48px;height:48px}.risk-alert-score{grid-column:2;text-align:left;font-size:34px}.risk-alert-score small{display:inline;margin-left:5px}.score-layout{gap:16px}}
+@media(prefers-reduced-motion:reduce){.risk-hero-band[data-band="high"]{animation:none}}
+
+/* Home navigation and heart illustration moved into Assessment analytics */
+.analytics-card-head{gap:12px}
+.analytics-head-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;min-width:0}
+.analytics-heart-image{width:76px;height:76px;object-fit:contain;display:block;filter:drop-shadow(0 6px 10px rgba(220,35,67,.13))}
+.analytics-heart-image[hidden]{display:none}
+@media(max-width:600px){
+ .analytics-head-actions{gap:6px}
+ .analytics-heart-image{width:52px;height:52px}
+ .analytics-card-head .pill{font-size:8px;padding:6px 7px}
+}
+
+
+/* DAILY HEART-HEALTH CHALLENGES */
+.daily-challenge{margin-top:24px;padding:22px;border:1px solid #d6e8e9;border-radius:20px;background:linear-gradient(135deg,#f2fffc 0%,#f7f9ff 58%,#fff7f4 100%)}
+.challenge-heading{display:flex;align-items:center;justify-content:space-between;gap:18px}.challenge-kicker{font-size:10px;font-weight:800;letter-spacing:1.3px;color:#16877d}.challenge-heading h3{margin:7px 0 5px;font-size:22px;color:#12364b}.challenge-heading p{margin:0;color:#6d7e89;line-height:1.6;max-width:620px;font-size:12px}.points-orb{width:82px;height:82px;flex:0 0 82px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,#153b52,#16877d);color:white;box-shadow:0 9px 20px #16877d30}.points-orb strong{font-size:25px;line-height:1}.points-orb span{font-size:9px;font-weight:800;letter-spacing:1px;margin-top:5px}.daily-progress-head{display:flex;justify-content:space-between;margin:22px 0 8px;font-size:12px;color:#244454}.daily-progress-track{height:10px;border-radius:20px;background:#dfe9eb;overflow:hidden}.daily-progress-track div{height:100%;width:0;background:linear-gradient(90deg,#1cae91,#7bd8ad);border-radius:20px;transition:width .3s ease}.daily-goals{display:grid;gap:9px;margin-top:17px}.daily-goal{display:grid;grid-template-columns:42px minmax(0,1fr) auto auto;align-items:center;gap:12px;padding:12px;background:#ffffffd9;border:1px solid #e4eeee;border-radius:14px;transition:transform .18s,border-color .18s}.daily-goal:hover{transform:translateY(-1px);border-color:#b8dcd6}.goal-emoji{height:38px;width:38px;border-radius:12px;background:#eaf8f5;display:grid;place-items:center;font-size:20px}.goal-copy{display:flex;flex-direction:column;gap:4px}.goal-copy strong{font-size:12px;color:#1b3b4b}.goal-copy span{font-size:11px;color:#71828c;line-height:1.4}.goal-points{white-space:nowrap;font-size:11px;font-weight:800;color:#138472}.goal-complete{border:0;border-radius:10px;padding:9px 12px;background:#e4f6f1;color:#117566;font-weight:800;font-size:11px;min-width:88px}.goal-complete:hover{background:#c9eee4}.daily-goal.is-complete{border-color:#9ad9c8;background:#f2fcf8}.daily-goal.is-complete .goal-emoji{background:#d9f5e9}.daily-goal.is-complete .goal-complete{background:#167f70;color:white}.daily-goal.is-complete .goal-complete:before{content:'✓ '}.challenge-footer{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:18px;font-size:11px;color:#6d7e89}.rewards-link{display:inline-flex;align-items:center;gap:8px;background:#ed3152;color:white!important;font-weight:800;padding:11px 15px;border-radius:11px;box-shadow:0 7px 16px #ed315229;white-space:nowrap}.challenge-note{font-size:10px;line-height:1.5;color:#87949b;margin:14px 0 0}.nav a[href="rewards.html"]{color:#b9f2e6}
+@media(max-width:700px){.daily-challenge{padding:15px}.challenge-heading h3{font-size:19px}.daily-goal{grid-template-columns:36px minmax(0,1fr) auto;gap:9px}.goal-emoji{width:34px;height:34px}.goal-points{grid-column:2;grid-row:2}.goal-complete{grid-column:3;grid-row:1 / span 2}.challenge-footer{align-items:flex-start;flex-direction:column}.rewards-link{white-space:normal}.points-orb{width:68px;height:68px;flex-basis:68px}.points-orb strong{font-size:22px}}
+
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<aside class="sidebar">
+ <div class="brand">
+  <div class="logo">♡</div>
+  <div>
+   <div class="brand-name">CardioShield</div>
+   <div class="brand-sub">HEALTH INTELLIGENCE</div>
+  </div>
+ </div>
+ <div class="nav-heading">Workspace</div>
+ <nav class="nav">
+  <a href="index.html" aria-label="Go to CardioShield home page"><span class="nav-icon">⌂</span>Home</a>
+  <a class="active" href="#overview"><span class="nav-icon">⌂</span>Overview</a>
+  <a href="#insights"><span class="nav-icon">✳</span>Health insights</a>
+  <a href="routine.html"><span class="nav-icon">◷</span>My routine</a>
+  <a href="#prevention"><span class="nav-icon">♡</span>Prevention</a>
+  <a href="health-records.html"><span class="nav-icon">▤</span>Health records</a>
+  <a href="#explainability"><span class="nav-icon">⌁</span>Model insights</a>
+  <a href="profile.html"><span class="nav-icon">👤</span>My Profile</a>
+  <a href="index.html" data-action="logout" title="Log out to home page"><span class="nav-icon">↪</span>Log Out</a>
+ </nav>
+ <div class="side-space"></div>
+ <div class="side-card">
+  <strong>Small steps matter</strong>
+  <p>Build healthy habits and discuss concerns with a qualified healthcare professional.</p>
+ </div>
+ <div class="side-footer">CardioShield-AgeLess<br>Educational prototype · Not a diagnosis</div>
+</aside>
+
+<main class="main">
+<div class="page">
+
+<header class="topbar" id="overview">
+ <div>
+  <div class="eyebrow">HEALTH INTELLIGENCE PLATFORM</div>
+  <h1>Your health overview</h1>
+  <div class="subtitle">Understand your latest result and focus on your next steps.</div>
+ </div>
+ <div class="top-actions">
+  <div id="navProfileGroup" style="display:inline-flex;align-items:center;"></div>
+  <a class="btn" href="profile.html">◎ Edit profile</a>
+  <button type="button" class="btn" id="dashLogoutBtn" data-action="logout" title="Log out to home page" style="cursor:pointer;">↪ Log Out</button>
+  <a class="btn btn-primary" href="assessment.html">＋ New assessment</a>
+  <div class="avatar">♡</div>
+ </div>
+</header>
+
+<div id="authStatusBanner" style="margin-bottom: 20px;"></div>
+
+
+<section class="main-grid">
+ <article class="card score-card">
+  <div class="card-head analytics-card-head">
+   <div><div class="card-title">Assessment analytics</div><div class="card-subtitle">Your latest saved model result</div></div>
+   <div class="analytics-head-actions">
+    <img id="assessmentHeartImage" class="analytics-heart-image" src="images/heart-low.png" alt="Heart illustration matching the current display band" hidden onerror="this.hidden=true">
+    <span class="pill">MODEL OVERVIEW</span>
+   </div>
+  </div>
+  <div class="risk-hero-band" id="riskHeroBand" data-band="none" aria-live="polite">
+   <div class="risk-alert-icon" id="riskAlertIcon" aria-hidden="true">♡</div>
+   <div class="risk-alert-copy">
+    <div class="risk-alert-kicker">YOUR LATEST MODEL OUTPUT</div>
+    <div class="risk-alert-level" id="riskAlertLevel">Assessment needed</div>
+    <div class="risk-alert-message" id="riskAlertMessage">Complete an assessment to see your saved score here.</div>
+   </div>
+   <div class="risk-alert-score" id="riskAlertScore">—<small>/100</small></div>
+  </div>
+  <div class="score-layout">
+   <div class="gauge">
+    <svg viewBox="0 0 120 120" aria-label="Experimental model score">
+     <circle class="gauge-track" cx="60" cy="60" r="50"></circle>
+     <circle class="gauge-progress" id="gaugeProgress" cx="60" cy="60" r="50"></circle>
+    </svg>
+    <div class="gauge-center">
+     <div class="gauge-value" id="gaugeValue">—</div>
+     <div class="gauge-label">OUT OF 100</div>
+    </div>
+   </div>
+   <div class="score-details">
+    <span class="pill" id="scoreTag">● Awaiting assessment</span>
+    <h3 id="scoreTitle">Your score will appear here</h3>
+    <p id="scoreDescription">Complete and save an assessment to view your experimental model output.</p>
+    <a class="link" id="scoreAction" href="assessment.html">Start an assessment →</a>
+   </div>
+  </div>
+ </article>
+
+ <article class="card">
+  <div class="card-head">
+   <div><div class="card-title">Health snapshot</div><div class="card-subtitle">A quick look at your latest result</div></div>
+   <div class="snapshot-symbol">♡</div>
+  </div>
+  <div class="snapshot-title" id="snapshotTitle">Ready when you are</div>
+  <div class="snapshot-copy" id="snapshotText">Your saved assessment summary will appear here.</div>
+  <div class="rule"></div>
+  <div class="snapshot-meta"><span>Saved health information</span><a class="link" href="#records">View details ↗</a></div>
+ </article>
+</section>
+
+<div class="notice">
+ <span>ⓘ</span>
+ <div><strong>Educational prototype, not a diagnosis.</strong>
+ Score bands are illustrative and not clinically validated.
+ A low score cannot rule out heart disease. Never delay emergency care to check this dashboard.</div>
+</div>
+
+<section class="stats">
+ <article class="stat">
+  <div class="stat-top"><span class="stat-label">MODEL SCORE</span><span class="stat-icon">◉</span></div>
+  <div class="stat-value" id="statScore">—</div>
+  <div class="stat-note">Experimental model output</div>
+ </article>
+ <article class="stat">
+  <div class="stat-top"><span class="stat-label">AGE</span><span class="stat-icon">♙</span></div>
+  <div class="stat-value" id="statAge">—</div>
+  <div class="stat-note">Saved assessment or profile</div>
+ </article>
+ <article class="stat">
+  <div class="stat-top"><span class="stat-label">ASSESSMENT DATE</span><span class="stat-icon">▦</span></div>
+  <div class="stat-value" id="statDate" style="font-size:16px">Not recorded</div>
+  <div class="stat-note">Date linked to saved result</div>
+ </article>
+ <article class="stat">
+  <div class="stat-top"><span class="stat-label">SHAP FEATURES</span><span class="stat-icon">⌁</span></div>
+  <div class="stat-value" id="statShap">0</div>
+  <div class="stat-note">Individual contributions available</div>
+ </article>
+</section>
+
+
+
+<section id="insights">
+ <div class="section-head">
+  <div><h2>Health insights</h2><p>Simple ideas for everyday heart health</p></div>
+  <span class="kicker">YOUR WELLNESS</span>
+ </div>
+ <div class="insight-grid">
+  <article class="insight">
+   <div class="insight-top"><div class="insight-icon">🩺</div><span class="insight-number">01</span></div>
+   <h3>Know your numbers</h3>
+   <p>Discuss appropriate blood pressure, cholesterol and glucose checks with a healthcare professional.</p>
+  </article>
+  <article class="insight">
+   <div class="insight-top"><div class="insight-icon">🥗</div><span class="insight-number">02</span></div>
+   <h3>Everyday balance</h3>
+   <p>Choose balanced meals, avoid tobacco and build activity into your routine as appropriate.</p>
+  </article>
+  <article class="insight">
+   <div class="insight-top"><div class="insight-icon">🌙</div><span class="insight-number">03</span></div>
+   <h3>Rest and recovery</h3>
+   <p>Aim for regular, sufficient sleep and find manageable ways to reduce stress.</p>
+  </article>
+ </div>
+</section>
+
+<section class="card routine-cta" id="routine" aria-labelledby="routineCtaTitle">
+ <div class="routine-cta-icon" aria-hidden="true">♡</div>
+ <div class="routine-cta-copy">
+  <div class="kicker">YOUR NEXT HEALTHY STEP</div>
+  <h2 id="routineCtaTitle">Small steps can build healthier habits.</h2>
+  <p>Make a simple daily plan, track your progress, and celebrate the healthy choices you make along the way.</p>
+ </div>
+ <a class="btn btn-primary routine-cta-link" href="routine.html">Explore My Routine <span aria-hidden="true">→</span></a>
+</section>
+<section class="card prevention" id="prevention">
+ <div class="card-head">
+  <div><div class="card-title">Your prevention guide</div><div class="card-subtitle">Educational guidance matched to your saved display band</div></div>
+  <span class="pill">HEALTH EDUCATION</span>
+ </div>
+ <div class="prevention-content" id="preventionContent">
+  <div class="empty">Save an assessment to view the matching educational guide.</div>
+ </div>
+ <div class="emergency">
+  <h3>🚨 Possible heart-attack symptoms? Do not wait for the model.</h3>
+  <p>Chest pressure or pain, pain spreading to the arm, jaw or back, shortness of breath, cold sweating, nausea or faintness may require emergency care. In India, call <strong>112</strong>. Do not delay emergency care to complete an assessment.</p>
+ </div>
+ <div class="sources">
+  <a href="https://www.who.int/news-room/fact-sheets/detail/cardiovascular-diseases-(cvds)" target="_blank" rel="noopener">WHO guidance ↗</a>
+  <a href="https://www.cdc.gov/heart-disease/prevention/index.html" target="_blank" rel="noopener">CDC prevention ↗</a>
+  <a href="https://www.heart.org/en/health-topics/heart-attack/warning-signs-of-a-heart-attack" target="_blank" rel="noopener">AHA warning signs ↗</a>
+ </div>
+</section>
+
+<section class="details-area" id="records">
+ <div class="section-head">
+  <div>
+   <h2>Your Clinical Records</h2>
+   <p>Technical details and model performance metrics stay tucked away until you need them</p>
+  </div>
+  <div>
+   <a href="health-records.html" class="btn btn-primary" style="padding: 9px 18px; font-size: 12px; text-decoration: none; border-radius: 999px;">▤ Open Health Records Tab →</a>
+  </div>
+ </div>
+
+ <div style="background: linear-gradient(135deg, #f7f9ff, #f2f7ff); border: 1px solid #dbe5fe; border-radius: 16px; padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 20px;">
+  <div style="display: flex; align-items: center; gap: 14px;">
+   <div style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(145deg, #10227a, #176cf3); display: grid; place-items: center; color: white; font-size: 20px; box-shadow: 0 4px 12px rgba(23, 108, 243, 0.25);">▤</div>
+   <div>
+    <strong style="color: #101b61; font-size: 15px; display: block;">Saved Health Assessment Records</strong>
+    <span style="color: #66718a; font-size: 12px;">Saved reports are stored in the separate Health Records tab. Review previous assessments, compare risk over time, export CSV, or delete records.</span>
+   </div>
+  </div>
+  <a href="health-records.html" class="btn btn-primary" style="padding: 10px 20px; font-size: 13px; text-decoration: none; border-radius: 999px;">Open Health Records →</a>
+ </div>
+
+ <details>
+  <summary>View saved health details</summary>
+  <div class="details-body">
+   <p class="muted">Assessment values take priority over profile values. Only saved details are shown.</p>
+   <div class="data-grid" id="healthData"><div class="empty">No saved details found.</div></div>
+  </div>
+ </details>
+
+ <details id="modelEvaluationDetails" open>
+  <summary>Calibrated Logistic Regression · Model Performance & Evaluation (Global Benchmark)</summary>
+  <div class="details-body">
+   <div style="background:#eef4ff;border:1px solid #c9dcfe;border-radius:12px;padding:14px 18px;margin-bottom:18px;display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;align-items:center;gap:10px;font-size:13px;font-weight:750;color:#10267d;">
+     <span>ℹ️</span> Global Model Benchmark vs. Your Individual Assessment
+    </div>
+    <p style="margin:0;font-size:11px;color:#354a7c;line-height:1.7;">
+     <strong>Overall Model Performance (shown below):</strong> These metrics (Accuracy 82.07%, Recall 86.27%, ROC-AUC 90.06%) reflect the overall machine learning algorithm evaluated on 184 held-out medical test samples from 734 training patients. They measure the general reliability of the AI classifier across the population.
+    </p>
+    <p style="margin:0;font-size:11px;color:#0b6b55;background:#e9fbf2;border:1px solid #b8edd3;border-radius:8px;padding:8px 12px;line-height:1.6;">
+     <strong>👤 Your Individual Assessment:</strong> Your personal prediction (Current Score: <strong id="evalPersonalScore">—</strong>) is <strong>NOT</strong> based on these overall averages. It is calculated <strong>strictly and exclusively from your specific input features</strong> (age, sex, resting BP, cholesterol, max heart rate, ST slope, chest pain type, etc.) and individual SHAP factor contributions.
+    </p>
+   </div>
+
+   <p class="muted">Verified evaluation metrics for the trained <strong>Calibrated Logistic Regression</strong> model, evaluated on the held-out test dataset (184 test samples, 734 training samples). These overall model evaluation metrics describe global performance and are kept strictly separate from individual assessment predictions.</p>
+   <div class="data-grid" id="modelEvaluationMetrics">
+    <div class="data-item"><div class="data-key">MODEL</div><div class="data-val" id="evalModelName">Calibrated Logistic Regression</div></div>
+    <div class="data-item"><div class="data-key">ACCURACY</div><div class="data-val" id="evalAccuracy">82.07%</div></div>
+    <div class="data-item"><div class="data-key">PRECISION</div><div class="data-val" id="evalPrecision">82.24%</div></div>
+    <div class="data-item"><div class="data-key">RECALL</div><div class="data-val" id="evalRecall">86.27%</div></div>
+    <div class="data-item"><div class="data-key">F1-SCORE</div><div class="data-val" id="evalF1">84.21%</div></div>
+    <div class="data-item"><div class="data-key">ROC-AUC</div><div class="data-val" id="evalRocAuc">90.06%</div></div>
+    <div class="data-item"><div class="data-key">TEST SAMPLES</div><div class="data-val" id="evalTestSamples">184</div></div>
+    <div class="data-item"><div class="data-key">TRAIN SAMPLES</div><div class="data-val" id="evalTrainSamples">734</div></div>
+   </div>
+  </div>
+ </details>
+
+ <details id="explainability">
+  <summary>Explainable AI · Individual SHAP contributions</summary>
+  <div class="details-body">
+   <p class="muted">Only genuine numeric contributions saved with the prediction are shown. These describe model behavior, not causation or a clinical diagnosis.</p>
+   <div id="shapContent"><div class="empty">Individual SHAP contributions are not available in the saved result.</div></div>
+  </div>
+ </details>
+
+ <details>
+  <summary>Global model explanations</summary>
+  <div class="details-body">
+   <p class="muted">Global plots describe dataset-level patterns and do not necessarily explain this individual prediction.</p>
+   <div class="global-images">
+    <div><p class="muted">Feature importance</p><img class="global-image" src="model/shap/shap_feature_importance.png" alt="Global SHAP feature importance" onerror="this.style.display='none'"></div>
+    <div><p class="muted">SHAP summary</p><img class="global-image" src="model/shap/shap_summary.png" alt="Global SHAP summary" onerror="this.style.display='none'"></div>
+   </div>
+  </div>
+ </details>
+</section>
+
+<div class="bottom-actions">
+ <a class="btn" href="profile.html">◎ Edit profile</a>
+ <a class="btn" href="assessment.html">＋ Update assessment</a>
+ <button class="btn btn-primary" id="exportPdf" type="button">↓ Export PDF</button>
+ <button class="btn btn-danger" id="clearData" type="button">Clear saved assessment</button>
+</div>
+
+<footer class="footer">
+ CardioShield-AgeLess · Health Intelligence Platform<br>
+ Educational prototype · Not a substitute for professional medical advice
+</footer>
+
+</div>
+</main>
+</div>
+
+<script>
+"use strict";
+
+/* STORAGE KEYS */
+const STORAGE_KEYS={
+ result:"cardioResult",
+ assessment:"cardioAssessment",
+ legacy:"cardioShieldData",
+ profile:"cardioshieldUserProfile",
+ planner:"cardioShieldHabitPlanner",
+ reports:"cardioshield_saved_reports"
+};
+
+let currentResult={};
+let currentAssessment={};
+let currentProfile={};
+let currentScore=null;
+let currentPredictionLabel=null;
+let modelMetrics=null;
+
+const $=id=>document.getElementById(id);
+
+function readStorage(key){
+ try{
+  const value=localStorage.getItem(key);
+  return value?JSON.parse(value):null;
+ }catch(error){
+  console.warn("Storage read error:",key,error);
+  return null;
+ }
+}
+
+function saveStorage(key,value){
+ try{
+  localStorage.setItem(key,JSON.stringify(value));
+  return true;
+ }catch(error){
+  console.error("Storage save error:",error);
+  return false;
+ }
+}
+
+function obj(value){
+ return value&&typeof value==="object"&&!Array.isArray(value)?value:{};
+}
+
+function firstAvailable(...values){
+ return values.find(value=>value!==undefined&&value!==null&&value!=="");
+}
+
+function flattenObject(object,prefix="",output={}){
+ if(!object||typeof object!=="object")return output;
+ Object.entries(object).forEach(([key,value])=>{
+  const name=prefix?prefix+"."+key:key;
+  if(value&&typeof value==="object"&&!Array.isArray(value)){
+   flattenObject(value,name,output);
+  }else if(value===null||["string","number","boolean"].includes(typeof value)){
+   output[name]=value;
+  }else if(Array.isArray(value)&&value.every(v=>v===null||["string","number","boolean"].includes(typeof v))){
+   output[name]=value.join(", ");
+  }
+ });
+ return output;
+}
+
+function norm(key){
+ return String(key).replace(/([a-z])([A-Z])/g,"$1 $2")
+ .replace(/[._-]+/g," ").trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function combinedData(assessment,profile){
+ const p=flattenObject(profile);
+ const a=flattenObject(assessment);
+ const merged={...p,...a};
+ const selected=new Map();
+ Object.entries(merged).forEach(([key,value])=>{
+  const k=norm(key);
+  if(!selected.has(k)||Object.prototype.hasOwnProperty.call(a,key)){
+   selected.set(k,{key,value});
+  }
+ });
+ return [...selected.values()];
+}
+
+function labelFor(key){
+ const labels={
+  age:"Age",sex:"Sex",gender:"Gender",dob:"Date of birth",
+  "date of birth":"Date of birth","assessment date":"Assessment date",
+  "tot chol":"Cholesterol",cholesterol:"Cholesterol",
+  "sys bp":"Resting blood pressure","resting bp":"Resting blood pressure",
+  "chest pain type":"Chest pain type","max heart rate":"Maximum heart rate",
+  "fasting blood sugar":"Fasting blood sugar","resting ecg":"Resting ECG",
+  "exercise induced angina":"Exercise-induced angina",oldpeak:"Oldpeak",
+  "st slope":"ST slope",ca:"CA",thal:"Thal",height:"Height",weight:"Weight",
+  sleep:"Sleep","screen time":"Screen time","current smoker":"Current smoker",
+  "risk percentage":"Model score","probability percentage":"Model score",
+  "risk probability":"Risk probability",prediction:"Prediction"
+ };
+ const k=norm(key);
+ return labels[k]||k.split(" ").map(w=>w?w[0].toUpperCase()+w.slice(1):"").join(" ");
+}
+
+function fmt(value){
+ if(typeof value==="boolean")return value?"Yes":"No";
+ if(typeof value==="number")return Number.isInteger(value)?String(value):String(Number(value.toFixed(4)));
+ return String(value);
+}
+
+/* FIND NESTED MODEL RESPONSES */
+function resultObjects(root){
+ const out=[],seen=new Set();
+ function visit(value,depth){
+  if(!value||typeof value!=="object"||Array.isArray(value)||seen.has(value)||depth>4)return;
+  seen.add(value);
+  out.push(value);
+  ["result","prediction_result","predictionResult","data","output","response",
+   "model_output","modelOutput","prediction","risk","assessment_result",
+   "individual_explanation","individualExplanation","explanation","shap","shap_data"].forEach(key=>{
+   const child=value[key];
+   if(child&&typeof child==="object"&&!Array.isArray(child))visit(child,depth+1);
+  });
+ }
+ visit(root,0);
+ return out;
+}
+
+function numericScore(root){
+ const objects=resultObjects(root);
+ const scoreKeys=[
+  "model_score","modelScore","risk_percentage","riskPercentage",
+  "probability_percentage","probabilityPercentage","risk_score","riskScore",
+  "score_percentage","scorePercentage","heart_disease_probability_percentage"
+ ];
+ for(const item of objects){
+  for(const key of scoreKeys){
+   const value=item[key];
+   if(value!==undefined&&value!==null&&value!==""&&Number.isFinite(Number(value))){
+    return Math.max(0,Math.min(100,Number(value)));
+   }
+  }
+ }
+ const probabilityKeys=[
+  "risk_probability","riskProbability","probability",
+  "heart_disease_probability","heartDiseaseProbability"
+ ];
+ for(const item of objects){
+  for(const key of probabilityKeys){
+   const value=item[key];
+   if(value!==undefined&&value!==null&&value!==""&&Number.isFinite(Number(value))){
+    const n=Number(value);
+    return Math.max(0,Math.min(100,n<=1?n*100:n));
+   }
+  }
+ }
+ return null;
+}
+
+function predictionLabel(root){
+ for(const item of resultObjects(root)){
+  const label=firstAvailable(
+   item.prediction_label,item.predictionLabel,item.predicted_class_label,
+   item.predictedClassLabel,item.risk_category,item.riskCategory,
+   item.class_name,item.className
+  );
+  if(typeof label==="string"&&label.trim())return label.trim();
+  const prediction=firstAvailable(item.prediction,item.predicted_class,item.predictedClass,item.class_label);
+  if(typeof prediction==="string"&&prediction.trim()&&!Number.isFinite(Number(prediction))){
+   return prediction.trim();
+  }
+ }
+ return null;
+}
+
+function getDate(...objects){
+ for(const root of objects){
+  for(const item of resultObjects(root)){
+   const value=firstAvailable(
+    item.assessment_date,item.assessmentDate,item.created_at,
+    item.createdAt,item.timestamp,item.date
+   );
+   if(value)return value;
+  }
+ }
+ return null;
+}
+
+function displayDate(value){
+ if(!value)return "Not recorded";
+ const date=new Date(value);
+ return Number.isNaN(date.getTime())?"Not recorded":
+  date.toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"});
+}
+
+function getAge(){
+ for(const value of [currentAssessment.age,currentProfile.age]){
+  if(value!==undefined&&value!==null&&value!==""&&Number.isFinite(Number(value))){
+   return Number(value);
+  }
+ }
+ const dob=firstAvailable(
+  currentAssessment.dob,currentAssessment.date_of_birth,
+  currentProfile.dob,currentProfile.date_of_birth
+ );
+ if(dob){
+  const date=new Date(dob);
+  if(!Number.isNaN(date.getTime())){
+   const now=new Date();
+   return now.getFullYear()-date.getFullYear()-
+    (now.getMonth()<date.getMonth()||
+    (now.getMonth()===date.getMonth()&&now.getDate()<date.getDate())?1:0);
+  }
+ }
+ return null;
+}
+
+/* DISPLAY BANDS - ILLUSTRATIVE ONLY */
+function scoreBand(score){
+ if(score===null)return "none";
+ if(score<35)return "low";
+ if(score<70)return "middle";
+ return "high";
+}
+
+function bandInfo(band){
+ return {
+  low:{
+   title:"Lower display band",tag:"Lower prototype score",color:"#14877e",
+   description:"This lower display band does not rule out heart disease. Continue healthy habits and routine care.",
+   guide:"Maintain healthy habits and discuss routine screening with a healthcare professional when appropriate.",
+   image:"images/heart-low.png"
+  },
+  middle:{
+   title:"Middle display band",tag:"Middle prototype score",color:"#c58b35",
+   description:"Consider reviewing recorded measurements and health concerns with a healthcare professional.",
+   guide:"Discuss your health history and whether blood pressure, cholesterol or glucose checks are appropriate.",
+   image:"images/heart-moderate.png"
+  },
+  high:{
+   title:"Higher display band",tag:"Higher prototype score",color:"#c95d63",
+   description:"Arrange a prompt medical review. This experimental score cannot establish a diagnosis.",
+   guide:"Seek prompt medical evaluation. A clinician can assess symptoms, measurements and appropriate next steps.",
+   image:"images/heart-high.png"
+  },
+  none:{
+   title:"Prediction unavailable",tag:"No saved score",color:"#81919b",
+   description:"No numeric model score or probability was found in the saved result.",
+   guide:"Complete an assessment and confirm that your backend returns and saves the prediction output.",
+   image:""
+  }
+ }[band];
+}
+
+function renderScore(){
+ const score=currentScore;
+ const info=bandInfo(scoreBand(score));
+ const text=score===null?"—":Math.round(score)+"%";
+ const heartImage=$("assessmentHeartImage");
+ if(heartImage){
+  if(score!==null && info.image){
+   heartImage.src=info.image;
+   heartImage.alt="Heart illustration for the "+info.tag+" display band";
+   heartImage.hidden=false;
+  }else{
+   heartImage.hidden=true;
+   heartImage.removeAttribute("src");
+  }
+ }
+ const riskBand=$("riskHeroBand");
+ if(riskBand){
+  riskBand.dataset.band=score===null?"none":scoreBand(score);
+  $("riskAlertIcon").textContent=score===null?"♡":(scoreBand(score)==="high"?"!":scoreBand(score)==="middle"?"⚠":"♥");
+  $("riskAlertLevel").textContent=score===null?"Assessment needed":(scoreBand(score)==="low"?"Lower prototype score":scoreBand(score)==="middle"?"Middle prototype score":"Higher prototype score");
+  $("riskAlertMessage").textContent=score===null?"Complete and save an assessment to display your latest model output.":(scoreBand(score)==="low"?"Your score falls in the lower illustrative display band. This does not rule out heart disease.":scoreBand(score)==="middle"?"Your score falls in the middle illustrative display band. Consider discussing health concerns with a clinician.":"Your score falls in the higher illustrative display band. Consider prompt medical review; this is not a diagnosis.");
+  $("riskAlertScore").innerHTML=score===null?'—<small>/100</small>':Math.round(score)+'<small>/100</small>';
+ }
+
+ $("statScore").textContent=text;
+ $("gaugeValue").textContent=text;
+ $("gaugeProgress").style.strokeDashoffset=score===null?314:314-score/100*314;
+ $("gaugeProgress").style.stroke=info.color;
+
+ const tag=$("scoreTag");
+ tag.textContent="● "+info.tag;
+ tag.style.color=info.color;
+ tag.style.background=info.color+"18";
+
+ const evalPersonalScore = $("evalPersonalScore");
+ if(evalPersonalScore){
+  evalPersonalScore.textContent = score === null ? "No assessment loaded" : Math.round(score) + "% (" + info.tag + ")";
+ }
+
+ $("scoreTitle").textContent=score===null?"Prediction score unavailable":info.title;
+ $("scoreDescription").textContent=score===null?
+  info.description+" Check the browser's saved result and your backend response.":
+  info.description+" This is not a clinically validated probability of having a heart attack.";
+
+ const action=$("scoreAction");
+ action.textContent=score===null?"Open assessment →":"Explore prevention guide ↓";
+ action.href=score===null?"assessment.html":"#prevention";
+
+ $("snapshotTitle").textContent=score===null?"No numeric score saved":info.title;
+ $("snapshotText").textContent=score===null?
+  "The dashboard cannot calculate a model prediction from health details alone. The assessment/backend must provide the prediction output.":
+  "Your saved experimental model output is "+Math.round(score)+"%. This is for education only, not a diagnosis.";
+
+ const target=$("preventionContent");
+ if(score===null){
+  target.innerHTML='<div class="empty">A numeric model score is unavailable. Please run an assessment and confirm the backend saves a score or probability. The dashboard will not infer a score from medical inputs.</div>';
+ }else{
+  target.innerHTML=`
+   <div class="prevention-top">
+    <div style="flex:1;min-width:0">
+     <span class="pill" style="color:${info.color};background:${info.color}18">${info.tag}</span>
+     <h3>${info.title} guide</h3><p>${info.guide}</p>
+    </div>
+   </div>
+   <div class="prevention-grid">
+    <div class="prevention-tip"><span>🩺</span><h4>Review your health</h4><p>Discuss actual measurements, symptoms and family history with a qualified professional.</p></div>
+    <div class="prevention-tip"><span>🥦</span><h4>Healthy habits</h4><p>Choose balanced meals, avoid tobacco and build appropriate activity and sleep routines.</p></div>
+    <div class="prevention-tip"><span>💊</span><h4>Follow medical advice</h4><p>Use prescribed medicines as directed. Do not self-start aspirin or heart medicines.</p></div>
+   </div>`;
+ }
+}
+
+function renderHealthData(){
+ const target=$("healthData");
+ const items=combinedData(currentAssessment,currentProfile);
+ target.replaceChildren();
+ if(!items.length){
+  target.innerHTML='<div class="empty">No saved health details found.</div>';
+  return;
+ }
+ items.forEach(({key,value})=>{
+  const item=document.createElement("div");
+  item.className="data-item";
+  const label=document.createElement("div");
+  label.className="data-key";
+  label.textContent=labelFor(key);
+  const val=document.createElement("div");
+  val.className="data-val";
+  val.textContent=fmt(value);
+  item.append(label,val);
+  target.appendChild(item);
+ });
+}
+
+function getShapData(){
+ // 1. Direct check on currentResult
+ if (currentResult && currentResult.individual_explanation && Array.isArray(currentResult.individual_explanation.features) && currentResult.individual_explanation.features.length) {
+  return currentResult.individual_explanation.features;
+ }
+ if (currentResult && Array.isArray(currentResult.feature_contributions) && currentResult.feature_contributions.length) {
+  return currentResult.feature_contributions;
+ }
+ if (currentResult && Array.isArray(currentResult.shap_contributions) && currentResult.shap_contributions.length) {
+  return currentResult.shap_contributions;
+ }
+
+ const keys=[
+  "features","shap_values","shapValues","feature_contributions","featureContributions",
+  "shap_contributions","contributions","individual_shap","individualShap","shap"
+ ];
+ for(const source of resultObjects(currentResult)){
+  for(const key of keys){
+   const value=source[key];
+   if(Array.isArray(value)&&value.length)return value;
+   if(value&&typeof value==="object"&&!Array.isArray(value)){
+    const nested=value.features||value.values||value.contributions||value.feature_contributions;
+    if(Array.isArray(nested)&&nested.length)return nested;
+    const entries=Object.entries(value);
+    if(entries.length&&entries.every(([,v])=>
+     typeof v==="number"||(v&&typeof v==="object"&&
+     Number.isFinite(Number(v.value??v.shap_value))))){
+     return entries.map(([feature,v])=>
+      typeof v==="number"?{feature,value:v}:{feature,...v});
+    }
+   }
+  }
+ }
+ return [];
+}
+
+let shapFetchAttempted = false;
+
+function fetchShapFromBackend(predictionId){
+ if (shapFetchAttempted || !predictionId) return;
+ shapFetchAttempted = true;
+ const apiBase = (typeof window !== "undefined" && window.CardioConfig && typeof window.CardioConfig.getBaseUrl === "function")
+  ? window.CardioConfig.getBaseUrl()
+  : ((window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost") && window.location.port !== "8080" ? "http://127.0.0.1:8080" : "");
+
+ fetch(apiBase + "/shap/" + encodeURIComponent(predictionId))
+  .then(r => r.ok ? r.json() : Promise.reject("HTTP " + r.status))
+  .then(data => {
+   if (data && data.success && data.features && data.features.length) {
+    if (!currentResult.individual_explanation) currentResult.individual_explanation = {};
+    currentResult.individual_explanation.features = data.features;
+    currentResult.feature_contributions = data.features;
+    if (data.base_value != null) currentResult.base_value = data.base_value;
+    saveStorage(STORAGE_KEYS.result, currentResult);
+    renderShap();
+   }
+  })
+  .catch(err => console.warn("Backend SHAP retrieval notice:", err));
+}
+
+function renderShap(){
+ const target=$("shapContent");
+ const rawRows = getShapData();
+
+ const rows = rawRows.map((item, i)=>{
+  if(typeof item==="number") return {feature:"Feature "+(i+1), value:item, input_value:null, label:"Feature "+(i+1)};
+  if(Array.isArray(item)&&item.length>=2){
+   return {feature:String(item[0]), value:Number(item[1]), input_value:null, label:labelFor(item[0])};
+  }
+  if(item&&typeof item==="object"){
+   const value=firstAvailable(item.value, item.shap_value, item.shapValue, item.contribution);
+   const feature=firstAvailable(item.feature, item.feature_name, item.featureName, item.name, "Feature "+(i+1));
+   const inputVal=firstAvailable(item.input_value, item.inputValue);
+   const label=firstAvailable(item.label, labelFor(feature));
+   const effect=firstAvailable(item.effect, null);
+   if(value!==undefined&&Number.isFinite(Number(value))){
+    return {feature:String(feature), value:Number(value), input_value:inputVal, label:label, effect:effect};
+   }
+  }
+  return null;
+ }).filter(row=>row&&Number.isFinite(row.value));
+
+ $("statShap").textContent = rows.length;
+ target.replaceChildren();
+
+ if(!rows.length){
+  // Check if we can fetch from backend using prediction_id
+  const predId = currentResult.prediction_id || (currentResult.data && currentResult.data.prediction_id);
+  if (predId && !shapFetchAttempted) {
+   target.innerHTML = '<div class="empty">Retrieving individual SHAP explanations from server for prediction <strong>' + predId + '</strong>…</div>';
+   fetchShapFromBackend(predId);
+   return;
+  }
+  target.innerHTML='<div class="empty"><strong>Individual SHAP contributions are not available in this saved record.</strong><br>Please submit a <a href="assessment.html" class="link" style="text-decoration:underline;">new assessment</a> to calculate genuine Explainable AI (XAI) feature contributions using the Calibrated Logistic Regression pipeline.</div>';
+  return;
+ }
+
+ // Sort descending by absolute SHAP impact
+ rows.sort((a,b) => Math.abs(b.value) - Math.abs(a.value));
+
+ const baseVal = firstAvailable(
+  currentResult.base_value,
+  currentResult.individual_explanation && currentResult.individual_explanation.baseline_output,
+  currentResult.individual_explanation && currentResult.individual_explanation.base_value,
+  0.55
+ );
+
+ const infoBar = document.createElement("div");
+ infoBar.style.cssText = "display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:9px 12px;background:#f5faf9;border:1px solid #d8ece8;border-radius:8px;margin-bottom:14px;font-size:10px;";
+ 
+ const baseSpan = document.createElement("div");
+ baseSpan.innerHTML = '<strong>Model Baseline Probability:</strong> ' + (Number(baseVal)*100).toFixed(1) + '% &nbsp;→&nbsp; <strong>Your Calibrated Probability:</strong> ' + (currentScore != null ? Math.round(currentScore) + '%' : '—');
+ infoBar.appendChild(baseSpan);
+
+ if (currentResult.prediction_id) {
+  const idSpan = document.createElement("span");
+  idSpan.className = "pill";
+  idSpan.textContent = "ID: " + currentResult.prediction_id;
+  infoBar.appendChild(idSpan);
+ }
+ target.appendChild(infoBar);
+
+ const note=document.createElement("p");
+ note.className="muted";
+ note.textContent="Ranked per-feature influence on Calibrated Logistic Regression output. Positive values (red) increase predicted risk; negative values (teal) decrease predicted risk relative to the population baseline.";
+ target.appendChild(note);
+
+ const list=document.createElement("div");
+ list.style.marginTop="14px";
+ target.appendChild(list);
+ const max=Math.max(...rows.map(row=>Math.abs(row.value)),0.000001);
+
+ rows.forEach(row=>{
+  const line=document.createElement("div");
+  line.className="shap-row";
+  line.style.gridTemplateColumns = "minmax(130px,1.2fr) 2fr minmax(70px,auto)";
+
+  const nameCol=document.createElement("div");
+  const nameLabel=document.createElement("strong");
+  nameLabel.textContent = row.label || labelFor(row.feature);
+  nameCol.appendChild(nameLabel);
+
+  if (row.input_value !== null && row.input_value !== undefined) {
+   const valSub = document.createElement("div");
+   valSub.style.cssText = "font-size:9px;color:#788f9b;margin-top:2px;";
+   valSub.textContent = "Value: " + fmt(row.input_value);
+   nameCol.appendChild(valSub);
+  }
+
+  const track=document.createElement("div");
+  track.className="shap-track";
+  track.style.height = "8px";
+  const bar=document.createElement("div");
+  bar.className="shap-bar";
+  const pctWidth = Math.max(3, Math.round((Math.abs(row.value)/max)*100));
+  bar.style.width=pctWidth+"%";
+  bar.style.background=row.value>=0?"#c95d63":"#14877e";
+  track.appendChild(bar);
+
+  const valueCol=document.createElement("div");
+  valueCol.className="shap-value";
+  valueCol.style.color = row.value >= 0 ? "#c95d63" : "#14877e";
+  valueCol.style.fontWeight = "700";
+  const sign = row.value > 0 ? "+" : "";
+  valueCol.innerHTML = sign + row.value.toFixed(4) + ' <span style="font-size:9px;font-weight:normal;">(' + sign + (row.value*100).toFixed(1) + '%)</span>';
+
+  line.append(nameCol,track,valueCol);
+  list.appendChild(line);
+ });
+
+ // Summary narrative of key drivers
+ const posTop = rows.filter(r => r.value > 0.005).slice(0, 2);
+ const negTop = rows.filter(r => r.value < -0.005).slice(0, 2);
+
+ if (posTop.length || negTop.length) {
+  const summaryBox = document.createElement("div");
+  summaryBox.style.cssText = "margin-top:16px;padding:12px;background:#f8fafb;border-left:3px solid #14877e;border-radius:6px;font-size:10px;line-height:1.6;";
+  let sumHtml = '<strong>Key Risk Influence Drivers:</strong><ul style="margin:6px 0 0;padding-left:16px;">';
+  if (posTop.length) {
+   sumHtml += '<li><strong>Factors increasing risk:</strong> ' + posTop.map(r => (r.label || labelFor(r.feature)) + ' (+' + (r.value*100).toFixed(1) + '%)').join(', ') + '</li>';
+  }
+  if (negTop.length) {
+   sumHtml += '<li><strong>Factors lowering risk:</strong> ' + negTop.map(r => (r.label || labelFor(r.feature)) + ' (' + (r.value*100).toFixed(1) + '%)').join(', ') + '</li>';
+  }
+  sumHtml += '</ul>';
+  summaryBox.innerHTML = sumHtml;
+  target.appendChild(summaryBox);
+ }
+}
+
+/* FETCH VERIFIED MODEL EVALUATION METRICS */
+function fetchModelMetrics(){
+ const apiBase = (typeof window !== "undefined" && window.CardioConfig && typeof window.CardioConfig.getBaseUrl === "function")
+  ? window.CardioConfig.getBaseUrl()
+  : ((window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost") && window.location.port !== "8080" ? "http://127.0.0.1:8080" : "");
+
+ fetch(apiBase + "/model-info")
+  .then(function(res){
+   if (!res.ok) throw new Error("HTTP " + res.status);
+   return res.json();
+  })
+  .then(function(data){
+   if (data && data.success && data.metrics) {
+    modelMetrics = data;
+    renderModelMetrics(data);
+   }
+  })
+  .catch(function(err){
+   console.warn("Could not fetch model metrics from backend; using verified evaluation dataset metrics:", err);
+  });
+}
+
+function formatMetricPercent(val){
+ if (val === null || val === undefined) return "—";
+ const num = Number(val);
+ if (!Number.isFinite(num)) return "—";
+ return (num <= 1 ? (num * 100) : num).toFixed(2) + "%";
+}
+
+function renderModelMetrics(data){
+ if (!data || !data.metrics) return;
+ const m = data.metrics;
+ if ($("evalModelName")) $("evalModelName").textContent = data.model_name || "Calibrated Logistic Regression";
+ if ($("evalAccuracy")) $("evalAccuracy").textContent = formatMetricPercent(m.accuracy);
+ if ($("evalPrecision")) $("evalPrecision").textContent = formatMetricPercent(m.precision);
+ if ($("evalRecall")) $("evalRecall").textContent = formatMetricPercent(m.recall);
+ if ($("evalF1")) $("evalF1").textContent = formatMetricPercent(m.f1_score);
+ if ($("evalRocAuc")) $("evalRocAuc").textContent = formatMetricPercent(m.roc_auc);
+ if ($("evalTestSamples")) $("evalTestSamples").textContent = m.test_samples ? String(m.test_samples) : "184";
+ if ($("evalTrainSamples")) $("evalTrainSamples").textContent = m.train_samples ? String(m.train_samples) : "734";
+}
+
+/* LOAD SAVED DASHBOARD DATA */
+function loadDashboard(){
+ currentResult=obj(readStorage(STORAGE_KEYS.result));
+ currentAssessment=obj(readStorage(STORAGE_KEYS.assessment));
+ currentProfile=obj(readStorage(STORAGE_KEYS.profile));
+ const legacy=obj(readStorage(STORAGE_KEYS.legacy));
+
+ if(!Object.keys(currentResult).length&&legacy.result&&typeof legacy.result==="object"){
+  currentResult=obj(legacy.result);
+ }
+ if(!Object.keys(currentAssessment).length&&legacy.assessment&&typeof legacy.assessment==="object"){
+  currentAssessment=obj(legacy.assessment);
+ }
+ if(!Object.keys(currentResult).length&&
+  ["model_score","risk_percentage","probability_percentage","risk_probability","probability","prediction_result","result"]
+  .some(key=>legacy[key]!==undefined)){
+  currentResult=legacy;
+ }
+
+ currentScore=numericScore(currentResult);
+ currentPredictionLabel=predictionLabel(currentResult);
+
+ $("statAge").textContent=getAge()??"—";
+ $("statDate").textContent=displayDate(getDate(currentResult,currentAssessment));
+
+ renderScore();
+ renderHealthData();
+ renderShap();
+ loadPlanner();
+ renderSavedReports();
+}
+
+/* HABIT PLANNER */
+function updatePlanner(){
+ if(!$("activity")) return;
+ const activity=Number($("activity").value);
+ const sleep=Number($("sleep").value);
+ const water=Number($("water").value);
+ $("activityOut").textContent=activity+" min";
+ $("sleepOut").textContent=sleep+" hrs";
+ $("waterOut").textContent=water+" L";
+ const activityPercent=Math.min(100,activity/150*100);
+ const sleepPercent=Math.min(100,sleep/8*100);
+ const waterPercent=Math.min(100,water/2*100);
+ $("activityProgressText").textContent=activity+" min planned · "+Math.round(activityPercent)+"% of reference";
+ $("sleepProgressText").textContent=sleep+" hours planned · "+Math.round(sleepPercent)+"% of 8-hour reference";
+ $("waterProgressText").textContent=water+" litres planned · "+Math.round(waterPercent)+"% of 2-litre reference";
+ $("activityBar").style.width=activityPercent+"%";
+ $("sleepBar").style.width=sleepPercent+"%";
+ $("waterBar").style.width=waterPercent+"%";
+}
+function loadPlanner(){
+ if(!$("activity")) return;
+ const saved=obj(readStorage(STORAGE_KEYS.planner));
+ if(Number.isFinite(Number(saved.activity))&&saved.activity!==undefined) $("activity").value=saved.activity;
+ if(Number.isFinite(Number(saved.sleep))&&saved.sleep!==undefined) $("sleep").value=saved.sleep;
+ if(Number.isFinite(Number(saved.water))&&saved.water!==undefined) $("water").value=saved.water;
+ updatePlanner();
+}
+if($("activity")){
+ ["activity","sleep","water"].forEach(id=>{
+  $(id).addEventListener("input",()=>{
+   updatePlanner();
+   $("plannerMessage").textContent="Changes not saved yet. Select Save goals to keep them.";
+  });
+ });
+ $("savePlanner").addEventListener("click",()=>{
+  const planner={activity:Number($("activity").value),sleep:Number($("sleep").value),water:Number($("water").value)};
+  const saved=saveStorage(STORAGE_KEYS.planner,planner);
+  $("plannerMessage").textContent=saved?"Your habit goals have been saved on this device.":"Unable to save goals. Check your browser storage settings.";
+ });
+ $("resetPlanner").addEventListener("click",()=>{
+  $("activity").value=150;$("sleep").value=8;$("water").value=2;updatePlanner();
+  $("plannerMessage").textContent="Default targets restored. Select Save goals to keep them.";
+ });
+}
+/* DAILY GOALS + POINTS (local prototype; points are not real currency) */
+const REWARDS_STORAGE_KEY = "cardioShieldDailyRewardsV1";
+const DAILY_GOALS = [
+ {id:"move",points:20},{id:"plants",points:15},{id:"water",points:10},{id:"sleep",points:15},{id:"calm",points:10}
+];
+function localDayKey(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function getRewardsState(){
+ let state=obj(readStorage(REWARDS_STORAGE_KEY));
+ if(!Number.isFinite(Number(state.points)))state.points=0;
+ if(!state.claimed||typeof state.claimed!=="object")state.claimed={};
+ if(!state.daily||typeof state.daily!=="object")state.daily={date:localDayKey(),completed:{}};
+ if(state.daily.date!==localDayKey())state.daily={date:localDayKey(),completed:{}};
+ return state;
+}
+function renderDailyGoals(){
+ const list=$("dailyGoalsList");if(!list)return;
+ const state=getRewardsState();saveStorage(REWARDS_STORAGE_KEY,state);
+ $("routinePoints").textContent=String(state.points);
+ let completed=0;
+ DAILY_GOALS.forEach(goal=>{
+  const row=list.querySelector('[data-goal="'+goal.id+'"]');const button=list.querySelector('[data-complete="'+goal.id+'"]');
+  const done=Boolean(state.daily.completed[goal.id]);if(done)completed++;
+  if(row)row.classList.toggle("is-complete",done);
+  if(button){button.disabled=done;button.textContent=done?"Completed":"Complete";}
+ });
+ const pct=Math.round(completed/DAILY_GOALS.length*100);
+ $("dailyProgressText").textContent=completed+" of "+DAILY_GOALS.length+" goals complete";
+ $("dailyProgressPercent").textContent=pct+"%";$("dailyProgressBar").style.width=pct+"%";
+ $("challengeMessage").textContent=completed===DAILY_GOALS.length?"Amazing! You completed all today's goals. Come back tomorrow for a fresh challenge.":completed>0?"Great progress — keep going at your own pace.":"Choose a goal to begin your daily challenge.";
+}
+if($("dailyGoalsList")){
+ $("dailyGoalsList").addEventListener("click",event=>{
+  const button=event.target.closest("button[data-complete]");if(!button)return;
+  const id=button.dataset.complete;const goal=DAILY_GOALS.find(item=>item.id===id);if(!goal)return;
+  const state=getRewardsState();if(state.daily.completed[id])return;
+  state.daily.completed[id]=true;state.points+=goal.points;
+  if(!saveStorage(REWARDS_STORAGE_KEY,state)){$("challengeMessage").textContent="Could not save progress. Please check browser storage.";return;}
+  renderDailyGoals();
+  const completeCount=DAILY_GOALS.filter(item=>state.daily.completed[item.id]).length;
+  $("challengeMessage").textContent=completeCount===DAILY_GOALS.length?"Daily challenge complete! You earned +"+goal.points+" points on your final goal.":"Goal complete! +"+goal.points+" points added to your balance.";
+ });
+ renderDailyGoals();
+}
+
+/* ======================================================
+   CARDIOSHIELD-AGELESS - HIGH FIDELITY HTML2PDF EXPORT
+   ====================================================== */
+
+/* Load html2pdf library if not already in window */
+async function ensurePdfLibrary() {
+    if (typeof window.html2pdf === "function") {
+        return true;
+    }
+
+    const cdnUrls = [
+        "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js",
+        "https://unpkg.com/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js",
+        "https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"
+    ];
+
+    for (const url of cdnUrls) {
+        try {
+            await new Promise((resolve, reject) => {
+                const existing = document.querySelector(`script[src="${url}"]`);
+                if (existing) {
+                    if (typeof window.html2pdf === "function") return resolve();
+                    existing.addEventListener("load", () => resolve());
+                    existing.addEventListener("error", () => reject(new Error("Script error")));
+                    return;
+                }
+
+                const script = document.createElement("script");
+                script.src = url;
+                script.async = true;
+                script.onload = () => resolve();
+                script.onerror = () => {
+                    script.remove();
+                    reject(new Error("Script load failed"));
+                };
+                document.head.appendChild(script);
+            });
+
+            if (typeof window.html2pdf === "function") {
+                return true;
+            }
+        } catch (err) {
+            console.warn("Failed to load html2pdf from:", url, err);
+        }
+    }
+
+    if (typeof window.html2pdf === "function") {
+        return true;
+    }
+
+    throw new Error("Unable to load html2pdf.js library. Please check your internet connection.");
+}
+
+/* Helper to append a 2-column information row in PDF */
+function addPdfText(parent, label, value) {
+    const row = document.createElement("div");
+    row.style.cssText =
+        "display:flex;justify-content:space-between;gap:16px;padding:7px 0;" +
+        "border-bottom:1px solid #e5edf0;font-size:11px;line-height:1.5;";
+
+    const left = document.createElement("span");
+    left.textContent = String(label);
+    left.style.cssText = "color:#5b7280;font-weight:600;";
+
+    const right = document.createElement("strong");
+    right.textContent = (value === undefined || value === null || value === "") ? "Not recorded" : String(value);
+    right.style.cssText = "color:#102c3d;text-align:right;max-width:65%;overflow-wrap:anywhere;";
+
+    row.append(left, right);
+    parent.appendChild(row);
+}
+
+/* Build the complete, beautifully styled, non-empty PDF report DOM tree */
+function buildPdfReport() {
+    const report = document.createElement("div");
+    report.id = "cardioshield-pdf-report";
+
+    Object.assign(report.style, {
+        width: "740px",
+        minHeight: "1000px",
+        padding: "32px 36px",
+        boxSizing: "border-box",
+        background: "#ffffff",
+        color: "#183344",
+        fontFamily: "Arial, Helvetica, sans-serif",
+        fontSize: "11px",
+        lineHeight: "1.55",
+        margin: "0 auto"
+    });
+
+    const scoreBandInfo = bandInfo(scoreBand(currentScore));
+    const nowStr = new Date().toLocaleDateString(undefined, {
+        day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit"
+    });
+
+    /* 1. HEADER */
+    const header = document.createElement("div");
+    header.style.cssText = "text-align:center;border-bottom:3px solid #14877e;padding-bottom:14px;margin-bottom:18px;";
+
+    const brand = document.createElement("div");
+    brand.textContent = "CARDIOSHIELD-AGELESS";
+    brand.style.cssText = "font-size:12px;font-weight:800;letter-spacing:2px;color:#14877e;margin-bottom:4px;";
+
+    const title = document.createElement("h1");
+    title.textContent = "CardioShield Health Assessment Report";
+    title.style.cssText = "font-size:22px;margin:4px 0 3px;color:#102c3d;font-weight:800;";
+
+    const subtitle = document.createElement("p");
+    subtitle.textContent = "Early Heart Risk Assessment · Calibrated Logistic Regression Model & Explainable AI";
+    subtitle.style.cssText = "font-size:11px;color:#687d88;margin:0 0 4px;";
+
+    const timestamp = document.createElement("div");
+    timestamp.textContent = "Generated: " + nowStr;
+    timestamp.style.cssText = "font-size:9px;color:#8da2ad;font-style:italic;";
+
+    header.append(brand, title, subtitle, timestamp);
+    report.appendChild(header);
+
+    /* 2. PREDICTION SUMMARY CARD */
+    const predictionSection = document.createElement("section");
+    predictionSection.style.cssText =
+        "margin-bottom:18px;padding:18px 22px;border:1px solid #e5edf0;" +
+        "border-radius:10px;text-align:center;background:linear-gradient(135deg,#ffffff 0%,#f5faf9 100%);" +
+        "page-break-inside:avoid;break-inside:avoid;";
+
+    const predBadge = document.createElement("div");
+    predBadge.textContent = "ASSESSMENT RISK SCORE";
+    predBadge.style.cssText = "font-size:10px;font-weight:800;letter-spacing:1.5px;color:#708996;margin-bottom:6px;";
+    predictionSection.appendChild(predBadge);
+
+    if (currentScore !== null && Number.isFinite(Number(currentScore))) {
+        const scoreVal = document.createElement("div");
+        scoreVal.textContent = Math.round(currentScore) + "%";
+        scoreVal.style.cssText = `font-size:42px;font-weight:850;color:${scoreBandInfo.color};line-height:1;margin:8px 0 4px;`;
+        predictionSection.appendChild(scoreVal);
+
+        const bandTitle = document.createElement("h2");
+        bandTitle.textContent = currentPredictionLabel || scoreBandInfo.title;
+        bandTitle.style.cssText = "font-size:16px;color:#102c3d;margin:4px 0 6px;font-weight:800;";
+        predictionSection.appendChild(bandTitle);
+
+        const bandTag = document.createElement("span");
+        bandTag.textContent = "● " + scoreBandInfo.tag;
+        bandTag.style.cssText = `display:inline-block;padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;color:${scoreBandInfo.color};background:${scoreBandInfo.color}15;`;
+        predictionSection.appendChild(bandTag);
+    } else {
+        const noScore = document.createElement("h2");
+        noScore.textContent = currentPredictionLabel || "Prediction Awaiting Assessment";
+        noScore.style.cssText = "font-size:18px;color:#14877e;margin:10px 0;";
+        predictionSection.appendChild(noScore);
+    }
+
+    report.appendChild(predictionSection);
+
+    /* 3. ASSESSMENT OVERVIEW */
+    const detailsSection = document.createElement("section");
+    detailsSection.style.cssText =
+        "margin-bottom:18px;padding:16px;background:#f8fafb;border:1px solid #e5edf0;" +
+        "border-radius:8px;page-break-inside:avoid;break-inside:avoid;";
+
+    const detailsHeading = document.createElement("h3");
+    detailsHeading.textContent = "Assessment Overview";
+    detailsHeading.style.cssText = "font-size:13px;margin:0 0 8px;color:#102c3d;font-weight:800;";
+    detailsSection.appendChild(detailsHeading);
+
+    const age = getAge();
+    addPdfText(detailsSection, "Age", age === null ? "Not recorded" : age + " years");
+    addPdfText(detailsSection, "Assessment Date", displayDate(getDate(currentResult, currentAssessment)));
+    addPdfText(detailsSection, "Risk Category", currentPredictionLabel || scoreBandInfo.title);
+    addPdfText(detailsSection, "Risk Probability Score", currentScore === null ? "Not available" : Number(currentScore).toFixed(2) + "%");
+    addPdfText(detailsSection, "Predictive Model", "Calibrated Logistic Regression");
+
+    report.appendChild(detailsSection);
+
+    /* 4. USER HEALTH INFORMATION */
+    const healthItems = combinedData(currentAssessment, currentProfile);
+    if (Array.isArray(healthItems) && healthItems.length > 0) {
+        const healthSection = document.createElement("section");
+        healthSection.style.cssText =
+            "margin-bottom:18px;padding:16px;border:1px solid #e5edf0;border-radius:8px;" +
+            "page-break-inside:avoid;break-inside:avoid;";
+
+        const healthHeading = document.createElement("h3");
+        healthHeading.textContent = "Recorded Health Information";
+        healthHeading.style.cssText = "font-size:13px;margin:0 0 8px;color:#102c3d;font-weight:800;";
+        healthSection.appendChild(healthHeading);
+
+        healthItems.forEach(({ key, value }) => {
+            addPdfText(healthSection, labelFor(key), fmt(value));
+        });
+
+        report.appendChild(healthSection);
+    }
+
+    /* 5. VERIFIED MODEL EVALUATION & PERFORMANCE METRICS */
+    const modelSection = document.createElement("section");
+    modelSection.style.cssText =
+        "margin-bottom:18px;padding:16px;background:#f3f9f8;border:1px solid #d8ece8;" +
+        "border-radius:8px;page-break-inside:avoid;break-inside:avoid;";
+
+    const modelHeading = document.createElement("h3");
+    modelHeading.textContent = "Model Information & Verified Performance Metrics";
+    modelHeading.style.cssText = "font-size:13px;margin:0 0 4px;color:#102c3d;font-weight:800;";
+
+    const modelDesc = document.createElement("p");
+    modelDesc.textContent =
+        "Evaluation results for the trained Calibrated Logistic Regression model, calculated on the held-out " +
+        "test dataset (184 test samples, 734 training samples). These overall model metrics describe global " +
+        "classifier accuracy and are kept strictly separate from individual user assessments.";
+    modelDesc.style.cssText = "font-size:10px;color:#55707b;margin:0 0 10px;line-height:1.5;";
+
+    modelSection.append(modelHeading, modelDesc);
+
+    const mData = (modelMetrics && modelMetrics.metrics) ? modelMetrics.metrics : {
+        accuracy: 0.8207,
+        precision: 0.8224,
+        recall: 0.8627,
+        f1_score: 0.8421,
+        roc_auc: 0.9006,
+        test_samples: 184,
+        train_samples: 734
+    };
+
+    addPdfText(modelSection, "Model Architecture", "Calibrated Logistic Regression");
+    addPdfText(modelSection, "Accuracy", formatMetricPercent(mData.accuracy));
+    addPdfText(modelSection, "Precision", formatMetricPercent(mData.precision));
+    addPdfText(modelSection, "Recall", formatMetricPercent(mData.recall));
+    addPdfText(modelSection, "F1-Score", formatMetricPercent(mData.f1_score));
+    addPdfText(modelSection, "ROC-AUC", formatMetricPercent(mData.roc_auc));
+    addPdfText(modelSection, "Held-out Test Split", (mData.test_samples || 184) + " samples");
+    addPdfText(modelSection, "Training Set Size", (mData.train_samples || 734) + " samples");
+
+    report.appendChild(modelSection);
+
+    /* 6. EXPLAINABLE AI · INDIVIDUAL SHAP CONTRIBUTIONS */
+    const shapData = getShapData();
+    const shapRows = Array.isArray(shapData) ? shapData.map((item, index) => {
+        if (typeof item === "number") return { feature: "Feature " + (index + 1), value: item, input_value: null, label: "Feature " + (index + 1) };
+        if (Array.isArray(item) && item.length >= 2) return { feature: String(item[0]), value: Number(item[1]), input_value: null, label: labelFor(item[0]) };
+        if (item && typeof item === "object") {
+            const val = firstAvailable(item.value, item.shap_value, item.shapValue, item.contribution);
+            const feat = firstAvailable(item.feature, item.feature_name, item.featureName, item.name, "Feature " + (index + 1));
+            const inVal = firstAvailable(item.input_value, item.inputValue);
+            const lbl = firstAvailable(item.label, labelFor(feat));
+            if (val !== undefined && Number.isFinite(Number(val))) {
+                return { feature: String(feat), value: Number(val), input_value: inVal, label: lbl };
+            }
+        }
+        return null;
+    }).filter(item => item && Number.isFinite(item.value)) : [];
+
+    const shapSection = document.createElement("section");
+    shapSection.style.cssText =
+        "margin-bottom:18px;padding:16px;border:1px solid #e5edf0;border-radius:8px;" +
+        "page-break-inside:avoid;break-inside:avoid;";
+
+    const shapHeading = document.createElement("h3");
+    shapHeading.textContent = "Explainable AI · Individual Feature Contributions (SHAP)";
+    shapHeading.style.cssText = "font-size:13px;margin:0 0 4px;color:#102c3d;font-weight:800;";
+
+    const baseValPdf = firstAvailable(
+        currentResult.base_value,
+        currentResult.individual_explanation && currentResult.individual_explanation.baseline_output,
+        0.55
+    );
+
+    const shapNote = document.createElement("p");
+    shapNote.textContent =
+        "Per-feature contributions toward the Calibrated Logistic Regression model probability. " +
+        "Population Baseline Probability: " + (Number(baseValPdf) * 100).toFixed(1) + "%. " +
+        "Positive contributions (red) increase predicted risk; negative contributions (teal) lower predicted risk.";
+    shapNote.style.cssText = "font-size:10px;color:#55707b;margin:0 0 10px;line-height:1.5;";
+
+    shapSection.append(shapHeading, shapNote);
+
+    if (shapRows.length > 0) {
+        shapRows.sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
+        const maxShap = Math.max(...shapRows.map(r => Math.abs(r.value)), 0.0001);
+
+        shapRows.slice(0, 10).forEach(item => {
+            const row = document.createElement("div");
+            row.style.cssText = "display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid #f0f4f6;font-size:10px;";
+
+            const nameBox = document.createElement("div");
+            nameBox.style.cssText = "width:180px;line-height:1.3;";
+            const name = document.createElement("strong");
+            name.textContent = item.label || labelFor(item.feature);
+            name.style.cssText = "display:block;color:#183344;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;";
+            nameBox.appendChild(name);
+
+            if (item.input_value !== null && item.input_value !== undefined) {
+                const inSpan = document.createElement("span");
+                inSpan.textContent = "Value: " + fmt(item.input_value);
+                inSpan.style.cssText = "font-size:9px;color:#708996;";
+                nameBox.appendChild(inSpan);
+            }
+
+            const barContainer = document.createElement("div");
+            barContainer.style.cssText = "flex:1;height:8px;background:#edf2f4;border-radius:4px;overflow:hidden;";
+
+            const bar = document.createElement("div");
+            const widthPct = Math.max(4, Math.min(100, Math.round((Math.abs(item.value) / maxShap) * 100)));
+            bar.style.cssText = `height:100%;width:${widthPct}%;background:${item.value >= 0 ? "#c95d63" : "#14877e"};border-radius:4px;`;
+            barContainer.appendChild(bar);
+
+            const val = document.createElement("div");
+            const sign = item.value > 0 ? "+" : "";
+            val.textContent = sign + item.value.toFixed(4) + " (" + sign + (item.value * 100).toFixed(1) + "%)";
+            val.style.cssText = `width:95px;text-align:right;font-weight:700;color:${item.value >= 0 ? "#c95d63" : "#14877e"};`;
+
+            row.append(nameBox, barContainer, val);
+            shapSection.appendChild(row);
+        });
+    } else {
+        const noShapMsg = document.createElement("p");
+        noShapMsg.textContent = "Individual SHAP contributions were not saved for this historical assessment. Complete a new assessment to generate genuine Explainable AI (XAI) feature contributions.";
+        noShapMsg.style.cssText = "font-size:10px;color:#81919b;font-style:italic;margin:6px 0;";
+        shapSection.appendChild(noShapMsg);
+    }
+
+    report.appendChild(shapSection);
+
+    /* 7. PERSONALIZED RECOMMENDATIONS */
+    const recSection = document.createElement("section");
+    recSection.style.cssText =
+        "margin-bottom:18px;padding:16px;background:#fefbf5;border:1px solid #fae8cb;" +
+        "border-radius:8px;page-break-inside:avoid;break-inside:avoid;";
+
+    const recHeading = document.createElement("h3");
+    recHeading.textContent = "Personalized Recommendations & Prevention Guide";
+    recHeading.style.cssText = "font-size:13px;margin:0 0 6px;color:#855c1e;font-weight:800;";
+
+    const recGuide = document.createElement("p");
+    recGuide.textContent = scoreBandInfo.guide;
+    recGuide.style.cssText = "font-size:11px;color:#453a2a;margin:0 0 10px;line-height:1.6;";
+
+    const recList = document.createElement("div");
+    recList.style.cssText = "display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:10px;";
+
+    const tips = [
+        ["🩺 Review Your Health", "Discuss recorded blood pressure, cholesterol and glucose levels with a healthcare professional."],
+        ["🥗 Balanced Nutrition", "Follow a heart-healthy diet with reduced sodium, limited refined sugars, and ample dietary fiber."],
+        ["🏃 Physical Routine", "Aim for 150 minutes of moderate aerobic activity weekly, tailored to personal health status."],
+        ["💊 Medical Adherence", "Follow prescribed medications strictly as advised. Never begin or alter treatments independently."]
+    ];
+
+    tips.forEach(([tTitle, tDesc]) => {
+        const item = document.createElement("div");
+        item.style.cssText = "padding:8px 10px;background:#ffffff;border:1px solid #f2e2cb;border-radius:6px;";
+        const h = document.createElement("strong");
+        h.textContent = tTitle;
+        h.style.cssText = "display:block;color:#183344;margin-bottom:3px;";
+        const p = document.createElement("span");
+        p.textContent = tDesc;
+        p.style.cssText = "color:#665b4c;line-height:1.4;";
+        item.append(h, p);
+        recList.appendChild(item);
+    });
+
+    recSection.append(recHeading, recGuide, recList);
+    report.appendChild(recSection);
+
+    /* 8. EMERGENCY NOTICE & MEDICAL DISCLAIMER */
+    const disclaimerSection = document.createElement("section");
+    disclaimerSection.style.cssText =
+        "margin-bottom:14px;padding:14px 16px;background:#fff5f5;border:1px solid #fed7d7;" +
+        "border-radius:8px;page-break-inside:avoid;break-inside:avoid;";
+
+    const discHeading = document.createElement("h4");
+    discHeading.textContent = "🚨 Important Medical Notice & Disclaimer";
+    discHeading.style.cssText = "font-size:12px;margin:0 0 5px;color:#9b2c2c;font-weight:800;";
+
+    const discText = document.createElement("p");
+    discText.textContent =
+        "CardioShield-AgeLess is an educational research screening prototype, not a medical diagnosis or treatment guide. " +
+        "The model is a Calibrated Logistic Regression algorithm trained on retrospective medical data. A low score does not " +
+        "rule out heart disease or cardiac events. Never use this tool to postpone clinical attention. If you experience chest pain, " +
+        "shortness of breath, radiating pain, or severe weakness, seek emergency medical care immediately (call 112).";
+    discText.style.cssText = "font-size:9.5px;color:#742a2a;margin:0;line-height:1.55;";
+
+    disclaimerSection.append(discHeading, discText);
+    report.appendChild(disclaimerSection);
+
+    /* 9. FOOTER */
+    const footer = document.createElement("div");
+    footer.style.cssText = "margin-top:20px;padding-top:10px;border-top:1px solid #e5edf0;text-align:center;font-size:9px;color:#8da2ad;";
+    footer.textContent = "CardioShield-AgeLess · Health Intelligence Platform | CardioShield-Health-Report.pdf";
+    report.appendChild(footer);
+
+    return report;
+}
+
+/* MAIN PDF EXPORT HANDLER - FULL HTML2PDF AUTOMATION */
+async function exportPdfDocument() {
+    const button = $("exportPdf");
+    if (!button) return;
+
+    if (button.dataset.exporting === "true") {
+        return; // Prevent duplicate execution
+    }
+
+    const originalText = button.innerHTML;
+    let wrapper = null;
+
+    try {
+        button.dataset.exporting = "true";
+        button.disabled = true;
+        button.innerHTML = "⏳ Generating PDF...";
+
+        // Refresh latest dashboard state
+        if (typeof loadDashboard === "function") {
+            loadDashboard();
+        }
+
+        // Ensure html2pdf library is loaded
+        await ensurePdfLibrary();
+
+        // Build report DOM
+        const report = buildPdfReport();
+        if (!report) {
+            throw new Error("Report generation failed.");
+        }
+
+        // Place report in an off-screen container for clean html2canvas measurement
+        wrapper = document.createElement("div");
+        wrapper.id = "cardioshield-pdf-staging";
+        wrapper.style.cssText =
+            "position:absolute;left:-9999px;top:0;width:740px;background:#ffffff;" +
+            "z-index:-1000;overflow:visible;pointer-events:none;";
+        wrapper.appendChild(report);
+        document.body.appendChild(wrapper);
+
+        // Wait for DOM layout and rendering
+        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+        await new Promise(resolve => setTimeout(resolve, 250));
+
+        // html2pdf configuration
+        const opt = {
+            margin: [8, 8, 8, 8],
+            filename: "CardioShield-Health-Report.pdf",
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                letterRendering: true,
+                scrollY: 0,
+                scrollX: 0
+            },
+            jsPDF: {
+                unit: "mm",
+                format: "a4",
+                orientation: "portrait"
+            },
+            pagebreak: {
+                mode: ["css", "legacy"],
+                avoid: "section, h1, h2, h3, h4"
+            }
+        };
+
+        // Generate and automatically download the PDF
+        await window.html2pdf().set(opt).from(report).save();
+
+    } catch (error) {
+        console.error("PDF generation error:", error);
+        alert("Failed to export PDF: " + (error.message || String(error)));
+    } finally {
+        if (wrapper && wrapper.parentNode) {
+            wrapper.parentNode.removeChild(wrapper);
+        }
+        button.dataset.exporting = "false";
+        button.disabled = false;
+        button.innerHTML = originalText;
+    }
+}
+
+// Bind Export PDF button listener idempotently
+(function initExportPdfButton() {
+    const btn = $("exportPdf");
+    if (btn && !btn.dataset.bound) {
+        btn.dataset.bound = "true";
+        btn.addEventListener("click", exportPdfDocument);
+    }
+})();
+
+/* ======================================================
+   SAVED HEALTH REPORTS MANAGEMENT
+   ====================================================== */
+
+function getApiBase(){
+ if (typeof window !== "undefined" && window.CardioConfig && typeof window.CardioConfig.getBaseUrl === "function") {
+  return window.CardioConfig.getBaseUrl();
+ }
+ const local = location.protocol === "file:" || (["localhost","127.0.0.1"].includes(location.hostname) && location.port !== "8080");
+ return local ? "http://127.0.0.1:8080" : "";
+}
+
+function getSavedReports(){
+ let reports = [];
+ try {
+  const raw = localStorage.getItem(STORAGE_KEYS.reports);
+  reports = raw ? JSON.parse(raw) : [];
+  if (!Array.isArray(reports)) reports = [];
+ } catch(e){
+  reports = [];
+ }
+
+ // If an active assessment exists in storage but isn't yet in reports, auto-index it
+ if (Object.keys(currentResult).length && Object.keys(currentAssessment).length) {
+  const currentId = currentResult.prediction_id || currentAssessment.assessment_id || "report-latest";
+  const exists = reports.some(r => (r.id || r.assessment_id) === currentId);
+  if (!exists) {
+   const synthesized = {
+    id: currentId,
+    assessment_id: currentId,
+    created_at: getDate(currentResult, currentAssessment) || new Date().toISOString(),
+    risk_score: currentScore,
+    predicted_class: currentResult.prediction,
+    model_name: currentResult.model || "Calibrated Logistic Regression",
+    assessment: currentAssessment,
+    prediction: currentResult
+   };
+   reports.unshift(synthesized);
+   try {
+    localStorage.setItem(STORAGE_KEYS.reports, JSON.stringify(reports));
+   } catch(e) {}
+  }
+ }
+
+ return reports;
+}
+
+function renderSavedReports(){
+ const container = $("savedReportsContainer");
+ if(!container) return;
+
+ const reports = getSavedReports();
+ const clearAllBtn = $("deleteAllReportsBtn");
+
+ if(!reports.length){
+  container.innerHTML = `
+   <div class="reports-empty">
+    <div class="reports-empty-icon">📋</div>
+    <h3>No Saved Reports</h3>
+    <p>Complete an assessment to generate and store your heart health report in this dashboard.</p>
+    <a class="btn btn-primary" href="assessment.html">＋ Start New Assessment</a>
+   </div>
+  `;
+  if(clearAllBtn) clearAllBtn.style.display = "none";
+  return;
+ }
+
+ if(clearAllBtn) {
+  clearAllBtn.style.display = "inline-flex";
+  clearAllBtn.onclick = (e) => {
+   e.preventDefault();
+   deleteAllReports();
+  };
+ }
+
+ const activeId = currentResult.prediction_id || currentAssessment.assessment_id;
+
+ let html = "";
+ reports.forEach(report => {
+  const repId = report.id || report.assessment_id || ("report-" + Math.random().toString(36).slice(2,8));
+  const score = report.risk_score != null ? Math.round(Number(report.risk_score)) : (report.prediction?.model_score != null ? Math.round(Number(report.prediction.model_score)) : null);
+  const band = score === null ? "none" : scoreBand(score);
+  const bandLabel = band === "low" ? "Lower prototype score" : (band === "middle" ? "Middle prototype score" : (band === "high" ? "Higher prototype score" : "Score pending"));
+  const dateStr = displayDate(report.created_at || report.assessment?.assessmentDate || report.prediction?.date);
+  const isActive = Boolean(activeId && (activeId === repId));
+
+  const ass = report.assessment || {};
+  const age = ass.age || ass.lifestyle?.age || "—";
+  const bp = (ass.resting_bp || ass.restingBloodPressure) ? (ass.resting_bp || ass.restingBloodPressure) + " mmHg" : "—";
+  const chol = (ass.cholesterol || ass.serumCholesterol) ? (ass.cholesterol || ass.serumCholesterol) + " mg/dL" : "—";
+  const hr = (ass.max_heart_rate || ass.maxHeartRate) ? (ass.max_heart_rate || ass.maxHeartRate) + " bpm" : "—";
+  const sex = ass.sex || ass.gender || "—";
+
+  html += `
+   <article class="report-card ${isActive ? 'active-report' : ''}" data-report-id="${repId}">
+    <div class="report-card-top">
+     <div class="report-badge-group">
+      <span class="report-score-pill ${band}">
+       <span>♥</span>
+       <span>${score !== null ? score + "%" : "—"}</span>
+      </span>
+      <div>
+       <div class="report-date">${dateStr}</div>
+       <div class="report-id">ID: <code>${repId}</code> ${isActive ? '<span class="report-active-indicator">● Active in Dashboard</span>' : ''}</div>
+      </div>
+     </div>
+
+     <div class="report-actions">
+      <button type="button" class="btn btn-outline" data-action="load-report" data-id="${repId}" title="Load this report in the dashboard overview">
+       👁️ Load in Overview
+      </button>
+      <button type="button" class="btn btn-outline" data-action="download-report" data-id="${repId}" title="Export this report as PDF">
+       📥 Export PDF
+      </button>
+      <button type="button" class="btn btn-danger" data-action="delete-report" data-id="${repId}" title="Delete this saved report">
+       🗑️ Delete Report
+      </button>
+     </div>
+    </div>
+
+    <div class="report-chips">
+     <span class="report-chip">Risk Band: <strong>${bandLabel}</strong></span>
+     <span class="report-chip">Age: <strong>${age}</strong></span>
+     <span class="report-chip">Resting BP: <strong>${bp}</strong></span>
+     <span class="report-chip">Cholesterol: <strong>${chol}</strong></span>
+     <span class="report-chip">Max HR: <strong>${hr}</strong></span>
+     <span class="report-chip">Sex: <strong>${sex}</strong></span>
+     <span class="report-chip">Model: <strong>${report.model_name || "Calibrated Logistic Regression"}</strong></span>
+    </div>
+   </article>
+  `;
+ });
+
+ container.innerHTML = html;
+
+ // Attach action handlers
+ container.querySelectorAll('[data-action="delete-report"]').forEach(btn => {
+  btn.onclick = (e) => {
+   e.preventDefault();
+   deleteReport(btn.dataset.id);
+  };
+ });
+
+ container.querySelectorAll('[data-action="load-report"]').forEach(btn => {
+  btn.onclick = (e) => {
+   e.preventDefault();
+   loadReportIntoDashboard(btn.dataset.id);
+  };
+ });
+
+ container.querySelectorAll('[data-action="download-report"]').forEach(btn => {
+  btn.onclick = (e) => {
+   e.preventDefault();
+   downloadSpecificReport(btn.dataset.id);
+  };
+ });
+}
+
+async function deleteReport(reportId){
+ if (!confirm("Are you sure you want to delete this saved report from your dashboard? This will remove all associated health assessment details.")) {
+  return;
+ }
+
+ try {
+  const apiBase = getApiBase();
+  fetch(`${apiBase}/history/${encodeURIComponent(reportId)}`, {
+   method: "DELETE"
+  }).catch(err => console.warn("Backend report deletion notice:", err));
+ } catch(e){}
+
+ let reports = getSavedReports();
+ reports = reports.filter(r => (r.id || r.assessment_id) !== reportId);
+ try {
+  localStorage.setItem(STORAGE_KEYS.reports, JSON.stringify(reports));
+ } catch(e){}
+
+ const activeId = currentResult.prediction_id || currentAssessment.assessment_id;
+ if (activeId === reportId || !reports.length) {
+  if (reports.length > 0) {
+   const next = reports[0];
+   currentAssessment = next.assessment || {};
+   currentResult = next.prediction || next;
+   saveStorage(STORAGE_KEYS.assessment, currentAssessment);
+   saveStorage(STORAGE_KEYS.result, currentResult);
+  } else {
+   localStorage.removeItem(STORAGE_KEYS.result);
+   localStorage.removeItem(STORAGE_KEYS.assessment);
+   localStorage.removeItem(STORAGE_KEYS.legacy);
+   currentResult = {};
+   currentAssessment = {};
+  }
+ }
+
+ loadDashboard();
+
+ if (window.CardioShieldAuth && typeof window.CardioShieldAuth.showToast === "function") {
+  window.CardioShieldAuth.showToast("Saved report deleted successfully.");
+ }
+}
+
+async function deleteAllReports(){
+ if (!confirm("Are you sure you want to delete ALL saved reports from your dashboard? This will remove all previous records.")) {
+  return;
+ }
+
+ try {
+  const apiBase = getApiBase();
+  fetch(`${apiBase}/history`, {
+   method: "DELETE"
+  }).catch(err => console.warn("Backend clear all reports notice:", err));
+ } catch(e){}
+
+ localStorage.removeItem(STORAGE_KEYS.reports);
+ localStorage.removeItem(STORAGE_KEYS.result);
+ localStorage.removeItem(STORAGE_KEYS.assessment);
+ localStorage.removeItem(STORAGE_KEYS.legacy);
+ currentResult = {};
+ currentAssessment = {};
+
+ loadDashboard();
+
+ if (window.CardioShieldAuth && typeof window.CardioShieldAuth.showToast === "function") {
+  window.CardioShieldAuth.showToast("All saved reports have been deleted.");
+ }
+}
+
+function loadReportIntoDashboard(reportId){
+ const reports = getSavedReports();
+ const found = reports.find(r => (r.id || r.assessment_id) === reportId);
+ if (!found) return;
+
+ currentAssessment = found.assessment || {};
+ currentResult = found.prediction || found;
+
+ saveStorage(STORAGE_KEYS.assessment, currentAssessment);
+ saveStorage(STORAGE_KEYS.result, currentResult);
+
+ loadDashboard();
+
+ const overview = $("overview");
+ if (overview) {
+  overview.scrollIntoView({ behavior: "smooth" });
+ }
+
+ if (window.CardioShieldAuth && typeof window.CardioShieldAuth.showToast === "function") {
+  window.CardioShieldAuth.showToast("Report loaded in dashboard overview.");
+ }
+}
+
+async function downloadSpecificReport(reportId){
+ loadReportIntoDashboard(reportId);
+ setTimeout(() => {
+  exportPdfDocument();
+ }, 300);
+}
+
+async function syncHistoryWithStorage(){
+ try {
+  const apiBase = getApiBase();
+  const resp = await fetch(`${apiBase}/history?limit=50`, { cache: "no-store" });
+  if (!resp.ok) return;
+  const data = await resp.json();
+  if (data.success && Array.isArray(data.assessments)) {
+   let localReports = getSavedReports();
+   let modified = false;
+   data.assessments.forEach(remote => {
+    const rId = remote.assessment_id;
+    if (!localReports.some(lr => (lr.id || lr.assessment_id) === rId)) {
+     localReports.push({
+      id: rId,
+      assessment_id: rId,
+      created_at: remote.created_at,
+      risk_score: remote.risk_score,
+      predicted_class: remote.predicted_class,
+      model_name: remote.model_name,
+      assessment: remote.assessment || {},
+      prediction: remote.prediction || {}
+     });
+     modified = true;
+    }
+   });
+   if (modified) {
+    localReports.sort((a,b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+    localStorage.setItem(STORAGE_KEYS.reports, JSON.stringify(localReports));
+    renderSavedReports();
+   }
+  }
+ } catch(err) {
+  // Silent fallback when backend is unreachable
+ }
+}
+
+/* ======================================================
+   END OF PDF EXPORT SECTION
+   ====================================================== */
+
+/* CLEAR ASSESSMENT AND PREDICTION ONLY */
+$("clearData").addEventListener("click",()=>{
+ if(!confirm("Clear the saved assessment and result? Your profile and habit planner will be kept."))return;
+
+ const activeId = currentResult.prediction_id || currentAssessment.assessment_id;
+ if (activeId) {
+  let reports = getSavedReports();
+  reports = reports.filter(r => (r.id || r.assessment_id) !== activeId);
+  try {
+   localStorage.setItem(STORAGE_KEYS.reports, JSON.stringify(reports));
+  } catch(e){}
+  try {
+   const apiBase = getApiBase();
+   fetch(`${apiBase}/history/${encodeURIComponent(activeId)}`, { method: "DELETE" }).catch(()=>{});
+  } catch(e){}
+ }
+
+ localStorage.removeItem(STORAGE_KEYS.result);
+ localStorage.removeItem(STORAGE_KEYS.assessment);
+
+ const legacy=obj(readStorage(STORAGE_KEYS.legacy));
+
+ [
+  "result","assessment","prediction_result","predictionResult",
+  "model_score","modelScore","risk_percentage","riskPercentage",
+  "probability_percentage","probabilityPercentage","risk_probability",
+  "riskProbability","probability","risk_score","riskScore"
+ ].forEach(key=>delete legacy[key]);
+
+ if(Object.keys(legacy).length){
+  saveStorage(STORAGE_KEYS.legacy,legacy);
+ }else{
+  localStorage.removeItem(STORAGE_KEYS.legacy);
+ }
+
+ loadDashboard();
+});
+
+/* NAVIGATION ACTIVE STATE */
+document.querySelectorAll(".nav a").forEach(link=>{
+ link.addEventListener("click",()=>{
+  document.querySelectorAll(".nav a").forEach(item=>item.classList.remove("active"));
+  link.classList.add("active");
+ });
+});
+
+/* REFRESH WHEN ANOTHER TAB SAVES A NEW ASSESSMENT */
+window.addEventListener("storage",event=>{
+ if(Object.values(STORAGE_KEYS).includes(event.key)){
+  loadDashboard();
+ }
+});
+
+/* START DASHBOARD */
+loadDashboard();
+fetchModelMetrics();
+syncHistoryWithStorage();
+
+</script>
+<script src="auth.js"></script>
+</body>
+</html>
