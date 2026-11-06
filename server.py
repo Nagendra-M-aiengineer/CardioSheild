@@ -724,6 +724,38 @@ def get_shap(prediction_id):
     }))
 
 
+@app.route("/api/index.py", methods=["GET", "POST", "OPTIONS"])
+@app.route("/api/index", methods=["GET", "POST", "OPTIONS"])
+@app.route("/api", methods=["GET", "POST", "OPTIONS"])
+def vercel_entrypoint():
+    """Universal Vercel Serverless Function dispatcher for rewritten routes."""
+    if request.method == "OPTIONS":
+        return "", 204
+    route = (
+        request.args.get("__route")
+        or request.headers.get("x-matched-path", "").strip("/").split("/")[-1]
+        or ""
+    )
+    if route == "predict":
+        return predict()
+    elif route == "model-info":
+        return model_info()
+    elif route == "health":
+        return health()
+    elif route == "shap":
+        shap_id = request.args.get("path", "")
+        return get_shap(shap_id)
+    elif route == "download-report":
+        return download_report()
+    return jsonify({
+        "success": True,
+        "service": "CardioShield-AgeLess API",
+        "status": "online",
+        "model": MODEL_NAME,
+        "shap_available": SHAP_AVAILABLE
+    })
+
+
 
 # ==========================================================
 # 6. PDF REPORT DOWNLOAD

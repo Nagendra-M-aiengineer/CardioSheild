@@ -9,23 +9,23 @@
   "rewrites": [
     {
       "source": "/predict",
-      "destination": "/api/index.py"
+      "destination": "/api/index.py?__route=predict"
     },
     {
       "source": "/model-info",
-      "destination": "/api/index.py"
+      "destination": "/api/index.py?__route=model-info"
+    },
+    {
+      "source": "/health",
+      "destination": "/api/index.py?__route=health"
     },
     {
       "source": "/shap/:path*",
-      "destination": "/api/index.py"
+      "destination": "/api/index.py?__route=shap&path=:path*"
     },
     {
-      "source": "/history",
-      "destination": "/api/index.py"
-    },
-    {
-      "source": "/api/:path*",
-      "destination": "/api/index.py"
+      "source": "/download-report",
+      "destination": "/api/index.py?__route=download-report"
     }
   ]
 }
