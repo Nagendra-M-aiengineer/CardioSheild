@@ -1,0 +1,21 @@
+# Environments and subfolders
+cardio_test_env/
+CardioSheild-Ageless-main/
+.git/
+.vscode/
+
+# Training datasets (model is already pre-trained in model/cardio_model.pkl)
+datasets/
+
+# Local databases and temp files
+*.db
+*.sqlite3
+__pycache__/
+*.pyc
+
+# Scripts not needed in production
+START_APPLICATION.bat
+train_model.py
+preprocess.py
+inspect_dataset.py
+explain_model.py
