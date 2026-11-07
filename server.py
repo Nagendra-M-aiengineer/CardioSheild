@@ -94,6 +94,11 @@ MODEL_NAME = "Unknown"
 shap_explainer = None
 shap_background = None
 shap_initialization_error = None
+try:
+    import shap
+    SHAP_AVAILABLE = True
+except Exception:
+    SHAP_AVAILABLE = False
 
 
 FEATURE_METADATA = {
@@ -240,10 +245,6 @@ def load_model():
 
 
 load_model()
-try:
-    initialize_shap()
-except Exception as _shap_boot_err:
-    print("Notice: SHAP deferred to first request:", _shap_boot_err)
 
 
 # ==========================================================
@@ -327,6 +328,11 @@ def initialize_shap():
         shap_initialization_error = str(error)
         print("Notice: SHAP KernelExplainer initialization deferred:", error)
         raise
+
+try:
+    initialize_shap()
+except Exception:
+    pass
 
 
 def explain_individual(input_df):

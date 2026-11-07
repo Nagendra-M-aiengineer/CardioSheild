@@ -1,6 +1,8 @@
 import hashlib
 import json
+import os
 import sqlite3
+import tempfile
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -9,14 +11,26 @@ from flask import current_app, request, jsonify
 
 
 def get_database_path():
-    """Keep the SQLite database beside the Flask project."""
-    return Path(current_app.root_path) / "cardioshield_history.db"
+    """Keep the SQLite database beside the Flask project, or in /tmp if read-only / Vercel."""
+    if os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
+        return Path("/tmp") / "cardioshield_history.db"
+
+    try:
+        local_path = Path(current_app.root_path) / "cardioshield_history.db"
+        test_file = Path(current_app.root_path) / ".write_test"
+        test_file.touch()
+        test_file.unlink(missing_ok=True)
+        return local_path
+    except (PermissionError, OSError):
+        return Path(tempfile.gettempdir()) / "cardioshield_history.db"
 
 
 def get_connection():
     """Create a connection with dictionary-like row access."""
+    db_path = get_database_path()
+    db_path.parent.mkdir(parents=True, exist_ok=True)
     connection = sqlite3.connect(
-        str(get_database_path()),
+        str(db_path),
         timeout=10
     )
     connection.row_factory = sqlite3.Row
@@ -28,46 +42,58 @@ def init_assessment_history(app):
     """Initialize the database and register assessment history and auth routes."""
 
     with app.app_context():
-        connection = get_connection()
         try:
-            connection.execute("""
-                CREATE TABLE IF NOT EXISTS assessments (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    assessment_id TEXT NOT NULL UNIQUE,
-                    created_at TEXT NOT NULL,
-                    assessment_json TEXT NOT NULL,
-                    prediction_json TEXT NOT NULL,
-                    risk_score REAL,
-                    predicted_class INTEGER,
-                    model_name TEXT
-                )
-            """)
+            connection = get_connection()
+        except Exception as e:
+            app.logger.warning("Could not open SQLite connection: %s", e)
+            connection = None
 
-            connection.execute("""
-                CREATE INDEX IF NOT EXISTS
-                idx_assessments_created_at
-                ON assessments(created_at)
-            """)
+        if connection:
+            try:
+                connection.execute("""
+                    CREATE TABLE IF NOT EXISTS assessments (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        assessment_id TEXT NOT NULL UNIQUE,
+                        created_at TEXT NOT NULL,
+                        assessment_json TEXT NOT NULL,
+                        prediction_json TEXT NOT NULL,
+                        risk_score REAL,
+                        predicted_class INTEGER,
+                        model_name TEXT
+                    )
+                """)
 
-            connection.execute("""
-                CREATE TABLE IF NOT EXISTS users (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    user_id TEXT NOT NULL UNIQUE,
-                    created_at TEXT NOT NULL,
-                    full_name TEXT NOT NULL,
-                    email TEXT NOT NULL UNIQUE,
-                    password_hash TEXT NOT NULL,
-                    profile_json TEXT
-                )
-            """)
+                connection.execute("""
+                    CREATE INDEX IF NOT EXISTS
+                    idx_assessments_created_at
+                    ON assessments(created_at)
+                """)
 
-            connection.execute("""
-                CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)
-            """)
+                connection.execute("""
+                    CREATE TABLE IF NOT EXISTS users (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        user_id TEXT NOT NULL UNIQUE,
+                        created_at TEXT NOT NULL,
+                        full_name TEXT NOT NULL,
+                        email TEXT NOT NULL UNIQUE,
+                        password_hash TEXT NOT NULL,
+                        profile_json TEXT
+                    )
+                """)
 
-            connection.commit()
-        finally:
-            connection.close()
+                connection.execute("""
+                    CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)
+                """)
+
+                connection.commit()
+            except Exception as e:
+                app.logger.warning("Could not execute table setup: %s", e)
+            finally:
+                if connection:
+                    try:
+                        connection.close()
+                    except Exception:
+                        pass
 
     def hash_password(password: str) -> str:
         return hashlib.sha256(password.encode("utf-8")).hexdigest()
